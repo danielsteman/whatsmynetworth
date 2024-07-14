@@ -7,6 +7,7 @@ authors = [
 ]
 dependencies = [
     "plaid-python>=24.0.0",
+    "fastapi>=0.111.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
