@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends
+from fastapi.responses import FileResponse
 from plaid.model.country_code import CountryCode
 from plaid.model.products import Products
 import os
@@ -12,6 +13,12 @@ load_dotenv()
 
 
 app = FastAPI()
+favicon_path = "whatsmynetworth/favicon.ico"
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse(favicon_path)
 
 
 def get_plaid_client():
