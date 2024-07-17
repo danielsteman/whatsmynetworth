@@ -1,10 +1,7 @@
-import MenuItem from "./MenuItem";
-import { RiStackLine } from "react-icons/ri";
-import { IoMdCard } from "react-icons/io";
-import { GrAppsRounded } from "react-icons/gr";
 import Logo from "./Logo";
 import Avatar from "./Avatar";
 import { FiPlus } from "react-icons/fi";
+import Navigation from "@/features/navigation/Navigation";
 
 export default function Dashboard() {
   return (
@@ -18,9 +15,7 @@ export default function Dashboard() {
             <Avatar username={"Daniel"} />
           </div>
         </div>
-        <MenuItem icon={GrAppsRounded} label={"Dashboard"} />
-        <MenuItem icon={RiStackLine} label={"Accounts"} />
-        <MenuItem icon={IoMdCard} label={"Transactions"} />
+        <Navigation />
         <div className="h-8" />
         <div className="flex flex-row items-center">
           <div className="font-semibold text-neutral-500 text-xs tracking-wider">
