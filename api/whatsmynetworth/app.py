@@ -13,7 +13,7 @@ load_dotenv()
 
 
 app = FastAPI()
-favicon_path = "whatsmynetworth/favicon.ico"
+favicon_path = "api/whatsmynetworth/favicon.ico"
 
 
 @app.get("/favicon.ico", include_in_schema=False)
