@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export enum Tabs {
-  DASHBOARD = "dashboard",
-  ACCOUNTS = "accounts",
-  TRANSACTIONS = "transactions",
+  DASHBOARD = "Dashboard",
+  ACCOUNTS = "Accounts",
+  TRANSACTIONS = "Transactions",
 }
 
 interface NavigationState {
