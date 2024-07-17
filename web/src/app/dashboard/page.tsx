@@ -1,5 +1,5 @@
-import Logo from "./Logo";
-import Avatar from "./Avatar";
+import Logo from "../../features/navigation/Logo";
+import Avatar from "../../features/navigation/Avatar";
 import { FiPlus } from "react-icons/fi";
 import Navigation from "@/features/navigation/Navigation";
 
