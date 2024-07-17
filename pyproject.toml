@@ -22,6 +22,9 @@ dev-dependencies = [
     "python-dotenv>=1.0.1",
 ]
 
+[tool.rye.scripts]
+dev = "fastapi dev api/whatsmynetworth/app.py"
+
 [tool.hatch.metadata]
 allow-direct-references = true
 

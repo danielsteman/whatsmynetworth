@@ -1,1 +1,5 @@
 # whatsmynetworth
+
+```
+rye run dev
+```
