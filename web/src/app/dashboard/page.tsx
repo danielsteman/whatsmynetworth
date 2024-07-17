@@ -6,10 +6,10 @@ import Logo from "./Logo";
 import Avatar from "./Avatar";
 import { FiPlus } from "react-icons/fi";
 
-export default function Home() {
+export default function Dashboard() {
   return (
     <div className="flex flex-row gap-8 p-8">
-      <div className="flex flex-col gap-1 w-80">
+      <div className="flex flex-col gap-1 w-72">
         <div className="flex flex-row items-center mb-4">
           <div>
             <Logo />
