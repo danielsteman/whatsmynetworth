@@ -7,7 +7,7 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({ username }) => {
   const firstLetter = Array.from(username)[0].toUpperCase();
   return (
-    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-400 text-white text-xl font-medium">
+    <div className="text-white w-9 h-9 bg-gray-400 rounded-full flex items-center justify-center text-lg uppercase">
       {firstLetter}
     </div>
   );

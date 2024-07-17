@@ -4,20 +4,32 @@ import { IoMdCard } from "react-icons/io";
 import { GrAppsRounded } from "react-icons/gr";
 import Logo from "./Logo";
 import Avatar from "./Avatar";
+import { FiPlus } from "react-icons/fi";
 
 export default function Home() {
   return (
-    <div className="flex flex-row gap-8 p-4">
-      <div className="flex flex-col gap-1 ">
-        <div className="flex flex-row items-center">
-          <div className="p-6">
+    <div className="flex flex-row gap-8 p-8">
+      <div className="flex flex-col gap-1 w-80">
+        <div className="flex flex-row items-center mb-4">
+          <div>
             <Logo />
           </div>
-          <Avatar username={"Daniel"} />
+          <div className="ml-auto">
+            <Avatar username={"Daniel"} />
+          </div>
         </div>
         <MenuItem icon={GrAppsRounded} label={"Dashboard"} />
         <MenuItem icon={RiStackLine} label={"Accounts"} />
         <MenuItem icon={IoMdCard} label={"Transactions"} />
+        <div className="h-8" />
+        <div className="flex flex-row items-center">
+          <div className="font-semibold text-neutral-500 text-xs tracking-wider">
+            PORTFOLIO
+          </div>
+          <div className="text-neutral-500 ml-auto p-2 rounded-lg hover:bg-neutral-100">
+            <FiPlus size={20} />
+          </div>
+        </div>
       </div>
       <div className="flex flex-col">
         <div className="flex flex-row">
