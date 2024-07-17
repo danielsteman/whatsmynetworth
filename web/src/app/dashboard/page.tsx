@@ -1,5 +1,5 @@
-import Navigation from "@/features/navigation/Navigation";
-import Portfolio from "@/features/portfolioQuickMenu/Portfolio";
+import Navigation from "@/app/features/navigation/Navigation";
+import Portfolio from "@/app/features/portfolioQuickMenu/Portfolio";
 
 export default function Dashboard() {
   return (
