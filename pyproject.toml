@@ -6,7 +6,6 @@ authors = [
     { name = "Daniel Steman", email = "daniel.steman@bridgefund.nl" }
 ]
 dependencies = [
-    "plaid-python>=24.0.0",
     "fastapi>=0.111.1",
 ]
 readme = "README.md"
