@@ -23,7 +23,8 @@ dev-dependencies = [
 ]
 
 [tool.rye.scripts]
-dev = "fastapi dev api/whatsmynetworth/app.py"
+dev-api = "fastapi dev api/whatsmynetworth/app.py"
+dev-web = "yarn --cwd web dev"
 
 [tool.hatch.metadata]
 allow-direct-references = true
