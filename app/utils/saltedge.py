@@ -26,7 +26,7 @@ class SaltEdgeClient(httpx.Client):
             }
         )
 
-    def list_providers(self):
-        response = self.get(PROVIDERS_URL)
+    def list_providers(self, country_code: str = "NL"):
+        response = self.get(PROVIDERS_URL, params={"country_code": country_code})
         response.raise_for_status()
         return response.json()
