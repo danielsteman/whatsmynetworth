@@ -1,28 +1,37 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export enum PortfolioQuickMenuTabs {
+export enum PortfolioQuickMenuDropdowns {
   PAYMENTSACCOUNT = "Payments Account",
   SAVINGSACCOUNT = "Savings Account",
 }
 
 interface PortfolioQuickMenuState {
-  currentTab: PortfolioQuickMenuTabs;
+  droppedDownItems: {
+    [key in PortfolioQuickMenuDropdowns]: boolean;
+  };
 }
 
 const initialState: PortfolioQuickMenuState = {
-  currentTab: PortfolioQuickMenuTabs.PAYMENTSACCOUNT,
+  droppedDownItems: {
+    [PortfolioQuickMenuDropdowns.PAYMENTSACCOUNT]: false,
+    [PortfolioQuickMenuDropdowns.SAVINGSACCOUNT]: false,
+  },
 };
 
 const portfolioQuickMenuSlice = createSlice({
   name: "portfolioQuickMenu",
   initialState,
   reducers: {
-    setTab: (state, action: PayloadAction<PortfolioQuickMenuTabs>) => {
-      state.currentTab = action.payload;
+    toggleDropdown: (
+      state,
+      action: PayloadAction<PortfolioQuickMenuDropdowns>
+    ) => {
+      const dropdown = action.payload;
+      state.droppedDownItems[dropdown] = !state.droppedDownItems[dropdown];
     },
   },
 });
 
-export const { setTab } = portfolioQuickMenuSlice.actions;
+export const { toggleDropdown } = portfolioQuickMenuSlice.actions;
 
 export default portfolioQuickMenuSlice.reducer;

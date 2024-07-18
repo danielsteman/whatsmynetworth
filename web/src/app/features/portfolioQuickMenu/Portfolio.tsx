@@ -1,15 +1,9 @@
-"use client";
-
 import React from "react";
 import { FiPlus } from "react-icons/fi";
-import PortfolioMenuItem from "./PortfolioMenuItem";
-import { RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
+import PortfolioDropdown from "./PortfolioDropdown";
+import { PortfolioQuickMenuDropdowns } from "./portfolioQuickMenuSlice";
 
 const Portfolio = () => {
-  const currentTab = useSelector(
-    (state: RootState) => state.portfolioMenu.currentTab
-  );
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row items-center">
@@ -21,8 +15,12 @@ const Portfolio = () => {
         </div>
       </div>
       <div className="flex flex-col">
-        <PortfolioMenuItem label={"Payment account"} />
-        <PortfolioMenuItem label={"Saving account"} />
+        <PortfolioDropdown
+          dropDown={PortfolioQuickMenuDropdowns.PAYMENTSACCOUNT}
+        />
+        <PortfolioDropdown
+          dropDown={PortfolioQuickMenuDropdowns.SAVINGSACCOUNT}
+        />
       </div>
     </div>
   );
