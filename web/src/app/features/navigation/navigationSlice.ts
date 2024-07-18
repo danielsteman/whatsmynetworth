@@ -1,24 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export enum Tabs {
+export enum NavigationTabs {
   DASHBOARD = "Dashboard",
   ACCOUNTS = "Accounts",
   TRANSACTIONS = "Transactions",
 }
 
 interface NavigationState {
-  currentTab: Tabs;
+  currentTab: NavigationTabs;
 }
 
 const initialState: NavigationState = {
-  currentTab: Tabs.DASHBOARD,
+  currentTab: NavigationTabs.DASHBOARD,
 };
 
 const navigationSlice = createSlice({
   name: "navigation",
   initialState,
   reducers: {
-    setTab: (state, action: PayloadAction<Tabs>) => {
+    setTab: (state, action: PayloadAction<NavigationTabs>) => {
       state.currentTab = action.payload;
     },
   },

@@ -9,7 +9,7 @@ import Avatar from "./Avatar";
 import Logo from "./Logo";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
-import { Tabs } from "./navigationSlice";
+import { NavigationTabs } from "./navigationSlice";
 
 const Navigation = () => {
   const currentTab = useSelector(
@@ -28,18 +28,18 @@ const Navigation = () => {
       </div>
       <NavigationItem
         icon={GrAppsRounded}
-        tab={Tabs.DASHBOARD}
-        active={currentTab === Tabs.DASHBOARD ? true : false}
+        tab={NavigationTabs.DASHBOARD}
+        active={currentTab === NavigationTabs.DASHBOARD ? true : false}
       />
       <NavigationItem
         icon={RiStackLine}
-        tab={Tabs.ACCOUNTS}
-        active={currentTab === Tabs.ACCOUNTS ? true : false}
+        tab={NavigationTabs.ACCOUNTS}
+        active={currentTab === NavigationTabs.ACCOUNTS ? true : false}
       />
       <NavigationItem
         icon={IoMdCard}
-        tab={Tabs.TRANSACTIONS}
-        active={currentTab === Tabs.TRANSACTIONS ? true : false}
+        tab={NavigationTabs.TRANSACTIONS}
+        active={currentTab === NavigationTabs.TRANSACTIONS ? true : false}
       />
     </div>
   );

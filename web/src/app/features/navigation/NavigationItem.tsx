@@ -4,11 +4,11 @@ import { AppDispatch } from "@/lib/store";
 import React from "react";
 import { IconType } from "react-icons";
 import { useDispatch } from "react-redux";
-import { Tabs, setTab } from "./navigationSlice";
+import { NavigationTabs, setTab } from "./navigationSlice";
 
 interface NavigationItemProps {
   icon: IconType;
-  tab: Tabs;
+  tab: NavigationTabs;
   active: boolean;
 }
 
