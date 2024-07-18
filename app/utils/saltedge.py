@@ -7,8 +7,8 @@ PROVIDERS_URL = "https://www.saltedge.com/api/v5/providers"
 
 class SaltEdgeConfig:
     def __init__(self):
-        self.app_id = os.environ.get("app_id")
-        self.secret = os.environ.get("secret")
+        self.app_id = os.environ.get("APP_ID")
+        self.secret = os.environ.get("SECRET")
         if self.app_id is None:
             raise ValueError("Saltedge APP_ID is not set")
         if self.secret is None:
@@ -16,7 +16,7 @@ class SaltEdgeConfig:
 
 
 class SaltEdgeClient(httpx.Client):
-    def __init__(self, config: SaltEdgeConfig):
+    def __init__(self, config: SaltEdgeConfig = SaltEdgeConfig()):
         super().__init__(
             headers={
                 "Accept": "application/json",
