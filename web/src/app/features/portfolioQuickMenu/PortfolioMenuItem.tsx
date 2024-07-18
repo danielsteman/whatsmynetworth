@@ -1,3 +1,5 @@
+"use client";
+
 import { IoIosArrowForward } from "react-icons/io";
 
 interface PortfolioMenuItemProps {

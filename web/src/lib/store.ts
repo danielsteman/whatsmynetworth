@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import navigationReducer from "../app/features/navigation/navigationSlice";
+import portfolioQuickMenuReducer from "../app/features/portfolioQuickMenu/portfolioQuickMenuSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       navigation: navigationReducer,
+      portfolioMenu: portfolioQuickMenuReducer,
     },
   });
 };

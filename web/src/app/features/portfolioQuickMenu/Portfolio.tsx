@@ -1,8 +1,15 @@
+"use client";
+
 import React from "react";
 import { FiPlus } from "react-icons/fi";
 import PortfolioMenuItem from "./PortfolioMenuItem";
+import { RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
 
 const Portfolio = () => {
+  const currentTab = useSelector(
+    (state: RootState) => state.portfolioMenu.currentTab
+  );
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row items-center">
