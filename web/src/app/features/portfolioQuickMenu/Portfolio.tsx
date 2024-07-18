@@ -4,7 +4,7 @@ import PortfolioMenuItem from "./PortfolioMenuItem";
 
 const Portfolio = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-row items-center">
         <div className="font-semibold text-neutral-500 text-xs tracking-wider">
           PORTFOLIO

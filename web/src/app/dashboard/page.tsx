@@ -7,7 +7,7 @@ export default function Dashboard() {
     <div className="flex flex-row gap-8 p-8 w-full">
       <div className="flex flex-col gap-1 w-72">
         <Navigation />
-        <div className="h-8" />
+        <div className="h-4" />
         <Portfolio />
       </div>
       <div className="flex flex-col w-full">
