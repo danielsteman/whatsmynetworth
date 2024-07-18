@@ -5,7 +5,7 @@ interface PortfolioMenuItemProps {
 }
 
 const PortfolioMenuItem: React.FC<PortfolioMenuItemProps> = ({ label }) => {
-  return <div>{label}</div>;
+  return <div className="">{label}</div>;
 };
 
 export default PortfolioMenuItem;

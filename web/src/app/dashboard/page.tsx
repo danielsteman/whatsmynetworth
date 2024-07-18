@@ -22,7 +22,7 @@ export default function Dashboard() {
             <NewAccountButton />
           </div>
         </div>
-        <div>No accounts yet</div>
+        <div>...</div>
       </div>
     </div>
   );

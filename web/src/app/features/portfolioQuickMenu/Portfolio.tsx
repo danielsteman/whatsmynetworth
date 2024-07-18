@@ -14,7 +14,7 @@ const Portfolio = () => {
         </div>
       </div>
       <div>
-        <PortfolioMenuItem label={"Bank account"} />
+        <PortfolioMenuItem label={"Payment account"} />
       </div>
     </div>
   );
