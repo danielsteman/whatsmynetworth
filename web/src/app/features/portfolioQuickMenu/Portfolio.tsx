@@ -13,8 +13,9 @@ const Portfolio = () => {
           <FiPlus size={20} />
         </div>
       </div>
-      <div>
+      <div className="flex flex-col">
         <PortfolioMenuItem label={"Payment account"} />
+        <PortfolioMenuItem label={"Saving account"} />
       </div>
     </div>
   );
