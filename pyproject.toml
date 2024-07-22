@@ -23,8 +23,8 @@ dev-dependencies = [
 ]
 
 [tool.rye.scripts]
-dev-api = "fastapi dev"
-dev-web = "yarn --cwd web dev"
+api = "fastapi dev"
+web = "yarn --cwd web dev"
 
 [tool.hatch.metadata]
 allow-direct-references = true
