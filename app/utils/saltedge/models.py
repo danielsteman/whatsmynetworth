@@ -19,8 +19,8 @@ class Provider(BaseModel):
     status: str
     automatic_fetch: bool
     dynamic_registration_code: Optional[str]
-    group_code: str
-    group_name: str
+    group_code: Optional[str]
+    group_name: Optional[str]
     hub: Optional[str]
     customer_notified_on_sign_in: bool
     interactive: bool
@@ -32,7 +32,7 @@ class Provider(BaseModel):
     country_code: str
     refresh_timeout: int
     holder_info: list[str]
-    max_consent_days: int
+    max_consent_days: Optional[int]
     created_at: datetime
     updated_at: datetime
     timezone: str
