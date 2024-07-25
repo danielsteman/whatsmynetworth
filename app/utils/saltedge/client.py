@@ -1,5 +1,6 @@
 import logging
 import os
+from typing import Optional
 import httpx
 import time
 
@@ -45,7 +46,7 @@ class SaltEdgeClient(httpx.Client):
 
     def list_providers(
         self, country_code: str = "NL", next_url: str | None = None
-    ) -> list[Provider]:
+    ) -> list[dict]:
         if next_url:
             url = next_url
         else:
@@ -70,16 +71,28 @@ class SaltEdgeClient(httpx.Client):
 
         return self.providers
 
-    def create_customer(self, id_: int):
+    def create_customer(self, id_: int) -> Optional[dict]:
         """
         Before we can create any connections using Account Information API,
         we need to create a Customer.
         A Customer in Account Information API is the end-user of your application.
         """
         body = {"data": {"identifier": id_}}
-        response = self.request(CUSTOMERS_URL, "POST", data=body)
-        data = response.json()
-        customer = data.get("data", {})
-        if not customer:
-            logger.error("something went wrong creating a customer")
-        return customer
+        try:
+            response = self.request(CUSTOMERS_URL, "POST", json=body)
+            data = response.json()
+            customer = data.get("data")
+            if not customer:
+                logger.error(
+                    "Something went wrong creating a customer: No customer data in response"
+                )
+                return None
+            return customer
+        except httpx.HTTPStatusError as e:
+            logger.error(
+                f"HTTP status error occurred while creating customer: {e.response.status_code} - {e.response.text}"
+            )
+            return None
+        except httpx.RequestError as e:
+            logger.error(f"Request error occurred while creating customer: {e}")
+            return None
