@@ -26,7 +26,7 @@ dev-dependencies = [
 [tool.rye.scripts]
 api = "fastapi dev"
 web = "yarn --cwd web dev"
-test = "pytest -s"
+test = "pytest -s -vv"
 
 [tool.hatch.metadata]
 allow-direct-references = true

@@ -49,5 +49,5 @@ class Provider(BaseModel):
     bic_codes: list[str]
     supported_iframe_embedding: bool
     payment_templates: list[str]
-    supported_payment_fields: SupportedPaymentFields
-    required_payment_fields: RequiredPaymentFields
+    supported_payment_fields: Optional[SupportedPaymentFields] = None
+    required_payment_fields: Optional[RequiredPaymentFields] = None
