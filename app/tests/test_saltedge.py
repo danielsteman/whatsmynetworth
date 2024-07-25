@@ -23,3 +23,15 @@ def test_validate_all_providers_in_list(client):
             raise AssertionError(
                 f"JSON didn't fit in model: {p}\nValidation error: {e}"
             )
+
+
+def test_create_get_delete_customer(client):
+    mock_id = "123"
+    customer = client.create_customer(mock_id)
+    assert customer, "expected customer to be created"
+    customer_id = customer.get("id")
+    assert customer_id, "expected customer id in response body of created customer"
+    customer_info = client.get_customer(customer_id)
+    assert customer_info, "expected customer info"
+    deleted_customer = client.delete_customer(customer_id)
+    assert deleted_customer, "expected deleted customer info"

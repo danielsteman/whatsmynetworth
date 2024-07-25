@@ -99,9 +99,60 @@ class SaltEdgeClient(httpx.Client):
             return customer
         except httpx.HTTPStatusError as e:
             logger.error(
-                f"HTTP status error occurred while creating customer: {e.response.status_code} - {e.response.text}"
+                f"HTTP error occurred: {e.response.status_code} - {e.response.text}"
             )
-            return None
+            return
         except httpx.RequestError as e:
-            logger.error(f"Request error occurred while creating customer: {e}")
-            return None
+            logger.error(f"Request error occurred: {e}")
+            return
+
+    def get_customer(self, id_: str) -> Optional[dict]:
+        url = f"{CUSTOMERS_URL}/{id_}"
+        try:
+            response = self.request(url, "GET")
+            data = response.json()
+            customer = data.get("data")
+            if not customer:
+                logger.error(
+                    "Something went wrong getting a customer: No customer data in response"
+                )
+                return None
+            return customer
+        except httpx.HTTPStatusError as e:
+            logger.error(
+                f"HTTP status error occurred while getting a customer: {e.response.status_code} - {e.response.text}"
+            )
+            return
+        except httpx.RequestError as e:
+            logger.error(f"Request error occurred while getting a customer: {e}")
+            return
+
+    def delete_customer(self, id_: str) -> dict:
+        """
+        returns:
+        {
+            "data": {
+                "deleted": true,
+                "id": "123"
+            }
+        }
+        """
+        url = f"{CUSTOMERS_URL}/{id_}"
+        try:
+            response = self.request(url, "DELETE")
+            data = response.json()
+            customer = data.get("data")
+            if not customer:
+                logger.error(
+                    "Something went wrong deleting a customer: No customer data in response"
+                )
+                return None
+            return customer
+        except httpx.HTTPStatusError as e:
+            logger.error(
+                f"HTTP status error occurred while deleting a customer: {e.response.status_code} - {e.response.text}"
+            )
+            return
+        except httpx.RequestError as e:
+            logger.error(f"Request error occurred while deleting a customer: {e}")
+            return
