@@ -10,7 +10,7 @@ const Portfolio = () => {
         <div className="font-semibold text-neutral-500 text-xs tracking-wider">
           PORTFOLIO
         </div>
-        <div className="text-neutral-500 ml-auto p-2 rounded-lg hover:bg-neutral-100">
+        <div className="text-neutral-500 ml-auto p-2 rounded-lg cursor-pointer hover:bg-neutral-100">
           <FiPlus size={20} />
         </div>
       </div>
