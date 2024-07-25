@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from dotenv import load_dotenv
+from app.routers import providers
+
 
 load_dotenv()
 
 
 app = FastAPI()
-favicon_path = "api/whatsmynetworth/favicon.ico"
+favicon_path = "app/favicon.ico"
 
 
 @app.get("/favicon.ico", include_in_schema=False)
@@ -17,3 +19,6 @@ async def favicon():
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
+
+app.include_router(providers.router, prefix="/api/providers")

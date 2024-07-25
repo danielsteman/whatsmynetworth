@@ -42,7 +42,9 @@ class SaltEdgeClient(httpx.Client):
         response.raise_for_status()
         return response
 
-    def list_providers(self, country_code: str = "NL", next_url: str | None = None):
+    def list_providers(
+        self, country_code: str = "NL", next_url: str | None = None
+    ) -> list[Provider]:
         if next_url:
             url = next_url
         else:
