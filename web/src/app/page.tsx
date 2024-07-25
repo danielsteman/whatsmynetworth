@@ -14,6 +14,34 @@ export default function Home() {
             create an account
           </a>
         </div>
+        <div className="mt-8 text-left">
+          <form className=" flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm">Email address</label>
+              <input
+                className="bg-yellow-100 p-2 text-sm rounded-lg border-2 border-slate-200 shadow-sm"
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm">Password</label>
+              <input
+                className="bg-yellow-100 p-2 text-sm rounded-lg border-2 border-slate-200 shadow-sm"
+                id="email"
+                type="email"
+                placeholder="Email address"
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-black text-white rounded-lg p-2"
+            >
+              Log in
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
