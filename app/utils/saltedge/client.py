@@ -1,6 +1,7 @@
 import logging
 import os
 import httpx
+import time
 
 from app.utils.saltedge.models import Provider
 
@@ -31,13 +32,23 @@ class SaltEdgeClient(httpx.Client):
         )
         self.providers: list[Provider] = []
 
+    def request(self, url: str, method: str = "GET", *args, **kwargs):
+        response = super().request(method, url, *args, **kwargs)
+        if response.status_code == 429:
+            logger.warning("Rate limit exceeded, retrying after delay")
+            retry_after = int(response.headers.get("Retry-After", 1))
+            time.sleep(retry_after)
+            return self.request(url, method, *args, **kwargs)
+        response.raise_for_status()
+        return response
+
     def list_providers(self, country_code: str = "NL", next_url: str | None = None):
         if next_url:
             url = next_url
         else:
             url = PROVIDERS_URL
 
-        response = self.get(url, params={"country_code": country_code})
+        response = self.request(url, params={"country_code": country_code})
         response.raise_for_status()
 
         data = response.json()
