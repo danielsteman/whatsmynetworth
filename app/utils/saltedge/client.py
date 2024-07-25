@@ -107,6 +107,19 @@ class SaltEdgeClient(httpx.Client):
             return
 
     def get_customer(self, id_: str) -> Optional[dict]:
+        """
+        returns:
+        {
+            "data": {
+                "id": "222222222222222222",
+                "identifier": "12rv1212f1efxchsdhbgv",
+                "secret": "AtQX6Q8vRyMrPjUVtW7J_O1n06qYQ25bvUJ8CIC80-8",
+                "blocked_at": "2021-03-15T09:43:01Z",
+                "created_at": "2020-03-12T09:20:01Z",
+                "updated_at": "2020-03-12T09:20:01Z"
+            }
+        }
+        """
         url = f"{CUSTOMERS_URL}/{id_}"
         try:
             response = self.request(url, "GET")
