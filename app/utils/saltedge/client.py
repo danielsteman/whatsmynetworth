@@ -8,6 +8,7 @@ from app.utils.saltedge.models import Provider
 logger = logging.getLogger(__name__)
 
 PROVIDERS_URL = "https://www.saltedge.com/api/v5/providers"
+CUSTOMERS_URL = "https://www.saltedge.com/api/v5/customers"
 
 
 class SaltEdgeConfig:
@@ -51,7 +52,6 @@ class SaltEdgeClient(httpx.Client):
             url = PROVIDERS_URL
 
         response = self.request(url, params={"country_code": country_code})
-        response.raise_for_status()
 
         data = response.json()
         providers = data.get("data", [])
@@ -69,3 +69,17 @@ class SaltEdgeClient(httpx.Client):
             )
 
         return self.providers
+
+    def create_customer(self, id_: int):
+        """
+        Before we can create any connections using Account Information API,
+        we need to create a Customer.
+        A Customer in Account Information API is the end-user of your application.
+        """
+        body = {"data": {"identifier": id_}}
+        response = self.request(CUSTOMERS_URL, "POST", data=body)
+        data = response.json()
+        customer = data.get("data", {})
+        if not customer:
+            logger.error("something went wrong creating a customer")
+        return customer
