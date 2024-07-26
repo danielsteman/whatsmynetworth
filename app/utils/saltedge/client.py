@@ -4,7 +4,6 @@ from typing import Optional
 import httpx
 import time
 
-from app.utils.saltedge.models import Provider
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +31,7 @@ class SaltEdgeClient(httpx.Client):
                 "Secret": config.secret,
             }
         )
-        self.providers: list[Provider] = []
+        self.providers: list[dict] = []
 
     def request(self, url: str, method: str = "GET", *args, **kwargs):
         try:
@@ -140,7 +139,7 @@ class SaltEdgeClient(httpx.Client):
             logger.error(f"Request error occurred while getting a customer: {e}")
             return
 
-    def delete_customer(self, id_: str) -> dict:
+    def delete_customer(self, id_: str) -> Optional[dict]:
         """
         returns:
         {
