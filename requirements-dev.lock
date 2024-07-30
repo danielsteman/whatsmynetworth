@@ -65,6 +65,9 @@ pydantic-core==2.20.1
 pygments==2.18.0
     # via rich
 pytest==8.2.2
+    # via pytest-mock
+    # via whatsmynetworth
+pytest-mock==3.14.0
     # via whatsmynetworth
 python-dotenv==1.0.1
     # via uvicorn
