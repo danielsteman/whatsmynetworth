@@ -7,7 +7,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret });
 
-  const protectedRoutes = ["/account", "/settings"];
+  const protectedRoutes = ["/dashboard", "/settings"];
   const isProtectedRoute = protectedRoutes.some((route) =>
     req.nextUrl.pathname.startsWith(route)
   );
@@ -24,5 +24,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/settings/:path*"],
+  matcher: ["/dashboard/:path*", "/settings/:path*"],
 };
