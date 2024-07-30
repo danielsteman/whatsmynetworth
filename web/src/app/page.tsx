@@ -29,9 +29,9 @@ export default function Home() {
               <label className="text-sm">Password</label>
               <input
                 className="bg-yellow-100 p-2 text-sm rounded-lg border-2 border-slate-200 shadow-sm"
-                id="email"
-                type="email"
-                placeholder="Email address"
+                id="password"
+                type="password"
+                placeholder="Password"
               />
             </div>
             <button
