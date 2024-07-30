@@ -5,6 +5,15 @@ import Logo from "../features/navigation/Logo";
 import GoogleIcon from "./GoogleIcon";
 
 const SignIn = () => {
+  const handleEmailLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log("Email and password authentication is not yet implemented...");
+  };
+
+  const handleGoogleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    signIn("google");
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="text-center">
@@ -40,13 +49,15 @@ const SignIn = () => {
             </div>
             <button
               type="submit"
-              className="bg-black text-white rounded-lg p-2"
+              className="cursor-not-allowed bg-black text-white rounded-lg p-2"
+              onClick={handleEmailLogin}
             >
               Log in
             </button>
             <button
               type="submit"
               className="relative bg-black text-white rounded-lg px-2 py-1 shadow-md w-full"
+              onClick={handleGoogleLogin}
             >
               <div className="flex flex-row items-center">
                 <GoogleIcon />
