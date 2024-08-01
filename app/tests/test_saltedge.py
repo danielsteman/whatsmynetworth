@@ -35,3 +35,11 @@ def test_create_get_delete_customer(client):
     assert customer_info, "expected customer info"
     deleted_customer = client.delete_customer(customer_id)
     assert deleted_customer, "expected deleted customer info"
+
+
+def test_create_connection(client):
+    # mock_id = "123"
+    # customer = client.create_customer(mock_id)
+    customer_id = "1333431323741657632"
+    connect_session = client.create_connect_session(customer_id)
+    assert connect_session
