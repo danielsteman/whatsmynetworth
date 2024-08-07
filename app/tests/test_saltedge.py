@@ -1,5 +1,4 @@
 import pytest
-from pydantic import ValidationError
 
 from app.utils.saltedge.client import SaltEdgeClient
 from app.utils.saltedge.models import Provider
@@ -18,12 +17,7 @@ def test_list_providers_at_least_one(client):
 def test_validate_all_providers_in_list(client):
     providers = client.list_providers(country_code=None)
     for p in providers:
-        try:
-            Provider(**p)
-        except ValidationError as e:
-            raise AssertionError(
-                f"JSON didn't fit in model: {p}\nValidation error: {e}"
-            )
+        assert isinstance(p, Provider)
 
 
 def test_create_get_delete_customer(client):

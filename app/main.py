@@ -12,12 +12,12 @@ favicon_path = "app/favicon.ico"
 
 
 @app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
+async def favicon() -> FileResponse:
     return FileResponse(favicon_path)
 
 
 @app.get("/")
-async def root():
+async def root() -> dict:
     return {"message": "Hello World"}
 
 

@@ -22,7 +22,7 @@ repos:
     rev: v0.931
     hooks:
       - id: mypy
-        files: ^(?!test).*\.py$
+        files: ^((?!/tests/|^test_).)*\.py$
         args:
           [
             --disallow-untyped-defs,
