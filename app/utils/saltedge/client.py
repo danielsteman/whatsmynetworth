@@ -172,7 +172,7 @@ class SaltEdgeClient(httpx.Client):
             logger.error(f"Request error occurred while deleting a customer: {e}")
             return
 
-    def create_connect_session(self, customer_id: str):
+    def create_connect_session(self, customer_id: str) -> Optional[dict]:
         """
         Docs: https://docs.saltedge.com/account_information/v5/#connect_sessions-create
         """
@@ -195,4 +195,12 @@ class SaltEdgeClient(httpx.Client):
                 },
             }
         }
-        self.request(url, "POST", json=data)
+        response = self.request(url, "POST", json=data)
+        data = response.json()
+        connection = data.get("data")
+        if not connection:
+            logger.error(
+                "Something went wrong deleting a customer: No customer data in response"
+            )
+            return None
+        return data
