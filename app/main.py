@@ -1,8 +1,8 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
-from dotenv import load_dotenv
-from app.routers import providers
 
+from app.routers import providers
 
 load_dotenv()
 

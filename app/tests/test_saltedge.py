@@ -1,5 +1,6 @@
-from pydantic import ValidationError
 import pytest
+from pydantic import ValidationError
+
 from app.utils.saltedge.client import SaltEdgeClient
 from app.utils.saltedge.models import Provider
 

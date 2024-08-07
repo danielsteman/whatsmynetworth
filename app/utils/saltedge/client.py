@@ -1,11 +1,11 @@
 import logging
 import os
-from typing import Optional
-import httpx
 import time
+from typing import Optional
+
+import httpx
 
 from app.utils.saltedge.date_utils import get_timedelta_str
-
 
 logger = logging.getLogger(__name__)
 
