@@ -6,7 +6,7 @@ from typing import Any, Optional
 import httpx
 
 from app.utils.saltedge.date_utils import get_timedelta_str
-from app.utils.saltedge.models import Customer, Provider
+from app.utils.saltedge.models import Customer, DeletedCustomer, Provider
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +148,7 @@ class SaltEdgeClient(httpx.Client):
             logger.error(f"Request error occurred while getting a customer: {e}")
             return None
 
-    def delete_customer(self, id_: str) -> Optional[dict]:
+    def delete_customer(self, id_: str) -> Optional[DeletedCustomer]:
         """
         returns:
         {
@@ -168,7 +168,8 @@ class SaltEdgeClient(httpx.Client):
                     "Something went wrong deleting a customer: No customer data in response"
                 )
                 return None
-            return customer
+            customer_object = DeletedCustomer(**customer)
+            return customer_object
         except httpx.HTTPStatusError as e:
             logger.error(
                 f"HTTP status error occurred while deleting a customer: {e.response.status_code} - {e.response.text}"

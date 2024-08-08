@@ -60,3 +60,8 @@ class Customer(BaseModel):
     secret: str
     updated_at: datetime
     created_at: datetime
+
+
+class DeletedCustomer(BaseModel):
+    id: str
+    deleted: bool
