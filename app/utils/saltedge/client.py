@@ -5,8 +5,9 @@ from typing import Any, Optional
 
 import httpx
 
+from app.models.customer import Customer, DeletedCustomer
+from app.models.provider import Provider
 from app.utils.saltedge.date_utils import get_timedelta_str
-from app.utils.saltedge.models import Customer, DeletedCustomer, Provider
 
 logger = logging.getLogger(__name__)
 

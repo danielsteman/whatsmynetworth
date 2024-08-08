@@ -1,7 +1,7 @@
 import pytest
 
+from app.models.provider import Provider
 from app.utils.saltedge.client import SaltEdgeClient
-from app.utils.saltedge.models import Provider
 
 
 @pytest.fixture
