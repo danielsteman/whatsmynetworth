@@ -52,3 +52,11 @@ class Provider(BaseModel):
     payment_templates: list[str]
     supported_payment_fields: Optional[SupportedPaymentFields] = None
     required_payment_fields: Optional[RequiredPaymentFields] = None
+
+
+class Customer(BaseModel):
+    id: str
+    identifier: str
+    secret: str
+    updated_at: datetime
+    created_at: datetime

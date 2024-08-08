@@ -6,7 +6,7 @@ from typing import Any, Optional
 import httpx
 
 from app.utils.saltedge.date_utils import get_timedelta_str
-from app.utils.saltedge.models import Provider
+from app.utils.saltedge.models import Customer, Provider
 
 logger = logging.getLogger(__name__)
 
@@ -86,7 +86,7 @@ class SaltEdgeClient(httpx.Client):
 
         return self.providers
 
-    def create_customer(self, id_: int) -> Optional[dict]:
+    def create_customer(self, id_: int) -> Optional[Customer]:
         """
         Before we can create any connections using Account Information API,
         we need to create a Customer.
@@ -102,7 +102,8 @@ class SaltEdgeClient(httpx.Client):
                     "Something went wrong creating a customer: No customer data in response"
                 )
                 return None
-            return customer
+            customer_object = Customer(**customer)
+            return customer_object
         except httpx.HTTPStatusError as e:
             logger.error(
                 f"HTTP error occurred: {e.response.status_code} - {e.response.text}"
