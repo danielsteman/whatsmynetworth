@@ -113,7 +113,7 @@ class SaltEdgeClient(httpx.Client):
             logger.error(f"Request error occurred: {e}")
             return None
 
-    def get_customer(self, id_: str) -> Optional[dict]:
+    def get_customer(self, id_: str) -> Optional[Customer]:
         """
         returns:
         {
@@ -137,7 +137,8 @@ class SaltEdgeClient(httpx.Client):
                     "Something went wrong getting a customer: No customer data in response"
                 )
                 return None
-            return customer
+            customer_object = Customer(**customer)
+            return customer_object
         except httpx.HTTPStatusError as e:
             logger.error(
                 f"HTTP status error occurred while getting a customer: {e.response.status_code} - {e.response.text}"
