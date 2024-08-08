@@ -34,3 +34,6 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["api/whatsmynetworth"]
+
+[tool.pytest.ini_options]
+pythonpath = "."
