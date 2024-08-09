@@ -14,3 +14,7 @@ class Customer(BaseModel):
 class DeletedCustomer(BaseModel):
     id: str
     deleted: bool
+
+
+class CreateCustomer(BaseModel):
+    id: str

@@ -87,7 +87,7 @@ class SaltEdgeClient(httpx.Client):
 
         return self.providers
 
-    def create_customer(self, id_: int) -> Optional[Customer]:
+    def create_customer(self, id_: str) -> Optional[Customer]:
         """
         Before we can create any connections using Account Information API,
         we need to create a Customer.
