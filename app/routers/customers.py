@@ -14,5 +14,5 @@ async def create_customer(
     customer: CreateCustomer,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
 ) -> Customer:
-    providers = client.create_customer(customer.id)
-    return providers
+    customer = client.create_customer(customer.id)
+    return customer
