@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import {
   ButtonHTMLAttributes,
   ReactNode,
@@ -54,13 +55,19 @@ const Dropdown: React.FC<DropdownProps> = ({ children }) => {
     };
   }, [dropdownRef]);
 
+  const handleSignout = () => signOut();
+
   return (
     <div className="flex flex-col relative" ref={dropdownRef}>
       <div onClick={() => setToggle(!toggle)}>{children}</div>
       {toggle && (
         <div className="flex flex-col gap-2 absolute top-10 w-fit bg-neutral-200 p-2 rounded-md min-w-32">
           <DropdownItem label="Settings" logo={<FiSettings />} />
-          <DropdownItem label="Sign out" logo={<FiLogOut />} />
+          <DropdownItem
+            label="Sign out"
+            logo={<FiLogOut />}
+            buttonProps={{ onClick: handleSignout }}
+          />
         </div>
       )}
     </div>
