@@ -14,19 +14,15 @@ interface DropdownItemProps {
 
 const DropdownItem: React.FC<DropdownItemProps> = ({ label, logo }) => {
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row gap-2 items-center rounded-md py-1 px-2 hover:bg-neutral-300">
       {logo}
-      <button className="font-medium text-sm text-left rounded-md py-1 px-2 hover:bg-neutral-300">
-        {label}
-      </button>
+      <button className="font-medium text-sm text-left  ">{label}</button>
     </div>
   );
 };
 
 const Dropdown: React.FC<DropdownProps> = ({ children }) => {
   const [toggle, setToggle] = useState<boolean>(false);
-  const dropdownItemStyle =
-    "font-medium text-sm text-left rounded-md py-1 px-2 hover:bg-neutral-300";
   return (
     <div className="flex flex-col relative">
       <div onClick={() => setToggle(!toggle)}>{children}</div>
