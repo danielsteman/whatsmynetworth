@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ButtonHTMLAttributes, ReactNode, useState } from "react";
 import { FiLogOut, FiSettings } from "react-icons/fi";
 
 interface DropdownProps {
@@ -10,13 +10,20 @@ interface DropdownProps {
 interface DropdownItemProps {
   label: string;
   logo: ReactNode;
+  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
-const DropdownItem: React.FC<DropdownItemProps> = ({ label, logo }) => {
+const DropdownItem: React.FC<DropdownItemProps> = ({
+  label,
+  logo,
+  buttonProps,
+}) => {
   return (
     <div className="flex flex-row gap-2 items-center rounded-md py-1 px-2 hover:bg-neutral-300">
       {logo}
-      <button className="font-medium text-sm text-left  ">{label}</button>
+      <button className="font-medium text-sm text-left" {...buttonProps}>
+        {label}
+      </button>
     </div>
   );
 };
