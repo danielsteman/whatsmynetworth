@@ -10,7 +10,7 @@ import Logo from "./Logo";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { NavigationTabs } from "./navigationSlice";
-import Dropdown from "./DropDown";
+import Dropdown from "./Dropdown";
 
 const Navigation = () => {
   const currentTab = useSelector(
