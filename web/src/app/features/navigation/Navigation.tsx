@@ -10,6 +10,7 @@ import Logo from "./Logo";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { NavigationTabs } from "./navigationSlice";
+import Dropdown from "./DropDown";
 
 const Navigation = () => {
   const currentTab = useSelector(
@@ -23,7 +24,9 @@ const Navigation = () => {
           <Logo />
         </div>
         <div className="ml-auto">
-          <Avatar username={"Daniel"} />
+          <Dropdown>
+            <Avatar username={"Daniel"} />
+          </Dropdown>
         </div>
       </div>
       <NavigationItem
