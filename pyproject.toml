@@ -33,7 +33,7 @@ test = "pytest -s -vv"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["api/whatsmynetworth"]
+packages = ["app"]
 
 [tool.pytest.ini_options]
 pythonpath = "."
