@@ -1,15 +1,8 @@
-"use client";
-
 import Navigation from "@/app/features/navigation/Navigation";
 import Portfolio from "@/app/features/portfolioQuickMenu/Portfolio";
 import NewAccountButton from "../features/newAccount/NewAccountButton";
-import Overlay from "../components/Overlay";
-import { makeStore, RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
 
 export default function Dashboard() {
-  const open = useSelector((state: RootState) => state.newAccountMenu.open);
-
   return (
     <>
       <div className="flex flex-row gap-8 p-8 w-full">

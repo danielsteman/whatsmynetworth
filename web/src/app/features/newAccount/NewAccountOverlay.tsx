@@ -4,7 +4,7 @@ import { AppDispatch } from "@/lib/store";
 import React, { ReactNode } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { toggleMenu } from "../features/newAccount/newAccountMenuSlice";
+import { toggleMenu } from "./newAccountMenuSlice";
 
 interface OverlayProps {
   children: ReactNode;
