@@ -13,12 +13,12 @@ const newAccountMenuSlice = createSlice({
   name: "newAccountMenu",
   initialState,
   reducers: {
-    setTab: (state, action: PayloadAction<boolean>) => {
+    toggleMenu: (state, action: PayloadAction<boolean>) => {
       state.open = action.payload;
     },
   },
 });
 
-export const { setTab } = newAccountMenuSlice.actions;
+export const { toggleMenu } = newAccountMenuSlice.actions;
 
 export default newAccountMenuSlice.reducer;
