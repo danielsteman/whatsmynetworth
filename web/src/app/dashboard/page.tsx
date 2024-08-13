@@ -1,6 +1,6 @@
 import Navigation from "@/app/features/navigation/Navigation";
 import Portfolio from "@/app/features/portfolioQuickMenu/Portfolio";
-import NewAccountButton from "./NewAccountButton";
+import NewAccountButton from "../features/newAccount/NewAccountButton";
 
 export default function Dashboard() {
   return (
