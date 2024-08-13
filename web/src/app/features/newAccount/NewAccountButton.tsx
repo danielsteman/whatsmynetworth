@@ -7,11 +7,9 @@ import { toggleMenu } from "./newAccountMenuSlice";
 
 export default function NewAccountButton() {
   const dispatch = useDispatch<AppDispatch>();
-  const open = useSelector(
-    (state: RootState) => state.newAccountMenu.open
-  );
+  const open = useSelector((state: RootState) => state.newAccountMenu.open);
   return (
-    <button onClick={() => dispatch(toggleMenu(!open))}>
+    <button onClick={() => dispatch(toggleMenu())}>
       <div className="flex flex-row gap-1 p-2 pr-3 bg-darkgray font-medium text-sm text-white rounded-lg hover:opacity-85">
         <FiPlus size={20} />
         <div>New Account</div>

@@ -1,10 +1,17 @@
+"use client";
+
+import { AppDispatch } from "@/lib/store";
 import React, { ReactNode } from "react";
+import { IoCloseCircle } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { toggleMenu } from "../features/newAccount/newAccountMenuSlice";
 
 interface OverlayProps {
   children: ReactNode;
 }
 
 const Overlay: React.FC<OverlayProps> = ({ children }) => {
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-8 rounded-lg shadow-lg relative">
@@ -13,8 +20,11 @@ const Overlay: React.FC<OverlayProps> = ({ children }) => {
         <p className="mt-4">
           This overlay is centered horizontally and vertically.
         </p>
-        <button className="absolute top-2 right-2 text-black font-bold">
-          X
+        <button
+          onClick={() => dispatch(toggleMenu())}
+          className="absolute top-2 right-2 text-black font-bold"
+        >
+          <IoCloseCircle className="text-2xl text-neutral-500" />
         </button>
       </div>
     </div>

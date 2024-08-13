@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 interface NewAccountMenuState {
   open: boolean;
 }
@@ -13,8 +12,8 @@ const newAccountMenuSlice = createSlice({
   name: "newAccountMenu",
   initialState,
   reducers: {
-    toggleMenu: (state, action: PayloadAction<boolean>) => {
-      state.open = action.payload;
+    toggleMenu: (state) => {
+      state.open = !state.open;
     },
   },
 });
