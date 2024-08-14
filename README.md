@@ -1,7 +1,8 @@
 # whatsmynetworth
 
 ```zsh
-rye run dev
+rye run api
+rye run web
 ```
 
 ## Sec
