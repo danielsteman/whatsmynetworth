@@ -2,12 +2,15 @@
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "providerType" TEXT NOT NULL,
-    "providerId" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "provider" TEXT NOT NULL,
     "providerAccountId" TEXT NOT NULL,
+    "scope" TEXT NOT NULL,
+    "token_type" TEXT NOT NULL,
+    "id_token" TEXT,
     "refreshToken" TEXT,
-    "accessToken" TEXT,
-    "accessTokenExpires" TIMESTAMP(3),
+    "access_token" TEXT,
+    "expires_at" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -20,7 +23,6 @@ CREATE TABLE "Session" (
     "userId" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
     "sessionToken" TEXT NOT NULL,
-    "accessToken" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -53,13 +55,10 @@ CREATE TABLE "VerificationRequest" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Account_providerId_providerAccountId_key" ON "Account"("providerId", "providerAccountId");
+CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Session_accessToken_key" ON "Session"("accessToken");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
