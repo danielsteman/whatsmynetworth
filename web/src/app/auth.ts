@@ -14,6 +14,17 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   adapter: <Adapter>PrismaAdapter(prisma),
+  callbacks: {
+    async signIn({
+      user,
+      account,
+      profile,
+      email,
+      credentials,
+    }): Promise<boolean> {
+      return true;
+    },
+  },
 };
 
 export default authOptions;
