@@ -11,10 +11,10 @@ class Customer(BaseModel):
     created_at: datetime
 
 
+class CreateCustomer(BaseModel):
+    id: str
+
+
 class DeletedCustomer(BaseModel):
     id: str
     deleted: bool
-
-
-class CreateCustomer(BaseModel):
-    id: str
