@@ -24,6 +24,9 @@ dev-dependencies = [
     "python-dotenv>=1.0.1",
 ]
 
+[tool.isort]
+profile = "black"
+
 [tool.rye.scripts]
 api = "fastapi dev"
 web = "yarn --cwd web dev"

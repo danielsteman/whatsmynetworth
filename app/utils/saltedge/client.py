@@ -8,6 +8,7 @@ import httpx
 from app.models.customer import Customer, DeletedCustomer
 from app.models.provider import Provider
 from app.utils.saltedge.date_utils import get_timedelta_str
+from app.utils.saltedge.exceptions import CustomerAlreadyExists, CustomerCreationError
 
 logger = logging.getLogger(__name__)
 
@@ -92,29 +93,28 @@ class SaltEdgeClient(httpx.Client):
         Before we can create any connections using Account Information API,
         we need to create a Customer.
         A Customer in Account Information API is the end-user of your application.
-
-        TODO: handle 409: customer already exists
         """
         body = {"data": {"identifier": id_}}
         try:
             response = self.request(CUSTOMERS_URL, "POST", json=body)
             data = response.json()
             customer = data.get("data")
+
             if not customer:
                 logger.error(
                     "Something went wrong creating a customer: No customer data in response"
                 )
-                return None
-            customer_object = Customer(**customer)
-            return customer_object
+                raise CustomerCreationError(
+                    "No customer data in response from SaltEdge API"
+                )
         except httpx.HTTPStatusError as e:
-            logger.error(
-                f"HTTP error occurred: {e.response.status_code} - {e.response.text}"
-            )
-            return None
-        except httpx.RequestError as e:
-            logger.error(f"Request error occurred: {e}")
-            return None
+            if e.response.status_code == 409:
+                raise CustomerAlreadyExists()
+            else:
+                raise
+
+        customer_object = Customer(**customer)
+        return customer_object
 
     def get_customer(self, id_: str) -> Optional[Customer]:
         """

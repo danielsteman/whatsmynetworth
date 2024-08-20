@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 
 from app.dependencies import get_salt_edge_client
 from app.models.customer import CreateCustomer, Customer
-from app.utils.saltedge.client import SaltEdgeClient
+from app.utils.saltedge.client import CustomerAlreadyExists, SaltEdgeClient
 
 router = APIRouter()
 
@@ -15,7 +15,10 @@ async def create_customer(
     customer: CreateCustomer,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
 ) -> Customer:
-    created_customer = client.create_customer(customer.id)
-    if not created_customer:
-        return JSONResponse(status_code=500, detail="Failed to create customer")
-    return customer
+    try:
+        created_customer = client.create_customer(customer.id)
+        return created_customer
+    except CustomerAlreadyExists as e:
+        return JSONResponse(status_code=200, content=e.message)
+    except Exception as e:
+        return JSONResponse(status_code=500, content=str(e))
