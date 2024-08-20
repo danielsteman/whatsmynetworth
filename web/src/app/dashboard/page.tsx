@@ -1,8 +1,12 @@
 import Navigation from "@/app/features/navigation/Navigation";
 import Portfolio from "@/app/features/portfolioQuickMenu/Portfolio";
 import NewAccountButton from "../features/newAccount/NewAccountButton";
+import { getServerSession } from "next-auth";
+import authOptions from "../auth";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session = await getServerSession(authOptions);
+  console.log(session);
   return (
     <>
       <div className="flex flex-row gap-8 p-8 w-full">
