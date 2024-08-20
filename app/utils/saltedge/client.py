@@ -92,6 +92,8 @@ class SaltEdgeClient(httpx.Client):
         Before we can create any connections using Account Information API,
         we need to create a Customer.
         A Customer in Account Information API is the end-user of your application.
+
+        TODO: handle 409: customer already exists
         """
         body = {"data": {"identifier": id_}}
         try:
