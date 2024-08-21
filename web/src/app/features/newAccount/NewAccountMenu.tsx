@@ -1,33 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { AppDispatch, RootState } from "@/lib/store";
 import { IoIosLink, IoMdArrowBack } from "react-icons/io";
 import { RiBankFill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { setStep } from "./newAccountMenuSlice";
 
-type MenuSteps = 0 | 1;
+const FirstStepMenu = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  return (
+    <>
+      <h2 className="text-neutral-500 border-b-2 py-4 w-full">
+        What would you like to add?
+      </h2>
+      <button
+        className="font-medium w-full hover:bg-neutral-200 rounded-xl p-3"
+        onClick={() => dispatch(setStep(1))}
+      >
+        <div className="flex flex-row gap-4">
+          <RiBankFill size={24} />
+          <div>Payment account</div>
+        </div>
+      </button>
+    </>
+  );
+};
 
-interface StepMenuProps {
-  setMenuStep: React.Dispatch<React.SetStateAction<MenuSteps>>;
-}
-
-const FirstStepMenu: React.FC<StepMenuProps> = ({ setMenuStep }) => (
-  <>
-    <h2 className="text-neutral-500 border-b-2 py-4 w-full">
-      What would you like to add?
-    </h2>
-    <button
-      className="font-medium w-full hover:bg-neutral-200 rounded-xl p-3"
-      onClick={() => setMenuStep(1)}
-    >
-      <div className="flex flex-row gap-4">
-        <RiBankFill size={24} />
-        <div>Payment account</div>
-      </div>
-    </button>
-  </>
-);
-
-const SecondStepMenu: React.FC<StepMenuProps> = ({ setMenuStep }) => {
+const SecondStepMenu = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const handleLinkBankAccount = () => {
     try {
       const response = fetch(
@@ -41,7 +41,7 @@ const SecondStepMenu: React.FC<StepMenuProps> = ({ setMenuStep }) => {
     <>
       <div className="flex flex-row gap-4 border-b-2 w-full items-center text-neutral-500">
         <button
-          onClick={() => setMenuStep(0)}
+          onClick={() => dispatch(setStep(0))}
           className="p-1 rounded-lg bg-neutral-200 hover:bg-neutral-300"
         >
           <IoMdArrowBack size={24} />
@@ -59,14 +59,14 @@ const SecondStepMenu: React.FC<StepMenuProps> = ({ setMenuStep }) => {
 };
 
 const NewAccountMenu = () => {
-  const [menuStep, setMenuStep] = useState<MenuSteps>(0);
+  const menuStep = useSelector((state: RootState) => state.newAccountMenu.step);
 
   const renderMenuStep = () => {
     switch (menuStep) {
       case 0:
-        return <FirstStepMenu setMenuStep={setMenuStep} />;
+        return <FirstStepMenu />;
       case 1:
-        return <SecondStepMenu setMenuStep={setMenuStep} />;
+        return <SecondStepMenu />;
       default:
         return null;
     }
