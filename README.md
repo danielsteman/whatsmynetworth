@@ -3,7 +3,10 @@
 ```zsh
 rye run api
 rye run web
+docker-compose up
 ```
+
+Or run all tasks in VSCode.
 
 ## Sec
 
