@@ -8,7 +8,11 @@ import httpx
 from app.models.customer import Customer, DeletedCustomer
 from app.models.provider import Provider
 from app.utils.saltedge.date_utils import get_timedelta_str
-from app.utils.saltedge.exceptions import CustomerAlreadyExists, CustomerCreationError
+from app.utils.saltedge.exceptions import (
+    ConnectionCreationError,
+    CustomerAlreadyExists,
+    CustomerCreationError,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -212,5 +216,7 @@ class SaltEdgeClient(httpx.Client):
             logger.error(
                 "Something went wrong deleting a customer: No customer data in response"
             )
-            return None
+            raise ConnectionCreationError(
+                "No connection data in response from SaltEdge API"
+            )
         return data
