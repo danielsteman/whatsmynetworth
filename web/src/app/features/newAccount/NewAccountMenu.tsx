@@ -27,25 +27,36 @@ const FirstStepMenu: React.FC<StepMenuProps> = ({ setMenuStep }) => (
   </>
 );
 
-const SecondStepMenu: React.FC<StepMenuProps> = ({ setMenuStep }) => (
-  <>
-    <div className="flex flex-row gap-4 border-b-2 w-full items-center text-neutral-500">
-      <button
-        onClick={() => setMenuStep(0)}
-        className="p-1 rounded-lg bg-neutral-200 hover:bg-neutral-300"
-      >
-        <IoMdArrowBack size={24} />
-      </button>
-      <h2 className=" py-4 w-full">How would you like to add it?</h2>
-    </div>
-    <button className="font-medium w-full hover:bg-neutral-200 rounded-xl p-3">
-      <div className="flex flex-row gap-4">
-        <IoIosLink size={24} />
-        <div>Link bank account safely through open banking</div>
+const SecondStepMenu: React.FC<StepMenuProps> = ({ setMenuStep }) => {
+  const handleLinkBankAccount = () => {
+    try {
+      const response = fetch(
+        `${process.env.BACKEND_BASE_URL}/api/customers/create`
+      );
+    } catch (error) {
+      console.error(`Error while getting Saltedge connect link`);
+    }
+  };
+  return (
+    <>
+      <div className="flex flex-row gap-4 border-b-2 w-full items-center text-neutral-500">
+        <button
+          onClick={() => setMenuStep(0)}
+          className="p-1 rounded-lg bg-neutral-200 hover:bg-neutral-300"
+        >
+          <IoMdArrowBack size={24} />
+        </button>
+        <h2 className=" py-4 w-full">How would you like to add it?</h2>
       </div>
-    </button>
-  </>
-);
+      <button className="font-medium w-full hover:bg-neutral-200 rounded-xl p-3">
+        <div className="flex flex-row gap-4">
+          <IoIosLink size={24} />
+          <div>Link bank account safely through open banking</div>
+        </div>
+      </button>
+    </>
+  );
+};
 
 const NewAccountMenu = () => {
   const [menuStep, setMenuStep] = useState<MenuSteps>(0);
