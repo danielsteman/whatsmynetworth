@@ -31,7 +31,7 @@ const SecondStepMenu = () => {
   const handleLinkBankAccount = () => {
     try {
       const response = fetch(
-        `${process.env.BACKEND_BASE_URL}/api/customers/create`
+        `${process.env.BACKEND_BASE_URL}/api/connections/create`
       );
     } catch (error) {
       console.error(`Error while getting Saltedge connect link`);

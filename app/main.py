@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
-from app.routers import customers, providers
+from app.routers import connections, customers, providers
 
 load_dotenv()
 
@@ -23,3 +23,4 @@ async def root() -> dict:
 
 app.include_router(providers.router, prefix="/api/providers")
 app.include_router(customers.router, prefix="/api/customers")
+app.include_router(connections.router, prefix="/api/connections")
