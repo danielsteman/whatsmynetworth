@@ -5,6 +5,7 @@ import { FiPlus } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "./newAccountMenuSlice";
 import NewAccountOverlay from "./NewAccountOverlay";
+import NewAccountMenu from "./NewAccountMenu";
 
 export default function NewAccountButton() {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,7 +18,11 @@ export default function NewAccountButton() {
           <div>New Account</div>
         </div>
       </button>
-      {open && <NewAccountOverlay>sup</NewAccountOverlay>}
+      {open && (
+        <NewAccountOverlay>
+          <NewAccountMenu />
+        </NewAccountOverlay>
+      )}
     </>
   );
 }
