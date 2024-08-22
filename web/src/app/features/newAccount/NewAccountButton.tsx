@@ -6,8 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "./newAccountMenuSlice";
 import NewAccountOverlay from "./NewAccountOverlay";
 import NewAccountMenu from "./NewAccountMenu";
+import { Session } from "next-auth";
 
-export default function NewAccountButton() {
+interface NewAccountButtonProps {
+  currentUser: Session;
+}
+
+const NewAccountButton: React.FC<NewAccountButtonProps> = ({ currentUser }) => {
   const dispatch = useDispatch<AppDispatch>();
   const open = useSelector((state: RootState) => state.newAccountMenu.open);
   return (
@@ -25,4 +30,6 @@ export default function NewAccountButton() {
       )}
     </>
   );
-}
+};
+
+export default NewAccountButton;

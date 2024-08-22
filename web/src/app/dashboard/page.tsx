@@ -3,9 +3,13 @@ import Portfolio from "@/app/features/portfolioQuickMenu/Portfolio";
 import NewAccountButton from "../features/newAccount/NewAccountButton";
 import { getServerSession } from "next-auth";
 import authOptions from "../auth";
+import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login");
+  }
   console.log(session);
   return (
     <>
@@ -24,7 +28,7 @@ export default async function Dashboard() {
               </div>
             </div>
             <div className="ml-auto">
-              <NewAccountButton />
+              <NewAccountButton currentUser={session} />
             </div>
           </div>
           <div>...</div>
