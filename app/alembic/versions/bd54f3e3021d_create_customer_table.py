@@ -18,10 +18,6 @@ branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 
-# class Customer(Base):
-#     __tablename__ = "customers"
-
-
 def upgrade() -> None:
     op.create_table(
         "customers",
