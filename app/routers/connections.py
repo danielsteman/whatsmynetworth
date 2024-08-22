@@ -17,7 +17,8 @@ async def create_connection(
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
 ) -> Connection:
     try:
-        created_connection = client.create_connect_session(customer.id)
+        customer_id = customer.identifier
+        created_connection = client.create_connect_session(customer_id)
         return created_connection
     except Exception as e:
         return JSONResponse(

@@ -6,4 +6,4 @@ class Connection(BaseModel):
 
 
 class CreateConnection(BaseModel):
-    id: str
+    identifier: str
