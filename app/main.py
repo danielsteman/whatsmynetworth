@@ -1,11 +1,7 @@
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 
 from app.api import connections, customers, providers
-
-load_dotenv()
-
 
 app = FastAPI()
 favicon_path = "app/favicon.ico"

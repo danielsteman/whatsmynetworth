@@ -66,9 +66,12 @@ psycopg2-binary==2.9.9
     # via whatsmynetworth
 pydantic==2.8.2
     # via fastapi
+    # via pydantic-settings
     # via whatsmynetworth
 pydantic-core==2.20.1
     # via pydantic
+pydantic-settings==2.4.0
+    # via whatsmynetworth
 pygments==2.18.0
     # via rich
 pytest==8.2.2
@@ -77,6 +80,7 @@ pytest==8.2.2
 pytest-mock==3.14.0
     # via whatsmynetworth
 python-dotenv==1.0.1
+    # via pydantic-settings
     # via uvicorn
 python-multipart==0.0.9
     # via fastapi
