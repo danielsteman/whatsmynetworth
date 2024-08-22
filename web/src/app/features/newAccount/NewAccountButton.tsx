@@ -8,11 +8,13 @@ import NewAccountOverlay from "./NewAccountOverlay";
 import NewAccountMenu from "./NewAccountMenu";
 import { Session } from "next-auth";
 
-interface NewAccountButtonProps {
+export interface CurrentUserSessionProps {
   currentUser: Session;
 }
 
-const NewAccountButton: React.FC<NewAccountButtonProps> = ({ currentUser }) => {
+const NewAccountButton: React.FC<CurrentUserSessionProps> = ({
+  currentUser,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const open = useSelector((state: RootState) => state.newAccountMenu.open);
   return (
@@ -25,7 +27,7 @@ const NewAccountButton: React.FC<NewAccountButtonProps> = ({ currentUser }) => {
       </button>
       {open && (
         <NewAccountOverlay>
-          <NewAccountMenu />
+          <NewAccountMenu currentUser={currentUser} />
         </NewAccountOverlay>
       )}
     </>

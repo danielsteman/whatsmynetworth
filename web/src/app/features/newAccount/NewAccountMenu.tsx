@@ -5,6 +5,9 @@ import { IoIosLink, IoMdArrowBack } from "react-icons/io";
 import { RiBankFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { setStep } from "./newAccountMenuSlice";
+import { Session } from "next-auth";
+import React from "react";
+import { CurrentUserSessionProps } from "./NewAccountButton";
 
 const FirstStepMenu = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,7 +29,7 @@ const FirstStepMenu = () => {
   );
 };
 
-const SecondStepMenu = () => {
+const SecondStepMenu: React.FC<CurrentUserSessionProps> = ({ currentUser }) => {
   const dispatch = useDispatch<AppDispatch>();
   const handleLinkBankAccount = () => {
     try {
@@ -58,7 +61,7 @@ const SecondStepMenu = () => {
   );
 };
 
-const NewAccountMenu = () => {
+const NewAccountMenu: React.FC<CurrentUserSessionProps> = ({ currentUser }) => {
   const menuStep = useSelector((state: RootState) => state.newAccountMenu.step);
 
   const renderMenuStep = () => {
@@ -66,7 +69,7 @@ const NewAccountMenu = () => {
       case 0:
         return <FirstStepMenu />;
       case 1:
-        return <SecondStepMenu />;
+        return <SecondStepMenu currentUser={currentUser} />;
       default:
         return null;
     }
