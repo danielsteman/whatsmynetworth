@@ -30,15 +30,38 @@ const FirstStepMenu = () => {
 
 const SecondStepMenu: React.FC<CurrentUserSessionProps> = ({ currentUser }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const handleLinkBankAccount = () => {
+
+  const handleLinkBankAccount = async () => {
     try {
-      const response = fetch(
-        `${process.env.BACKEND_BASE_URL}/api/connections/create`
+      if (!currentUser || !currentUser.user || !currentUser.user.id) {
+        console.error("User ID is not available.");
+        return;
+      }
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/connections/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ identifier: currentUser.user.id }),
+        }
       );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Error while linking bank account: ${errorText}`);
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Bank account linked successfully", data);
     } catch (error) {
-      console.error(`Error while getting Saltedge connect link`);
+      console.error("Error while getting Saltedge connect link:", error);
     }
   };
+
   return (
     <>
       <div className="flex flex-row gap-4 border-b-2 w-full items-center text-neutral-500">

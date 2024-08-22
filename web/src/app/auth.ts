@@ -21,7 +21,7 @@ const authOptions: NextAuthOptions = {
         console.log(`customer ID: ${customerId}`);
         console.log(`customer: ${JSON.stringify(user)}`);
         const response = await fetch(
-          `${process.env.BACKEND_BASE_URL}/api/customers/create`,
+          `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/customers/create`,
           {
             method: "POST",
             headers: {

@@ -10,9 +10,6 @@ class Customer(BaseModel):
     updated_at: datetime
     created_at: datetime
 
-    class Config:
-        orm_mode = True
-
 
 class CreateCustomer(BaseModel):
     id: str
