@@ -1,3 +1,5 @@
-from .customer import Customer
+from .connection import Connection
+from .customer import CreateCustomer, Customer
+from .provider import Provider
 
-__all__ = ["Customer"]
+__all__ = ["Customer", "CreateCustomer", "Connection", "Provider"]

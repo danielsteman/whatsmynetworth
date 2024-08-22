@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 
 from app.dependencies import get_salt_edge_client
-from app.models.connection import Connection, CreateConnection
-from app.models.customer import Customer
+from app.schemas.connection import Connection, CreateConnection
+from app.schemas.customer import Customer
 from app.utils.saltedge.client import SaltEdgeClient
 
 router = APIRouter()

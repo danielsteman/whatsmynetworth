@@ -5,8 +5,8 @@ from typing import Any, Optional
 
 import httpx
 
-from app.models.customer import Customer, DeletedCustomer
-from app.models.provider import Provider
+from app.schemas.customer import Customer, DeletedCustomer
+from app.schemas.provider import Provider
 from app.utils.saltedge.date_utils import get_timedelta_str
 from app.utils.saltedge.exceptions import (
     ConnectionCreationError,

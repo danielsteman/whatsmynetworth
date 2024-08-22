@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends
 
 from app.dependencies import get_salt_edge_client
-from app.models.provider import Provider
+from app.schemas.provider import Provider
 from app.utils.saltedge.client import SaltEdgeClient
 
 router = APIRouter()

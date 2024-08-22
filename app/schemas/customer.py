@@ -1,13 +1,20 @@
-from sqlalchemy import BigInteger, Column, String
+from datetime import datetime
 
-from app.db.base import Base
+from pydantic import BaseModel
 
 
-class Customer(Base):
-    __tablename__ = "customers"
+class Customer(BaseModel):
+    id: str
+    identifier: str
+    secret: str
+    updated_at: datetime
+    created_at: datetime
 
-    id = Column(BigInteger, primary_key=True)
-    identifier = Column(String, unique=True, index=True)
-    secret = Column(String)
-    updated_at = Column(String)
-    created_at = Column(String)
+
+class CreateCustomer(BaseModel):
+    id: str
+
+
+class DeletedCustomer(BaseModel):
+    id: str
+    deleted: bool
