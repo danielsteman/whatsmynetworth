@@ -27,7 +27,6 @@ async def create_customer(
     db: Annotated[Session, Depends(get_db)],
 ) -> schemas.Customer:
     try:
-
         db_customer = customer_repository.get_customer_by_identifier(db, customer.id)
         if db_customer:
             logger.info("Customer already exists in the database")
@@ -36,12 +35,7 @@ async def create_customer(
         created_customer = client.create_customer(customer.id)
 
         db_customer = customer_repository.create_customer_in_db(
-            db=db,
-            id=created_customer.id,
-            identifier=created_customer.identifier,
-            secret=created_customer.secret,
-            created_at=created_customer.created_at,
-            updated_at=created_customer.updated_at,
+            db=db, customer=created_customer
         )
 
         return created_customer
