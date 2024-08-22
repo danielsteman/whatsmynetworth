@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import BigInteger, Column, String
 
 from app.utils.database import Base
 
@@ -6,7 +6,7 @@ from app.utils.database import Base
 class Customer(Base):
     __tablename__ = "customers"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(BigInteger, primary_key=True)
     identifier = Column(String, unique=True, index=True)
     secret = Column(String)
     updated_at = Column(String)
