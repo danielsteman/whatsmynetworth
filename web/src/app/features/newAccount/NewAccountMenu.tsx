@@ -5,7 +5,6 @@ import { IoIosLink, IoMdArrowBack } from "react-icons/io";
 import { RiBankFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { setStep } from "./newAccountMenuSlice";
-import { Session } from "next-auth";
 import React from "react";
 import { CurrentUserSessionProps } from "./NewAccountButton";
 
