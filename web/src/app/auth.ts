@@ -18,6 +18,8 @@ const authOptions: NextAuthOptions = {
     async signIn({ user }): Promise<boolean> {
       try {
         const customerId = user.id;
+        console.log(`customer ID: ${customerId}`);
+        console.log(`customer: ${JSON.stringify(user)}`);
         const response = await fetch(
           `${process.env.BACKEND_BASE_URL}/api/customers/create`,
           {

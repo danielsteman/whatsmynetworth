@@ -10,6 +10,7 @@ dependencies = [
     "pytest>=8.2.2",
     "pydantic>=2.8.2",
     "pytest-mock>=3.14.0",
+    "sqlalchemy>=2.0.32",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
