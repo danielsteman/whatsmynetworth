@@ -4,7 +4,7 @@ import { AppDispatch } from "@/lib/store";
 import React, { ReactNode, useEffect, useRef } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { toggleMenu } from "./newAccountMenuSlice";
+import { setStep, toggleMenu } from "./newAccountMenuSlice";
 
 interface NewAccountOverlayProps {
   children: ReactNode;
@@ -21,6 +21,7 @@ const NewAccountOverlay: React.FC<NewAccountOverlayProps> = ({ children }) => {
         !overlayRef.current.contains(event.target as Node)
       ) {
         dispatch(toggleMenu());
+        dispatch(setStep(0));
       }
     }
 
