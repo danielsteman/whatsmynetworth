@@ -1,3 +1,4 @@
+from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import Session
 
 from app import models, schemas
@@ -19,3 +20,13 @@ def create_customer_in_db(db: Session, customer: schemas.Customer) -> models.Cus
     db.commit()
     db.refresh(db_customer)
     return db_customer
+
+
+def delete_customer_in_db(db: Session, identifier: str) -> bool:
+    try:
+        db_customer = db.query(models.Customer).filter_by(identifier=identifier).one()
+        db.delete(db_customer)
+        db.commit()
+        return True
+    except NoResultFound:
+        return False
