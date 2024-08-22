@@ -6,7 +6,8 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm.session import Session
 
 from app import models, schemas
-from app.dependencies import get_db, get_salt_edge_client
+from app.db.session import get_db
+from app.dependencies import get_salt_edge_client
 from app.utils.saltedge.client import CustomerAlreadyExists, SaltEdgeClient
 
 router = APIRouter()
