@@ -50,7 +50,10 @@ const SecondStepMenu: React.FC<CurrentUserSessionProps> = ({ currentUser }) => {
         </button>
         <h2 className=" py-4 w-full">How would you like to add it?</h2>
       </div>
-      <button className="font-medium w-full hover:bg-neutral-200 rounded-xl p-3">
+      <button
+        onClick={handleLinkBankAccount}
+        className="font-medium w-full hover:bg-neutral-200 rounded-xl p-3"
+      >
         <div className="flex flex-row gap-4">
           <IoIosLink size={24} />
           <div>Link bank account safely through open banking</div>

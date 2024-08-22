@@ -42,6 +42,14 @@ const authOptions: NextAuthOptions = {
         return false;
       }
     },
+    async session({ session, token }) {
+      if (session?.user) {
+        if (token.sub) {
+          session.user.id = token.sub;
+        }
+      }
+      return session;
+    },
   },
   session: {
     strategy: "jwt",
