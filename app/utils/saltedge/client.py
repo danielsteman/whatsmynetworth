@@ -5,6 +5,7 @@ from typing import Any, Optional
 
 import httpx
 
+from app.schemas.connection import Connection
 from app.schemas.customer import Customer, DeletedCustomer
 from app.schemas.provider import Provider
 from app.utils.saltedge.date_utils import get_timedelta_str
@@ -186,7 +187,7 @@ class SaltEdgeClient(httpx.Client):
             logger.error(f"Request error occurred while deleting a customer: {e}")
             return None
 
-    def create_connect_session(self, customer_id: str) -> Optional[dict]:
+    def create_connect_session(self, customer_id: str) -> Connection:
         """
         Docs: https://docs.saltedge.com/account_information/v5/#connect_sessions-create
         """
@@ -211,12 +212,13 @@ class SaltEdgeClient(httpx.Client):
         }
         response = self.request(url, "POST", json=data)
         data = response.json()
-        connection = data.get("data")
-        if not connection:
+        connection_data = data.get("data")
+        print(connection_data)
+        if not connection_data:
             logger.error(
                 "Something went wrong deleting a customer: No customer data in response"
             )
             raise ConnectionCreationError(
                 "No connection data in response from SaltEdge API"
             )
-        return data
+        return Connection(**connection_data)

@@ -2,7 +2,8 @@ from pydantic import BaseModel
 
 
 class Connection(BaseModel):
-    id: str
+    expires_at: str
+    connect_url: str
 
 
 class CreateConnection(BaseModel):

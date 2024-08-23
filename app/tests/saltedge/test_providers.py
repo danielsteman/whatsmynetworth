@@ -1,4 +1,4 @@
-from app.models.provider import Provider
+from app.schemas.provider import Provider
 
 
 def test_list_providers_at_least_one(client):

@@ -1,8 +1,9 @@
+import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse
-from pytest import Session
+from sqlalchemy.orm import Session
 
 from app import schemas
 from app.db.session import get_db
@@ -11,9 +12,10 @@ from app.repositories.customer_repository import get_customer_by_identifier
 from app.utils.saltedge.client import SaltEdgeClient
 
 router = APIRouter()
+logger = logging.getLogger("uvicorn.error")
 
 
-@router.post("/create", response_model=schemas.Customer, tags=["connections"])
+@router.post("/create", response_model=schemas.Connection, tags=["connections"])
 async def create_connection(
     customer: schemas.CreateConnection,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
@@ -21,10 +23,15 @@ async def create_connection(
 ) -> schemas.Connection:
     try:
         customer = get_customer_by_identifier(db, customer.identifier)
+        if not customer:
+            raise HTTPException(status_code=404, detail="Customer not found")
         created_connection = client.create_connect_session(customer.id)
         return created_connection
+    except HTTPException as http_exc:
+        raise http_exc
     except Exception as e:
+        logger.error(f"Error while creating a connection: {e}", exc_info=True)
         return JSONResponse(
             status_code=500,
-            content=f"Something went wrong while creating a connection: {str(e)}",
+            detail="Something went wrong while creating a connection in Saltedge",
         )
