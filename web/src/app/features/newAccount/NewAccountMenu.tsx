@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setStep } from "./newAccountMenuSlice";
 import React from "react";
 import { CurrentUserSessionProps } from "./NewAccountButton";
+import { useRouter } from "next/navigation";
 
 const FirstStepMenu = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -30,6 +31,7 @@ const FirstStepMenu = () => {
 
 const SecondStepMenu: React.FC<CurrentUserSessionProps> = ({ currentUser }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
   const handleLinkBankAccount = async () => {
     try {
@@ -56,7 +58,13 @@ const SecondStepMenu: React.FC<CurrentUserSessionProps> = ({ currentUser }) => {
       }
 
       const data = await response.json();
-      console.log("Bank account linked successfully", data);
+      console.log(data);
+      if (data.connect_url) {
+        router.push(data.connect_url);
+      } else {
+        console.error("Connection data doesn't contain connect_url");
+        return;
+      }
     } catch (error) {
       console.error("Error while getting Saltedge connect link:", error);
     }
