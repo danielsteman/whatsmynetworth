@@ -1,7 +1,7 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
@@ -35,3 +35,8 @@ async def create_connection(
             status_code=500,
             detail="Something went wrong while creating a connection in Saltedge",
         )
+
+
+@router.post("/callback", tags=["connections"])
+async def connection_callback() -> Response:
+    return
