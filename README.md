@@ -16,14 +16,27 @@ Generate public key:
 openssl rsa -pubout -in private_key.pem -out public_key.pem
 ```
 
-## Init DB
+## DB
 
-```
+```bash
 docker-compose up
+```
+
+Migrations for next-auth are done from `/web`.
+
+```bash
+cd web
 yarn migrate:postgres
 ```
 
-Check DB
+Other migrations are done from `/app`.
+
+```bash
+cd app
+alembic upgrade head
+```
+
+Open interactive postgres shell for debugging.
 
 ```
 psql -h localhost -p 5432 -d stacks -U admin
