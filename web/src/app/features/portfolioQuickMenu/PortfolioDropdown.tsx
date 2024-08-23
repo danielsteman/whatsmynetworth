@@ -8,7 +8,7 @@ import {
 import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import { FiPlus } from "react-icons/fi";
-import { toggleMenu } from "../newAccount/newAccountMenuSlice";
+import { setStep, toggleMenu } from "../newAccount/newAccountMenuSlice";
 
 interface PortfolioDropdownProps {
   dropDown: PortfolioQuickMenuDropdowns;
@@ -38,7 +38,10 @@ const PortfolioDropdown: React.FC<PortfolioDropdownProps> = ({ dropDown }) => {
           className="flex flex-col py-4 px-2 items-center rounded-xl cursor-pointer hover:bg-neutral-100"
           role="button"
           tabIndex={0}
-          onClick={() => dispatch(toggleMenu())}
+          onClick={() => {
+            dispatch(toggleMenu());
+            dispatch(setStep(1));
+          }}
         >
           <div className="flex flex-row gap-4">
             <FiPlus size={20} className="text-neutral-500" />
