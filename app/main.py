@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
-from app.api import connections, customers, providers
+from app.api import accounts, connections, customers, providers
 
 app = FastAPI()
 
@@ -32,3 +32,4 @@ async def root() -> dict:
 app.include_router(providers.router, prefix="/api/providers")
 app.include_router(customers.router, prefix="/api/customers")
 app.include_router(connections.router, prefix="/api/connections")
+app.include_router(accounts.router, prefix="/api/accounts")

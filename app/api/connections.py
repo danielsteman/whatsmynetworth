@@ -15,12 +15,12 @@ router = APIRouter()
 logger = logging.getLogger("uvicorn.error")
 
 
-@router.post("/create", response_model=schemas.Connection, tags=["connections"])
+@router.post("/create", response_model=schemas.ConnectionLink, tags=["connections"])
 async def create_connection(
     customer: schemas.CreateConnection,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
     db: Annotated[Session, Depends(get_db)],
-) -> schemas.Connection:
+) -> schemas.ConnectionLink:
     try:
         customer = get_customer_by_identifier(db, customer.identifier)
         if not customer:

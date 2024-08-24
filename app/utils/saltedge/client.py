@@ -239,7 +239,6 @@ class SaltEdgeClient(httpx.Client):
     def list_accounts(self, connection_id: str) -> list[Account]:
         response = self.request(ACCOUNTS_URL, params={"connection_id": connection_id})
         data = response.json()
-        print(data)
         accounts_data = data.get("data")
         if not accounts_data:
             logger.error(
