@@ -5,6 +5,7 @@ from typing import Any, Optional
 
 import httpx
 
+from app.schemas.account import Account
 from app.schemas.connection import Connection
 from app.schemas.customer import Customer, DeletedCustomer
 from app.schemas.provider import Provider
@@ -13,6 +14,7 @@ from app.utils.saltedge.exceptions import (
     ConnectionCreationError,
     CustomerAlreadyExists,
     CustomerCreationError,
+    ListAccountsError,
 )
 
 logger = logging.getLogger(__name__)
@@ -20,6 +22,7 @@ logger = logging.getLogger(__name__)
 PROVIDERS_URL = "https://www.saltedge.com/api/v5/providers"
 CUSTOMERS_URL = "https://www.saltedge.com/api/v5/customers"
 CONNECTIONS_URL = "https://www.saltedge.com/api/v5/connect_sessions"
+ACCOUNTS_URL = "https://www.saltedge.com/api/v5/accounts"
 
 
 class SaltEdgeConfig:
@@ -213,12 +216,22 @@ class SaltEdgeClient(httpx.Client):
         response = self.request(url, "POST", json=data)
         data = response.json()
         connection_data = data.get("data")
-        print(connection_data)
         if not connection_data:
             logger.error(
-                "Something went wrong deleting a customer: No customer data in response"
+                "Something went wrong creating a customer: No customer data in response"
             )
             raise ConnectionCreationError(
                 "No connection data in response from SaltEdge API"
             )
         return Connection(**connection_data)
+
+    def list_accounts(self, connection_id: str) -> list[Account]:
+        response = self.request(ACCOUNTS_URL, params={"connection_id": connection_id})
+        data = response.json()
+        accounts_data = data.get("data")
+        if not accounts_data:
+            logger.error(
+                "Something went wrong getting accounts: No accounts data in response"
+            )
+            raise ListAccountsError("No connection data in response from SaltEdge API")
+        return [Account(**account_dict) for account_dict in accounts_data]

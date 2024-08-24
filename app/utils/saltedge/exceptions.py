@@ -29,3 +29,14 @@ class ConnectionCreationError(Exception):
         self.message = message
         self.status_code = status_code
         super().__init__(self.message)
+
+
+class ListAccountsError(Exception):
+    def __init__(
+        self,
+        message: str = "Something went wrong getting accounts from customer in Saltedge",
+        status_code: int = 500,
+    ) -> None:
+        self.message = message
+        self.status_code = status_code
+        super().__init__(self.message)
