@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 PROVIDERS_URL = "https://www.saltedge.com/api/v5/providers"
 CUSTOMERS_URL = "https://www.saltedge.com/api/v5/customers"
 CONNECT_SESSIONS_URL = "https://www.saltedge.com/api/v5/connect_sessions"
-CONNECTIONS_URL = "https://www.saltedge.com/api/v5/connection"
+CONNECTIONS_URL = "https://www.saltedge.com/api/v5/connections"
 ACCOUNTS_URL = "https://www.saltedge.com/api/v5/accounts"
 
 
@@ -226,14 +226,14 @@ class SaltEdgeClient(httpx.Client):
             )
         return ConnectionLink(**connection_data)
 
-    def get_connection(self, customer_id: str) -> Connection | None:
+    def get_connections(self, customer_id: str) -> list[Connection]:
         response = self.request(CONNECTIONS_URL, params={"customer_id": customer_id})
         data = response.json()
-        connection_data = data.get("data")
-        if not connection_data:
-            logger.info("Could not find connection for Saltedge customer")
-            return None
-        return Connection(**connection_data)
+        connections_data = data.get("data")
+        if not connections_data:
+            logger.info("Could not find connections for Saltedge customer")
+            return []
+        return [Connection(**connection_dict) for connection_dict in connections_data]
 
     def list_accounts(self, connection_id: str) -> list[Account]:
         response = self.request(ACCOUNTS_URL, params={"connection_id": connection_id})

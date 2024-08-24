@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel
 
@@ -22,17 +22,17 @@ class Address(BaseModel):
 
 
 class HolderInfo(BaseModel):
-    names: List[str]
-    emails: List[str]
-    phone_numbers: List[str]
-    addresses: List[Address]
+    names: list[str]
+    emails: list[str]
+    phone_numbers: list[str]
+    addresses: list[Address]
 
 
 class LastStage(BaseModel):
     created_at: datetime
     id: str
-    interactive_fields_names: Optional[str | None]
-    interactive_html: Optional[str | None]
+    interactive_fields_names: list[str] | None
+    interactive_html: str | None
     name: str
     updated_at: datetime
 
@@ -45,30 +45,30 @@ class LastAttempt(BaseModel):
     daily_refresh: bool
     categorize: bool
     created_at: datetime
-    customer_last_logged_at: datetime
+    customer_last_logged_at: datetime | None
     custom_fields: dict
     device_type: str
     remote_ip: str
-    exclude_accounts: List[str]
-    fail_at: Optional[datetime | None]
-    fail_error_class: Optional[str | None]
-    fail_message: Optional[str | None]
-    fetch_scopes: List[str]
+    exclude_accounts: list[str]
+    fail_at: datetime | None
+    fail_error_class: str | None
+    fail_message: str | None
+    fetch_scopes: list[str]
     finished: bool
     finished_recent: bool
-    from_date: Optional[datetime | None]
+    from_date: datetime | None
     id: str
     interactive: bool
     locale: str
     partial: bool
     store_credentials: bool
-    success_at: Optional[datetime | None]
-    to_date: Optional[datetime | None]
+    success_at: datetime | None
+    to_date: datetime | None
     unduplication_strategy: str
     updated_at: datetime
     show_consent_confirmation: bool
     consent_id: str
-    include_natures: List[str]
+    include_natures: list[str] | None
     last_stage: LastStage
 
 
@@ -83,9 +83,9 @@ class Connection(BaseModel):
     show_consent_confirmation: bool
     last_consent_id: str
     last_attempt: LastAttempt
-    holder_info: HolderInfo
-    last_success_at: Optional[datetime | None]
-    next_refresh_possible_at: Optional[datetime | None]
+    holder_info: HolderInfo | None = None
+    last_success_at: datetime | None
+    next_refresh_possible_at: datetime | None
     provider_id: str
     provider_code: str
     provider_name: str

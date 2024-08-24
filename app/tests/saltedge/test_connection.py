@@ -13,14 +13,8 @@ def test_create_connection_link(client):
         client.delete_customer(customer_id)
 
 
-# def test_get_connection(client):
-#     mock_id = "123"
-#     try:
-#         customer = client.create_customer(mock_id)
-#         customer_id = customer.id
-#         connect_session = client.create_connect_session(customer_id)
-#         # give consent through connect_session
-#         connection = client.get_connection(customer_id)
-#         assert connection
-#     finally:
-#         client.delete_customer(customer_id)
+def test_get_connections(client):
+    customer_id = "1348870464449026771"
+    connection = client.get_connections(customer_id)
+    print(connection)
+    assert connection
