@@ -1,13 +1,5 @@
-# from app.schemas import Connection
-# from app.schemas import Account
-
-
-def test_list_accounts(client):
-    mock_id = "123"
-    try:
-        customer = client.create_customer(mock_id)
-        customer_id = customer.id
-        # connect_session = client.create_connect_session(customer_id)
-        # accounts = client.list_accounts()
-    finally:
-        client.delete_customer(customer_id)
+def test_list_accounts(client, consented_customer_id):
+    connections = client.get_connections(consented_customer_id)
+    connection_ids = [con.id for con in connections if con.status == "active"]
+    for id_ in connection_ids:
+        assert client.list_accounts(id_)

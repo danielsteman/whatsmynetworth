@@ -15,5 +15,4 @@ def test_create_connection_link(client):
 
 def test_get_connections(client, consented_customer_id):
     connection = client.get_connections(consented_customer_id)
-    print(connection)
     assert connection

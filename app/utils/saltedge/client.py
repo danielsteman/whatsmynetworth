@@ -233,11 +233,13 @@ class SaltEdgeClient(httpx.Client):
         if not connections_data:
             logger.info("Could not find connections for Saltedge customer")
             return []
+        logger.info(f"Found {len(connections_data)} connections for {customer_id}")
         return [Connection(**connection_dict) for connection_dict in connections_data]
 
     def list_accounts(self, connection_id: str) -> list[Account]:
         response = self.request(ACCOUNTS_URL, params={"connection_id": connection_id})
         data = response.json()
+        print(data)
         accounts_data = data.get("data")
         if not accounts_data:
             logger.error(
