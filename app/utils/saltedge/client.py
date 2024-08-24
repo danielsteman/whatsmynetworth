@@ -22,7 +22,8 @@ logger = logging.getLogger(__name__)
 
 PROVIDERS_URL = "https://www.saltedge.com/api/v5/providers"
 CUSTOMERS_URL = "https://www.saltedge.com/api/v5/customers"
-CONNECTIONS_URL = "https://www.saltedge.com/api/v5/connect_sessions"
+CONNECT_SESSIONS_URL = "https://www.saltedge.com/api/v5/connect_sessions"
+CONNECTIONS_URL = "https://www.saltedge.com/api/v5/connection"
 ACCOUNTS_URL = "https://www.saltedge.com/api/v5/accounts"
 
 
@@ -195,7 +196,7 @@ class SaltEdgeClient(httpx.Client):
         """
         Docs: https://docs.saltedge.com/account_information/v5/#connect_sessions-create
         """
-        url = f"{CONNECTIONS_URL}/create"
+        url = f"{CONNECT_SESSIONS_URL}/create"
         data = {
             "data": {
                 "customer_id": customer_id,
