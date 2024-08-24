@@ -12,7 +12,6 @@ from app.schemas.provider import Provider
 from app.utils.saltedge.date_utils import get_timedelta_str
 from app.utils.saltedge.exceptions import (
     ConnectionCreationError,
-    ConnectionNotFoundError,
     CustomerAlreadyExists,
     CustomerCreationError,
     ListAccountsError,
@@ -227,13 +226,13 @@ class SaltEdgeClient(httpx.Client):
             )
         return ConnectionLink(**connection_data)
 
-    def get_connection(self, customer_id: str) -> Connection:
+    def get_connection(self, customer_id: str) -> Connection | None:
         response = self.request(CONNECTIONS_URL, params={"customer_id": customer_id})
         data = response.json()
         connection_data = data.get("data")
         if not connection_data:
-            logger.error("Could not find connection for Saltedge customer")
-            raise ConnectionNotFoundError()
+            logger.info("Could not find connection for Saltedge customer")
+            return None
         return Connection(**connection_data)
 
     def list_accounts(self, connection_id: str) -> list[Account]:
