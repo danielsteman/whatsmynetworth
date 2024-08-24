@@ -6,12 +6,13 @@ from typing import Any, Optional
 import httpx
 
 from app.schemas.account import Account
-from app.schemas.connection import Connection
+from app.schemas.connection import Connection, ConnectionLink
 from app.schemas.customer import Customer, DeletedCustomer
 from app.schemas.provider import Provider
 from app.utils.saltedge.date_utils import get_timedelta_str
 from app.utils.saltedge.exceptions import (
     ConnectionCreationError,
+    ConnectionNotFoundError,
     CustomerAlreadyExists,
     CustomerCreationError,
     ListAccountsError,
@@ -223,6 +224,15 @@ class SaltEdgeClient(httpx.Client):
             raise ConnectionCreationError(
                 "No connection data in response from SaltEdge API"
             )
+        return ConnectionLink(**connection_data)
+
+    def get_connection(self, customer_id: str) -> Connection:
+        response = self.request(CONNECTIONS_URL, params={"customer_id": customer_id})
+        data = response.json()
+        connection_data = data.get("data")
+        if not connection_data:
+            logger.error("Could not find connection for Saltedge customer")
+            raise ConnectionNotFoundError()
         return Connection(**connection_data)
 
     def list_accounts(self, connection_id: str) -> list[Account]:

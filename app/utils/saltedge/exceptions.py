@@ -31,6 +31,17 @@ class ConnectionCreationError(Exception):
         super().__init__(self.message)
 
 
+class ConnectionNotFoundError(Exception):
+    def __init__(
+        self,
+        message: str = "Could not find connection for Saltedge customer",
+        status_code: int = 404,
+    ) -> None:
+        self.message = message
+        self.status_code = status_code
+        super().__init__(self.message)
+
+
 class ListAccountsError(Exception):
     def __init__(
         self,
