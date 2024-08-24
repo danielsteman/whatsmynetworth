@@ -37,6 +37,13 @@ async def create_connection(
         )
 
 
-@router.post("/callback", tags=["connections"])
-async def connection_callback() -> Response:
+@router.post("/callback/success", tags=["connections"])
+async def successful_connection_callback() -> Response:
+    logger.info("Received success callback")
+    return
+
+
+@router.post("/callback/fail", tags=["connections"])
+async def failed_connection_callback() -> Response:
+    logger.info("Received fail callback")
     return
