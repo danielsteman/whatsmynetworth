@@ -22,6 +22,10 @@ openssl rsa -pubout -in private_key.pem -out public_key.pem
 docker-compose up
 ```
 
+### Table naming convention
+
+All tables that are capitalized have been created for `next-auth`. All tables that are not capitalized are created for anything else.
+
 Migrations for next-auth are done from `/web`.
 
 ```bash
