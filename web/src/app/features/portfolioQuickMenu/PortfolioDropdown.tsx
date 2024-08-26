@@ -35,7 +35,7 @@ const PortfolioDropdown: React.FC<PortfolioDropdownProps> = ({ dropDown }) => {
       </div>
       {droppedDownItems[dropDown] && (
         <div
-          className="flex flex-col py-4 px-2 items-center rounded-xl cursor-pointer hover:bg-neutral-100"
+          className="flex flex-col py-4 px-2 rounded-xl cursor-pointer hover:bg-neutral-100"
           role="button"
           tabIndex={0}
           onClick={() => {
