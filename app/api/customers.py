@@ -31,13 +31,10 @@ async def create_customer(
         if db_customer:
             logger.info("Customer already exists in the database")
             return Response(status_code=status.HTTP_204_NO_CONTENT)
-
         created_customer = client.create_customer(customer.id)
-
         db_customer = customer_repository.create_customer_in_db(
             db=db, customer=created_customer
         )
-
         return created_customer
     except CustomerAlreadyExists:
         logger.info("Customer already exists in Saltedge")
