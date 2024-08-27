@@ -6,22 +6,13 @@ import { redirect } from "next/navigation";
 import { makeStore } from "@/lib/store";
 import DefaultDashboard from "./DefaultDashboard";
 import AccountsDashboard from "./AccountsDashboard";
+import Dashboards from "./Dashboards";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect("/login");
   }
-
-  const store = makeStore();
-  const state = store.getState();
-  console.log(state);
-
-  const tabDashboardMapping = {
-    Dashboard: <DefaultDashboard session={session} />,
-    Accounts: <AccountsDashboard />,
-    Transactions: <div>tbd</div>,
-  };
 
   return (
     <>
@@ -31,7 +22,7 @@ export default async function Dashboard() {
           <div className="h-4" />
           <Portfolio />
         </div>
-        {tabDashboardMapping[state.navigation.currentTab]}
+        <Dashboards session={session} />
       </div>
     </>
   );

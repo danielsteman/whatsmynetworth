@@ -1,13 +1,8 @@
-import authOptions from "@/app/auth";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import NewAccountButton from "../features/newAccount/NewAccountButton";
+import { DashboardsProps } from "./Dashboards";
 
-export default async function AccountsDashboard() {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/login");
-  }
+const AccountsDashboard: React.FC<DashboardsProps> = ({ session }) => {
+  // TODO: get next-auth session on client side
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row">
@@ -20,4 +15,6 @@ export default async function AccountsDashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default AccountsDashboard;

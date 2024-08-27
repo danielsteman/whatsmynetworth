@@ -1,11 +1,8 @@
-import { Session } from "next-auth";
 import NewAccountButton from "../features/newAccount/NewAccountButton";
+import { DashboardsProps } from "./Dashboards";
 
-interface DefaultDashboardProps {
-  session: Session;
-}
-
-const DefaultDashboard: React.FC<DefaultDashboardProps> = ({ session }) => {
+const DefaultDashboard: React.FC<DashboardsProps> = ({ session }) => {
+  // TODO: get next-auth session on client side
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row">
