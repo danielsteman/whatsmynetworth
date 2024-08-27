@@ -1,6 +1,5 @@
 import Navigation from "@/app/features/navigation/Navigation";
 import Portfolio from "@/app/features/portfolioQuickMenu/Portfolio";
-import NewAccountButton from "../features/newAccount/NewAccountButton";
 import { getServerSession } from "next-auth";
 import authOptions from "../auth";
 import { redirect } from "next/navigation";
@@ -32,19 +31,7 @@ export default async function Dashboard() {
           <div className="h-4" />
           <Portfolio />
         </div>
-        <div className="flex flex-col w-full">
-          <div className="flex flex-row">
-            <div className="flex flex-col">
-              <div className="text-lg font-medium">Welcome back</div>
-              <div className="text-sm text-neutral-500">
-                Here's what's happening today
-              </div>
-            </div>
-            <div className="ml-auto">
-              <NewAccountButton currentUser={session} />
-            </div>
-          </div>
-        </div>
+        {tabDashboardMapping[state.navigation.currentTab]}
       </div>
     </>
   );
