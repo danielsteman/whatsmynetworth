@@ -1,4 +1,4 @@
-import NewAccountButton from "../features/newAccount/NewAccountButton";
+import NewAccountButton from "../newAccount/NewAccountButton";
 import { DashboardsProps } from "./Dashboards";
 
 const DefaultDashboard: React.FC<DashboardsProps> = ({ session }) => {

@@ -3,10 +3,7 @@ import Portfolio from "@/app/features/portfolioQuickMenu/Portfolio";
 import { getServerSession } from "next-auth";
 import authOptions from "../auth";
 import { redirect } from "next/navigation";
-import { makeStore } from "@/lib/store";
-import DefaultDashboard from "./DefaultDashboard";
-import AccountsDashboard from "./AccountsDashboard";
-import Dashboards from "./Dashboards";
+import Dashboards from "../features/dashboard/Dashboards";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
