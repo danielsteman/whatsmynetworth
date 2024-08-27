@@ -14,6 +14,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  test-postgres:
+    image: postgres:16.4
+    container_name: test-stacks-db
+    restart: always
+    environment:
+      POSTGRES_USER: test_admin
+      POSTGRES_PASSWORD: test_admin
+      POSTGRES_DB: test_stacks
+    ports:
+      - "5433:5432"
+    volumes:
+      - test_postgres_data:/var/lib/postgresql/data
+
 volumes:
   postgres_data:
+    driver: local
+  test_postgres_data:
     driver: local
