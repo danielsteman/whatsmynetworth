@@ -10,7 +10,12 @@ from app.db.base import Base
 # access to the values within the .ini file in use.
 config = context.config
 
-config.set_main_option("sqlalchemy.url", settings.database_url)
+# Allow the database URL to be overwritten on the command line
+url = context.get_x_argument(as_dictionary=True).get("url")
+if url:
+    config.set_main_option("sqlalchemy.url", url)
+else:
+    config.set_main_option("sqlalchemy.url", settings.database_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
