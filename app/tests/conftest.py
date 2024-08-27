@@ -1,5 +1,9 @@
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
+from app.core.config import settings
+from app.db.base import Base
 from app.utils.saltedge.client import SaltEdgeClient
 
 
@@ -16,3 +20,16 @@ def consented_customer_id():
     """
     customer_id = "1348870464449026771"
     return customer_id
+
+
+@pytest.fixture
+def db():
+    engine = create_engine(settings.test_database_url)
+    Base.metadata.create_all(bind=engine)
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+        Base.metadata.drop_all(bind=engine)
