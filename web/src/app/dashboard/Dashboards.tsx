@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import AccountsDashboard from "./AccountsDashboard";
 import DefaultDashboard from "./DefaultDashboard";
 import { Session } from "next-auth";
+import TransactionsDashboard from "./TransactionsDashboard";
 
 export interface DashboardsProps {
   session: Session;
@@ -17,7 +18,7 @@ const Dashboards: React.FC<DashboardsProps> = ({ session }) => {
   const tabDashboardMapping = {
     Dashboard: <DefaultDashboard session={session} />,
     Accounts: <AccountsDashboard session={session} />,
-    Transactions: <div>tbd</div>,
+    Transactions: <TransactionsDashboard session={session} />,
   };
   return tabDashboardMapping[currentTab];
 };
