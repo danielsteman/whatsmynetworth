@@ -3,6 +3,9 @@ from sqlalchemy.orm import Session
 from app import models, schemas
 from app.utils.saltedge.client import SaltEdgeClient
 
+# def create_connection(connection: schemas.Connection):
+#     pass
+
 
 def get_active_connection(
     db: Session, client: SaltEdgeClient, identifier: str
