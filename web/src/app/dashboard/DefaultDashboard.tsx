@@ -1,11 +1,11 @@
 import { Session } from "next-auth";
 import NewAccountButton from "../features/newAccount/NewAccountButton";
 
-interface DashboardProps {
+interface DefaultDashboardProps {
   session: Session;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ session }) => {
+const DefaultDashboard: React.FC<DefaultDashboardProps> = ({ session }) => {
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row">
@@ -23,4 +23,4 @@ const Dashboard: React.FC<DashboardProps> = ({ session }) => {
   );
 };
 
-export default Dashboard;
+export default DefaultDashboard;
