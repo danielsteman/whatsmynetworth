@@ -10,7 +10,7 @@ export default async function Dashboard() {
   if (!session) {
     redirect("/login");
   }
-  console.log(session);
+
   return (
     <>
       <div className="flex flex-row gap-8 p-8 w-full">
@@ -31,7 +31,6 @@ export default async function Dashboard() {
               <NewAccountButton currentUser={session} />
             </div>
           </div>
-          <div>...</div>
         </div>
       </div>
     </>
