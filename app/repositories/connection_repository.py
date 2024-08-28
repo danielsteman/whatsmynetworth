@@ -12,9 +12,7 @@ def get_connection(db: Session, _id: str) -> models.Connection | None:
     return db.query(models.Connection).filter_by(_id=_id).first()
 
 
-def create_connection(
-    db: Session, connection: schemas.Connection
-) -> models.Connection | None:
+def create_connection(db: Session, connection: schemas.Connection) -> models.Connection:
     db_connection = get_connection(db, connection.id)
     if db_connection:
         logger.info(f"Connection with id {connection.id} already exists in database")
