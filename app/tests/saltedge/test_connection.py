@@ -59,8 +59,19 @@ def dummy_connection():
                 updated_at=datetime(2024, 8, 26, 13, 26, 40, tzinfo=timezone.utc),
             ),
         ),
-        holder_info=schemas.HolderInfo(
-            holder_name="John Doe", holder_address="1234 Test St, Test City, XF"
+        holder_info=schemas.connection.HolderInfo(
+            names=["John Doe"],
+            emails=["johndoe@example.com"],
+            phone_numbers=["+1234567890"],
+            addresses=[
+                schemas.connection.Address(
+                    city="Test City",
+                    state="Test State",
+                    street="1234 Test St",
+                    country_code="XF",
+                    post_code="12345",
+                )
+            ],
         ),
         last_success_at=datetime(2024, 8, 26, 13, 26, 38, tzinfo=timezone.utc),
         next_refresh_possible_at=datetime(2024, 8, 26, 13, 41, 38, tzinfo=timezone.utc),
