@@ -27,7 +27,6 @@ def create_connection(db: Session, connection: schemas.Connection) -> models.Con
         categorization=connection.categorization,
         show_consent_confirmation=connection.show_consent_confirmation,
         last_consent_id=connection.last_consent_id,
-        holder_info=connection.holder_info,
         last_success_at=connection.last_success_at,
         next_refresh_possible_at=connection.next_refresh_possible_at,
         provider_id=connection.provider_id,

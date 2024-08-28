@@ -102,4 +102,5 @@ def test_get_connections(client, consented_customer_id):
 
 
 def test_create_db_connection(db, dummy_connection):
-    connection_repository.create_connection(db, dummy_connection)
+    db_connection = connection_repository.create_connection(db, dummy_connection)
+    assert db_connection.id == 1351736641374394989
