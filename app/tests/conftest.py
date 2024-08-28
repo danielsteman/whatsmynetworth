@@ -24,6 +24,12 @@ def consented_customer_id():
 
 @pytest.fixture
 def db():
+    """
+    Use test database url to make a connection
+    Use Base to make sure all tables exist before each test
+    Use Base.drop_all after each test to remove all tables
+    For exquisite reproducability
+    """
     engine = create_engine(settings.test_database_url)
     Base.metadata.create_all(bind=engine)
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
