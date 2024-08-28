@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     @property
     def test_database_url(self) -> str:
-        return f"postgresql://test_{self.db_user}:test_{self.db_password}@test_{self.db_server}:{self.db_port+1}/test_{self.db_name}"
+        return f"postgresql://test_{self.db_user}:test_{self.db_password}@{self.db_server}:{self.db_port+1}/test_{self.db_name}"
 
 
 settings = Settings()

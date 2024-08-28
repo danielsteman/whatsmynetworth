@@ -18,7 +18,7 @@ def dummy_connection():
         categorization="personal",
         show_consent_confirmation=True,
         last_consent_id="1351736641760270960",
-        last_attempt=schemas.LastAttempt(
+        last_attempt=schemas.connection.LastAttempt(
             attempt_id="la1234567890",
             timestamp=datetime(2024, 8, 26, 13, 20, 40, tzinfo=timezone.utc),
             success=True,
