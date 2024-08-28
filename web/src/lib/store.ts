@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import navigationReducer from "../app/features/navigation/navigationSlice";
 import portfolioQuickMenuReducer from "../app/features/portfolioQuickMenu/portfolioQuickMenuSlice";
-import newAccountMenuReducer from "../app/features/newAccount/newAccountMenuSlice"
+import newAccountMenuReducer from "../app/features/newAccount/newAccountMenuSlice";
+import settingsMenuReducer from "../app/features/settings/settingsMenuSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +10,7 @@ export const makeStore = () => {
       navigation: navigationReducer,
       portfolioMenu: portfolioQuickMenuReducer,
       newAccountMenu: newAccountMenuReducer,
+      settingsMenu: settingsMenuReducer,
     },
   });
 };
