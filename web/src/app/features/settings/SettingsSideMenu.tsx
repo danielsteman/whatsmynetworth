@@ -19,7 +19,7 @@ const SettingsSideMenu = () => {
     return item === selectedItem;
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1 min-w-48">
       <a
         href="/dashboard"
         className="flex flex-row gap-1 w-fit items-center pr-2 py-1 mb-4 cursor-pointer rounded-lg hover:bg-neutral-200"
