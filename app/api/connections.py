@@ -16,7 +16,7 @@ logger = logging.getLogger("uvicorn.error")
 
 
 @router.post("/create", response_model=schemas.ConnectionLink, tags=["connections"])
-async def create_connection(
+async def create_connection_link(
     customer: schemas.CreateConnection,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
     db: Annotated[Session, Depends(get_db)],
