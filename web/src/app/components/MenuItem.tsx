@@ -1,22 +1,20 @@
 import { IconType } from "react-icons";
 
-interface BaseMenuItemProps {
-  label: string;
-  icon: IconType;
-  active: boolean;
-}
-
-interface ClickableMenuItemProps extends BaseMenuItemProps {
-  clickHandler: () => void;
-  href?: never;
-}
-
-interface LinkMenuItemProps extends BaseMenuItemProps {
-  href: string;
-  clickHandler?: never;
-}
-
-type MenuItemProps = ClickableMenuItemProps | LinkMenuItemProps;
+type MenuItemProps =
+  | {
+      label: string;
+      icon: IconType;
+      active: boolean;
+      href: string;
+      clickHandler?: never;
+    }
+  | {
+      label: string;
+      icon: IconType;
+      active: boolean;
+      href?: never;
+      clickHandler: () => void;
+    };
 
 const MenuItem: React.FC<MenuItemProps> = ({
   label,
@@ -51,6 +49,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       </a>
     );
   }
+  return null;
 };
 
 export default MenuItem;

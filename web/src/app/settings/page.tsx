@@ -1,4 +1,4 @@
-import SettingsSideMenu from "../features/settings/settingsSideMenu";
+import SettingsSideMenu from "../features/settings/SettingsSideMenu";
 
 const Settings = () => {
   return (
