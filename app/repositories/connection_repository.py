@@ -51,7 +51,7 @@ def get_active_connection(
     """
     db_customer = db.query(models.Customer).filter_by(identifier=identifier).one()
     customer_id = db_customer.id
-    connections = client.get_connections(customer_id)
+    connections = client.list_connections(customer_id)
     active_connections = [conn for conn in connections if conn.status == "active"]
     if not active_connections:
         return None

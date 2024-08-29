@@ -226,7 +226,7 @@ class SaltEdgeClient(httpx.Client):
             )
         return ConnectionLink(**connection_data)
 
-    def get_connections(self, customer_id: str) -> list[Connection]:
+    def list_connections(self, customer_id: str) -> list[Connection]:
         response = self.request(CONNECTIONS_URL, params={"customer_id": customer_id})
         data = response.json()
         connections_data = data.get("data")

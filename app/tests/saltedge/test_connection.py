@@ -96,8 +96,8 @@ def test_create_connection_link(client):
         client.delete_customer(customer_id)
 
 
-def test_get_connections(client, consented_customer_id):
-    connection = client.get_connections(consented_customer_id)
+def test_list_connections(client, consented_customer_id):
+    connection = client.list_connections(consented_customer_id)
     assert connection
 
 
