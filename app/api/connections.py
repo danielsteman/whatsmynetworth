@@ -37,7 +37,7 @@ async def create_connection_link(
         )
 
 
-@router.post("/list", response_model=list[schemas.Connection], tags=["connections"])
+@router.post("/", response_model=list[schemas.Connection], tags=["connections"])
 async def list_connections(
     customer: schemas.ListConnections,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],

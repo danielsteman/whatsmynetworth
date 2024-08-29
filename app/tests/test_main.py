@@ -16,3 +16,11 @@ def test_list_accounts_route(consented_customer_id):
         "/api/accounts", data={"connection_id": consented_customer_id}
     )
     print(response.json())
+
+
+def test_list_connections_route(consented_customer_identifier):
+    response = client.post(
+        "/api/connections",
+        json={"identifier": consented_customer_identifier},
+    )
+    print(response.json())
