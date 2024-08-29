@@ -5,7 +5,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app import schemas
+from app import models
 from app.core.config import settings
 from app.db.base import Base
 from app.utils.saltedge.client import SaltEdgeClient
@@ -38,17 +38,6 @@ def consented_customer_identifier():
 
 
 @pytest.fixture
-def test_customer():
-    return schemas.Customer(
-        id=MOCK_CUSTOMER_ID,
-        identifier=MOCK_CUSTOMER_IDENTIFIER,
-        secret=hashlib.sha256(b"mock_secret").hexdigest(),
-        updated_at=datetime(2024, 7, 7),
-        created_at=datetime(2024, 7, 7),
-    )
-
-
-@pytest.fixture
 def db():
     """
     Use test database url to make a connection
@@ -65,3 +54,18 @@ def db():
     finally:
         session.close()
         Base.metadata.drop_all(bind=engine)
+
+
+@pytest.fixture
+def test_customer(db):
+    customer = models.Customer(
+        id=MOCK_CUSTOMER_ID,
+        identifier=MOCK_CUSTOMER_IDENTIFIER,
+        secret=hashlib.sha256(b"mock_secret").hexdigest(),
+        updated_at=datetime(2024, 7, 7),
+        created_at=datetime(2024, 7, 7),
+    )
+    db.add(customer)
+    db.commit()
+    db.refresh(customer)
+    return customer

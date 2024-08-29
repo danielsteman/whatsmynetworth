@@ -24,8 +24,10 @@ def test_customer_already_exists(client):
     client.delete_customer(customer.id)
 
 
-def test_get_customer_id_by_identifier(db, client, consented_customer_identifier):
+def test_get_customer_id_by_identifier(
+    db, consented_customer_identifier, test_customer
+):
     customer = customer_repository.get_customer_by_identifier(
         db, consented_customer_identifier
     )
-    assert customer
+    assert customer.id == test_customer.id
