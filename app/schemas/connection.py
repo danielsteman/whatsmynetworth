@@ -13,6 +13,10 @@ class CreateConnection(BaseModel):
     identifier: str
 
 
+class ListConnections(CreateConnection):
+    pass
+
+
 class Address(BaseModel):
     city: str
     state: str

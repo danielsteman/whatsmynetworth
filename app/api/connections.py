@@ -37,6 +37,24 @@ async def create_connection_link(
         )
 
 
+@router.post("/list", response_model=list[schemas.Connection], tags=["connections"])
+async def list_connections(
+    customer: schemas.ListConnections,
+    client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
+) -> list[schemas.Connection]:
+    try:
+        connections = client.list_connections(customer.identifier)
+        return connections
+    except HTTPException as http_exc:
+        raise http_exc
+    except Exception as e:
+        logger.error(f"Error while creating a connection: {e}", exc_info=True)
+        return JSONResponse(
+            status_code=500,
+            detail="Something went wrong while creating a connection in Saltedge",
+        )
+
+
 @router.post("/callback/success", tags=["connections"])
 async def successful_connection_callback() -> Response:
     logger.info("Received success callback")
