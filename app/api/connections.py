@@ -45,10 +45,10 @@ async def list_connections(
     db: Annotated[Session, Depends(get_db)],
 ) -> list[schemas.Connection]:
     try:
-        customer_id = customer_repository.get_customer_by_identifier(
+        customer = customer_repository.get_customer_by_identifier(
             db, customer.identifier
         )
-        connections = client.list_connections(customer_id)
+        connections = client.list_connections(customer.id)
         return connections
     except HTTPException as http_exc:
         raise http_exc

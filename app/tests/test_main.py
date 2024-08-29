@@ -15,7 +15,8 @@ def test_list_accounts_route(consented_customer_id):
     response = client.post(
         "/api/accounts", data={"connection_id": consented_customer_id}
     )
-    print(response.json())
+    accounts = response.json()
+    assert accounts
 
 
 def test_list_connections_route(consented_customer_identifier):
@@ -23,4 +24,6 @@ def test_list_connections_route(consented_customer_identifier):
         "/api/connections",
         json={"identifier": consented_customer_identifier},
     )
-    print(response.json())
+    connections = response.json()
+    assert connections
+    assert len(connections) > 0
