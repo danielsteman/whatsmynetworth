@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export enum SettingsMenuItem {
-  SETTINGS = "Settings",
+  ACCOUNT = "Account",
   CONNECTIONS = "Connections",
 }
 
@@ -10,7 +10,7 @@ interface SettingsMenuState {
 }
 
 const initialState: SettingsMenuState = {
-  selected: SettingsMenuItem.SETTINGS,
+  selected: SettingsMenuItem.ACCOUNT,
 };
 
 const settingsMenuSlice = createSlice({

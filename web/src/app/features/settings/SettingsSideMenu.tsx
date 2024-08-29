@@ -36,8 +36,8 @@ const SettingsSideMenu = () => {
       <MenuItem
         label="Account"
         icon={MdAccountCircle}
-        active={isActive(SettingsMenuItem.SETTINGS)}
-        clickHandler={() => clickHandler(SettingsMenuItem.SETTINGS)}
+        active={isActive(SettingsMenuItem.ACCOUNT)}
+        clickHandler={() => clickHandler(SettingsMenuItem.ACCOUNT)}
       />
       <MenuItem
         label="Connections"
