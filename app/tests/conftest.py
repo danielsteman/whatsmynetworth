@@ -58,6 +58,11 @@ def db():
 
 @pytest.fixture
 def test_customer(db):
+    """
+    Yeet a test customer in the database
+    which will be removed because all tables are dropped
+    after each test
+    """
     customer = models.Customer(
         id=MOCK_CUSTOMER_ID,
         identifier=MOCK_CUSTOMER_IDENTIFIER,
