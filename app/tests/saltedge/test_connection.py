@@ -97,8 +97,10 @@ def test_create_connection_link(client):
 
 
 def test_list_connections(client, consented_customer_id):
-    connection = client.list_connections(consented_customer_id)
-    assert connection
+    connections = client.list_connections(consented_customer_id)
+    assert len(connections) > 0
+    for conn in connections:
+        assert conn.customer_id == consented_customer_id
 
 
 def test_create_db_connection(db, dummy_connection):

@@ -1,5 +1,6 @@
 import pytest
 
+from app.repositories import customer_repository
 from app.utils.saltedge.exceptions import CustomerAlreadyExists
 
 
@@ -21,3 +22,10 @@ def test_customer_already_exists(client):
     with pytest.raises(CustomerAlreadyExists):
         client.create_customer(mock_id)
     client.delete_customer(customer.id)
+
+
+def test_get_customer_id_by_identifier(db, client, consented_customer_identifier):
+    customer = customer_repository.get_customer_by_identifier(
+        db, consented_customer_identifier
+    )
+    assert customer

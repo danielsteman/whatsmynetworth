@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app import schemas
 from app.db.session import get_db
 from app.dependencies import get_salt_edge_client
+from app.repositories import customer_repository
 from app.repositories.customer_repository import get_customer_by_identifier
 from app.utils.saltedge.client import SaltEdgeClient
 
@@ -33,7 +34,7 @@ async def create_connection_link(
         logger.error(f"Error while creating a connection: {e}", exc_info=True)
         return JSONResponse(
             status_code=500,
-            detail="Something went wrong while creating a connection in Saltedge",
+            content="Something went wrong while creating a connection in Saltedge",
         )
 
 
@@ -41,17 +42,24 @@ async def create_connection_link(
 async def list_connections(
     customer: schemas.ListConnections,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
+    db: Annotated[Session, Depends(get_db)],
 ) -> list[schemas.Connection]:
     try:
-        connections = client.list_connections(customer.identifier)
+        customer_id = customer_repository.get_customer_by_identifier(
+            db, customer.identifier
+        )
+        connections = client.list_connections(customer_id)
         return connections
     except HTTPException as http_exc:
         raise http_exc
     except Exception as e:
-        logger.error(f"Error while creating a connection: {e}", exc_info=True)
+        logger.error(
+            f"Error while listing connections for {customer.identifier}: {e}",
+            exc_info=True,
+        )
         return JSONResponse(
             status_code=500,
-            detail="Something went wrong while creating a connection in Saltedge",
+            content=f"Something went wrong while listing Saltedge connections for identifier {customer.identifier}",
         )
 
 
