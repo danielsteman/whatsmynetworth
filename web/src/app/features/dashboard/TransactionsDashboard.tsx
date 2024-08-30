@@ -1,5 +1,6 @@
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { DashboardsProps } from "./Dashboards";
+import SyncButton from "./SyncButton";
 
 const TransactionsDashboard: React.FC<DashboardsProps> = ({ session }) => {
   // TODO: get next-auth session on client side
@@ -12,6 +13,9 @@ const TransactionsDashboard: React.FC<DashboardsProps> = ({ session }) => {
         <div className="ml-auto">
           <NewAccountButton currentUser={session} />
         </div>
+      </div>
+      <div>
+        <SyncButton />
       </div>
     </div>
   );
