@@ -15,7 +15,7 @@ const TransactionsDashboard: React.FC<DashboardsProps> = ({ session }) => {
         </div>
       </div>
       <div>
-        <SyncButton />
+        <SyncButton connectionId={""} />
       </div>
     </div>
   );
