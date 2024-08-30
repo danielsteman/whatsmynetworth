@@ -15,7 +15,7 @@ const Settings = async () => {
   return (
     <div className="flex flex-row p-8 gap-12">
       <SettingsSideMenu />
-      <SettingsForm />
+      <SettingsForm connections={connections} />
     </div>
   );
 };

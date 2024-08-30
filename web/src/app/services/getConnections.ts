@@ -57,7 +57,7 @@ interface LastAttempt {
   last_stage: LastStage;
 }
 
-interface Connection {
+export interface Connection {
   country_code: string;
   created_at: Date;
   customer_id: string;
