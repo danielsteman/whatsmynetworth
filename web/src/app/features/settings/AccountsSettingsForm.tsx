@@ -1,7 +1,7 @@
 const AccountsSettingsForm = () => {
   return (
     <div>
-      <h2>Account</h2>
+      <h2 className="font-bold text-lg">Account</h2>
     </div>
   );
 };

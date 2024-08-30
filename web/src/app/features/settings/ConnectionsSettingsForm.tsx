@@ -9,8 +9,8 @@ const ConnectionsSettingsForm: React.FC<ConnectionsSettingsFormProps> = ({
     return <p>No connections available.</p>;
   }
   return (
-    <div>
-      <h2>Connections</h2>
+    <div className="flex flex-col gap-4">
+      <h2 className="font-bold text-lg">Connections</h2>
       <table className="table-auto w-full">
         <thead>
           <tr>
@@ -22,15 +22,21 @@ const ConnectionsSettingsForm: React.FC<ConnectionsSettingsFormProps> = ({
           </tr>
         </thead>
         <tbody>
-          {connections.map((conn) => (
-            <tr key={conn.id}>
-              <td className="px-4 py-2">{conn.id}</td>
-              <td className="px-4 py-2">
-                {new Date(conn.created_at).toLocaleString()}
-              </td>
-              <td className="px-4 py-2">{conn.status}</td>
-            </tr>
-          ))}
+          {connections
+            .sort(
+              (a, b) =>
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+            )
+            .map((conn) => (
+              <tr key={conn.id}>
+                <td className="px-4 py-2">{conn.id}</td>
+                <td className="px-4 py-2">
+                  {new Date(conn.created_at).toLocaleString()}
+                </td>
+                <td className="px-4 py-2">{conn.status}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
