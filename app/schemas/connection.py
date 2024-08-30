@@ -17,6 +17,10 @@ class ListConnections(CreateConnection):
     pass
 
 
+class GetActiveConnection(CreateConnection):
+    pass
+
+
 class Address(BaseModel):
     city: str
     state: str

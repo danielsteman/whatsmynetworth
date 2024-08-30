@@ -1,5 +1,11 @@
 from .account import Account
-from .connection import Connection, ConnectionLink, CreateConnection, ListConnections
+from .connection import (
+    Connection,
+    ConnectionLink,
+    CreateConnection,
+    GetActiveConnection,
+    ListConnections,
+)
 from .customer import CreateCustomer, Customer
 from .provider import Provider
 
@@ -10,6 +16,7 @@ __all__ = [
     "Connection",
     "ConnectionLink",
     "CreateConnection",
+    "GetActiveConnection",
     "ListConnections",
     "Provider",
 ]
