@@ -8,6 +8,9 @@ docker-compose up
 
 Or run all tasks in VSCode.
 
+cmd + shift + p
+"Tasks: Run All"
+
 ## Sec
 
 Generate public key:
