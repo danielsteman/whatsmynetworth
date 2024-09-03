@@ -8,7 +8,7 @@ from sqlalchemy.orm.session import Session
 from app import schemas
 from app.db.session import get_db
 from app.dependencies import get_salt_edge_client
-from app.repositories import account_repository
+from app.repositories import account_repository, connection_repository
 from app.utils.saltedge.client import SaltEdgeClient
 
 router = APIRouter()
@@ -17,10 +17,14 @@ logger = logging.getLogger("uvicorn.error")
 
 @router.post("/", response_model=list[schemas.Account], tags=["accounts"])
 async def list_accounts(
-    connection_id: str,
+    customer_identifier: str,
+    db: Annotated[Session, Depends(get_db)],
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
 ) -> list[schemas.Account]:
-    accounts = client.list_accounts(connection_id=connection_id)
+    connection = connection_repository.get_active_connection(
+        db, client, customer_identifier
+    )
+    accounts = client.list_accounts(connection_id=connection.id)
     return accounts
 
 
