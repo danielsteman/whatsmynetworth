@@ -1,14 +1,18 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Response
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from app import schemas
 from app.db.session import get_db
 from app.dependencies import get_salt_edge_client
-from app.repositories import connection_repository, customer_repository
+from app.repositories import (
+    account_repository,
+    connection_repository,
+    customer_repository,
+)
 from app.repositories.customer_repository import get_customer_by_identifier
 from app.utils.saltedge.client import SaltEdgeClient
 
@@ -90,28 +94,36 @@ async def get_newest_active_connection(
 
 
 @router.post("/callback/success", tags=["connections"])
-async def successful_connection_callback(callback: schemas.Callback) -> Response:
+async def successful_connection_callback(
+    callback: schemas.Callback,
+    background_tasks: BackgroundTasks,
+    client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
+    db: Annotated[Session, Depends(get_db)],
+) -> Response:
     logger.info("Received success callback")
     if callback.data.stage == "finish":
         logger.info(
             f"Finished fetching accounts and transactions for customer {callback.data.customer_id} using connection {callback.data.connection_id}"
         )
-        # start background task to ingest accounts and transactions in database
-
-    logger.info(f"Success callback request content: {callback.model_dump()}")
-
-    return
+        background_tasks.add_task(
+            account_repository.ingest_all_accounts,
+            connection_id=callback.data.connection_id,
+            client=client,
+            db=db,
+        )
+    logger.debug(f"Success callback request content: {callback.model_dump()}")
+    return Response(status_code=200)
 
 
 @router.post("/callback/notify", tags=["connections"])
 async def notify_connection_callback(callback: schemas.Callback) -> Response:
     logger.info("Received notify callback")
-    logger.info(f"Notify callback request content: {callback.model_dump()}")
+    logger.debug(f"Notify callback request content: {callback.model_dump()}")
     return
 
 
 @router.post("/callback/fail", tags=["connections"])
 async def failed_connection_callback(callback: schemas.Callback) -> Response:
     logger.info("Received fail callback")
-    logger.info(f"Fail callback request content: {callback.model_dump()}")
+    logger.debug(f"Fail callback request content: {callback.model_dump()}")
     return
