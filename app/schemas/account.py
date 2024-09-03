@@ -12,3 +12,7 @@ class Account(BaseModel):
     connection_id: str
     created_at: datetime
     updated_at: datetime
+
+
+class ListAccounts(BaseModel):
+    identifier: str

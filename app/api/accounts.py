@@ -17,13 +17,17 @@ logger = logging.getLogger("uvicorn.error")
 
 @router.post("/", response_model=list[schemas.Account], tags=["accounts"])
 async def list_accounts(
-    customer_identifier: str,
+    body: schemas.ListAccounts,
     db: Annotated[Session, Depends(get_db)],
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
 ) -> list[schemas.Account]:
     connection = connection_repository.get_active_connection(
-        db, client, customer_identifier
+        db, client, body.identifier
     )
+    if not connection:
+        return JSONResponse(
+            status_code=500, content={"error": "Couldn't find active connection"}
+        )
     accounts = client.list_accounts(connection_id=connection.id)
     return accounts
 

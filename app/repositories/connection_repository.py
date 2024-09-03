@@ -50,7 +50,9 @@ def get_active_connection(
     TODO: connections should be stored in database and fetched from there
     But then we first need to handle them callbacks after consent
     """
-    db_customer = customer_repository.get_customer_by_identifier(identifier=identifier)
+    db_customer = customer_repository.get_customer_by_identifier(
+        db, identifier=identifier
+    )
     customer_id = db_customer.id
     connections = client.list_connections(customer_id)
     active_connections = [conn for conn in connections if conn.status == "active"]

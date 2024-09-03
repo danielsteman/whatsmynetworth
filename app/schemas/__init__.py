@@ -1,4 +1,4 @@
-from .account import Account
+from .account import Account, ListAccounts
 from .callback import Callback
 from .connection import (
     Connection,
@@ -20,6 +20,7 @@ __all__ = [
     "ConnectionLink",
     "CreateConnection",
     "GetActiveConnection",
+    "ListAccounts",
     "ListConnections",
     "Provider",
     "Transaction",
