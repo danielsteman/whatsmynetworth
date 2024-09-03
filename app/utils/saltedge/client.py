@@ -9,6 +9,7 @@ from app.schemas.account import Account
 from app.schemas.connection import Connection, ConnectionLink
 from app.schemas.customer import Customer, DeletedCustomer
 from app.schemas.provider import Provider
+from app.utils.saltedge import constants
 from app.utils.saltedge.date_utils import get_timedelta_str
 from app.utils.saltedge.exceptions import (
     ConnectionCreationError,
@@ -18,12 +19,6 @@ from app.utils.saltedge.exceptions import (
 )
 
 logger = logging.getLogger(__name__)
-
-PROVIDERS_URL = "https://www.saltedge.com/api/v5/providers"
-CUSTOMERS_URL = "https://www.saltedge.com/api/v5/customers"
-CONNECT_SESSIONS_URL = "https://www.saltedge.com/api/v5/connect_sessions"
-CONNECTIONS_URL = "https://www.saltedge.com/api/v5/connections"
-ACCOUNTS_URL = "https://www.saltedge.com/api/v5/accounts"
 
 
 class SaltEdgeConfig:
@@ -75,7 +70,7 @@ class SaltEdgeClient(httpx.Client):
         if next_url:
             url = next_url
         else:
-            url = PROVIDERS_URL
+            url = constants.PROVIDERS_URL
 
         response = self.request(url, params={"country_code": country_code})
 
@@ -105,7 +100,7 @@ class SaltEdgeClient(httpx.Client):
         """
         body = {"data": {"identifier": id_}}
         try:
-            response = self.request(CUSTOMERS_URL, "POST", json=body)
+            response = self.request(constants.CUSTOMERS_URL, "POST", json=body)
             data = response.json()
             customer = data.get("data")
 
@@ -139,7 +134,7 @@ class SaltEdgeClient(httpx.Client):
             }
         }
         """
-        url = f"{CUSTOMERS_URL}/{id_}"
+        url = f"{constants.CUSTOMERS_URL}/{id_}"
         try:
             response = self.request(url, "GET")
             data = response.json()
@@ -170,7 +165,7 @@ class SaltEdgeClient(httpx.Client):
             }
         }
         """
-        url = f"{CUSTOMERS_URL}/{id_}"
+        url = f"{constants.CUSTOMERS_URL}/{id_}"
         try:
             response = self.request(url, "DELETE")
             data = response.json()
@@ -195,7 +190,7 @@ class SaltEdgeClient(httpx.Client):
         """
         Docs: https://docs.saltedge.com/account_information/v5/#connect_sessions-create
         """
-        url = f"{CONNECT_SESSIONS_URL}/create"
+        url = f"{constants.CONNECT_SESSIONS_URL}/create"
         data = {
             "data": {
                 "customer_id": customer_id,
@@ -227,7 +222,9 @@ class SaltEdgeClient(httpx.Client):
         return ConnectionLink(**connection_data)
 
     def list_connections(self, customer_id: str) -> list[Connection]:
-        response = self.request(CONNECTIONS_URL, params={"customer_id": customer_id})
+        response = self.request(
+            constants.CONNECTIONS_URL, params={"customer_id": customer_id}
+        )
         data = response.json()
         connections_data = data.get("data")
         if not connections_data:
@@ -237,7 +234,9 @@ class SaltEdgeClient(httpx.Client):
         return [Connection(**connection_dict) for connection_dict in connections_data]
 
     def list_accounts(self, connection_id: str) -> list[Account] | None:
-        response = self.request(ACCOUNTS_URL, params={"connection_id": connection_id})
+        response = self.request(
+            constants.ACCOUNTS_URL, params={"connection_id": connection_id}
+        )
         data = response.json()
         accounts_data = data.get("data")
         if accounts_data is None:
