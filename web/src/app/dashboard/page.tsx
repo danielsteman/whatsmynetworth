@@ -5,7 +5,27 @@ import authOptions from "../auth";
 import { redirect } from "next/navigation";
 import Dashboards from "../features/dashboard/Dashboards";
 
-const fetchAccounts = async (customerIdentifier: string) => {
+interface Account {
+  id: string;
+  name: string;
+  nature: string;
+  balance: number;
+  currency_code: string;
+  extra?: {
+    cards: string[];
+    transactions_count: {
+      posted: number;
+      pending: number;
+    };
+  };
+  connection_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+const fetchAccounts = async (
+  customerIdentifier: string
+): Promise<Account[]> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/accounts`,
     {
