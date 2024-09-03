@@ -11,9 +11,9 @@ def test_read_main():
     assert response.json() == {"message": "Hello World"}
 
 
-def test_list_accounts_route(consented_customer_id):
+def test_list_accounts_route(consented_customer_identifier):
     response = client.post(
-        "/api/accounts", data={"connection_id": consented_customer_id}
+        "/api/accounts", json={"identifier": consented_customer_identifier}
     )
     accounts = response.json()
     assert accounts
