@@ -6,18 +6,28 @@ import AccountsDashboard from "./AccountsDashboard";
 import DefaultDashboard from "./DefaultDashboard";
 import { Session } from "next-auth";
 import TransactionsDashboard from "./TransactionsDashboard";
+import { Account } from "../../dashboard/page";
 
-export interface DashboardsProps {
+export interface DashboardProps {
   session: Session;
 }
 
-const Dashboards: React.FC<DashboardsProps> = ({ session }) => {
+export interface AccountsDashboardProps extends DashboardProps {
+  accounts: Account[];
+}
+
+type CombinedDashboardProps = DashboardProps & AccountsDashboardProps;
+
+const Dashboards: React.FC<CombinedDashboardProps> = ({
+  session,
+  accounts,
+}) => {
   const currentTab = useSelector(
     (state: RootState) => state.navigation.currentTab
   );
   const tabDashboardMapping = {
     Dashboard: <DefaultDashboard session={session} />,
-    Accounts: <AccountsDashboard session={session} />,
+    Accounts: <AccountsDashboard session={session} accounts={accounts} />,
     Transactions: <TransactionsDashboard session={session} />,
   };
   return tabDashboardMapping[currentTab];

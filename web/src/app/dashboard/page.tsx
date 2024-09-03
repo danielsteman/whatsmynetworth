@@ -5,7 +5,7 @@ import authOptions from "../auth";
 import { redirect } from "next/navigation";
 import Dashboards from "../features/dashboard/Dashboards";
 
-interface Account {
+export interface Account {
   id: string;
   name: string;
   nature: string;
@@ -57,7 +57,7 @@ export default async function Dashboard() {
           <div className="h-4" />
           <Portfolio />
         </div>
-        <Dashboards session={session} />
+        <Dashboards session={session} accounts={accounts} />
       </div>
     </>
   );

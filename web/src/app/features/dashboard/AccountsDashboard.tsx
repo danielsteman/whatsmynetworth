@@ -1,7 +1,10 @@
 import NewAccountButton from "../newAccount/NewAccountButton";
-import { DashboardsProps } from "./Dashboards";
+import { AccountsDashboardProps } from "./Dashboards";
 
-const AccountsDashboard: React.FC<DashboardsProps> = ({ session }) => {
+const AccountsDashboard: React.FC<AccountsDashboardProps> = ({
+  session,
+  accounts,
+}) => {
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row">
