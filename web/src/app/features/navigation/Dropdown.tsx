@@ -79,7 +79,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children }) => {
           <DropdownItem
             label="Connections"
             logo={<IoIosLink />}
-            href="/connections"
+            href="/settings"
           />
           <DropdownItem
             label="Sign out"

@@ -10,18 +10,20 @@ const ConnectionsSettingsForm: React.FC<ConnectionsSettingsFormProps> = ({
   }
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="font-bold text-lg">Connections</h2>
-      <table className="table-auto w-full">
+      <h2 className="px-4 py-2 font-semibold text-md w-full bg-neutral-100 rounded-lg">
+        Connections
+      </h2>
+      <table className="table-auto w-full bg-neutral-100 rounded-lg">
         <thead>
           <tr>
             {["ID", "Created At", "Status"].map((header) => (
-              <th key={header} className="text-left px-4 py-2">
+              <th key={header} className="text-left text-sm px-4 py-2">
                 {header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-sm">
           {connections
             .sort(
               (a, b) =>
