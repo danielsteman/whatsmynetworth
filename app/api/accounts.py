@@ -19,7 +19,6 @@ logger = logging.getLogger("uvicorn.error")
 async def list_accounts(
     connection_id: str,
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
-    db: Annotated[Session, Depends(get_db)],
 ) -> list[schemas.Account]:
     accounts = client.list_accounts(connection_id=connection_id)
     return accounts
@@ -28,7 +27,6 @@ async def list_accounts(
 @router.post("/create", response_model=schemas.Account, tags=["accounts"])
 async def create_account(
     account: schemas.Account,
-    client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
     db: Annotated[Session, Depends(get_db)],
 ) -> Response:
     try:
