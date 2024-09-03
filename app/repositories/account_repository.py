@@ -1,6 +1,11 @@
+import logging
+
 from sqlalchemy.orm import Session
 
 from app import models, schemas
+from app.utils.saltedge.client import SaltEdgeClient
+
+logger = logging.getLogger("uvicorn.error")
 
 
 def get_account_by_identifier(db: Session, identifier: str) -> models.Account | None:
@@ -22,3 +27,13 @@ def create_account_in_db(db: Session, account: schemas.Account) -> models.Accoun
     db.commit()
     db.refresh(db_account)
     return db_account
+
+
+def ingest_all_accounts(
+    connection_id: str, db: Session, client: SaltEdgeClient
+) -> None:
+    accounts = client.list_accounts(connection_id)
+    for account in accounts:
+        create_account_in_db(db, account)
+        logger.info(f"Connection {connection_id}: ingested account {account.id}")
+    logger.info(f"Connection {connection_id}: finished ingesting all accounts")

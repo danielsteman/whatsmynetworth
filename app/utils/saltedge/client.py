@@ -236,13 +236,16 @@ class SaltEdgeClient(httpx.Client):
         logger.info(f"Found {len(connections_data)} connections for {customer_id}")
         return [Connection(**connection_dict) for connection_dict in connections_data]
 
-    def list_accounts(self, connection_id: str) -> list[Account]:
+    def list_accounts(self, connection_id: str) -> list[Account] | None:
         response = self.request(ACCOUNTS_URL, params={"connection_id": connection_id})
         data = response.json()
         accounts_data = data.get("data")
-        if not accounts_data:
+        if accounts_data is None:
             logger.error(
                 "Something went wrong getting accounts: No accounts data in response"
             )
             raise ListAccountsError("No connection data in response from SaltEdge API")
+        if not accounts_data:
+            logger.warning(f"Connection {connection_id}: has no accounts")
+            return None
         return [Account(**account_dict) for account_dict in accounts_data]
