@@ -90,18 +90,28 @@ async def get_newest_active_connection(
 
 
 @router.post("/callback/success", tags=["connections"])
-async def successful_connection_callback() -> Response:
+async def successful_connection_callback(callback: schemas.Callback) -> Response:
     logger.info("Received success callback")
+    if callback.data.stage == "finish":
+        logger.info(
+            f"Finished fetching accounts and transactions for customer {callback.data.customer_id} using connection {callback.data.connection_id}"
+        )
+        # start background task to ingest accounts and transactions in database
+
+    logger.info(f"Success callback request content: {callback.model_dump()}")
+
     return
 
 
 @router.post("/callback/notify", tags=["connections"])
-async def notify_connection_callback() -> Response:
-    logger.info("Received success callback")
+async def notify_connection_callback(callback: schemas.Callback) -> Response:
+    logger.info("Received notify callback")
+    logger.info(f"Notify callback request content: {callback.model_dump()}")
     return
 
 
 @router.post("/callback/fail", tags=["connections"])
-async def failed_connection_callback() -> Response:
+async def failed_connection_callback(callback: schemas.Callback) -> Response:
     logger.info("Received fail callback")
+    logger.info(f"Fail callback request content: {callback.model_dump()}")
     return

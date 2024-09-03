@@ -1,4 +1,5 @@
 from .account import Account
+from .callback import Callback
 from .connection import (
     Connection,
     ConnectionLink,
@@ -19,4 +20,5 @@ __all__ = [
     "GetActiveConnection",
     "ListConnections",
     "Provider",
+    "Callback",
 ]
