@@ -9,6 +9,7 @@ from app.schemas.account import Account
 from app.schemas.connection import Connection, ConnectionLink
 from app.schemas.customer import Customer, DeletedCustomer
 from app.schemas.provider import Provider
+from app.schemas.transaction import Transaction
 from app.utils.saltedge import constants
 from app.utils.saltedge.date_utils import get_timedelta_str
 from app.utils.saltedge.exceptions import (
@@ -16,6 +17,7 @@ from app.utils.saltedge.exceptions import (
     CustomerAlreadyExists,
     CustomerCreationError,
     ListAccountsError,
+    ListTransactionsError,
 )
 
 logger = logging.getLogger(__name__)
@@ -243,8 +245,34 @@ class SaltEdgeClient(httpx.Client):
             logger.error(
                 "Something went wrong getting accounts: No accounts data in response"
             )
-            raise ListAccountsError("No connection data in response from SaltEdge API")
+            raise ListAccountsError(
+                "No connection data found in response from SaltEdge API"
+            )
         if not accounts_data:
             logger.warning(f"Connection {connection_id}: has no accounts")
             return None
         return [Account(**account_dict) for account_dict in accounts_data]
+
+    def list_transactions(
+        self, account_id: str, connection_id: str
+    ) -> list[Transaction] | None:
+        response = self.request(
+            constants.TRANSACTIONS_URL,
+            params={"connection_id": connection_id, "account_id": account_id},
+        )
+        data = response.json()
+        transactions_data = data.get("data")
+
+        if transactions_data is None:
+            logger.error(
+                "Something went wrong getting transactions: No transactions data found in response"
+            )
+            raise ListTransactionsError()
+
+        if not transactions_data:
+            logger.warning(f"Account {account_id}: has no transactions")
+            return None
+
+        return [
+            Transaction(**transaction_dict) for transaction_dict in transactions_data
+        ]

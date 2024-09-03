@@ -9,9 +9,11 @@ from .connection import (
 )
 from .customer import CreateCustomer, Customer
 from .provider import Provider
+from .transaction import Transaction
 
 __all__ = [
     "Account",
+    "Callback",
     "Customer",
     "CreateCustomer",
     "Connection",
@@ -20,5 +22,5 @@ __all__ = [
     "GetActiveConnection",
     "ListConnections",
     "Provider",
-    "Callback",
+    "Transaction",
 ]
