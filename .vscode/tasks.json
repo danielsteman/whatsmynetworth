@@ -4,7 +4,7 @@
     {
       "label": "Run API",
       "type": "shell",
-      "command": "rye run api",
+      "command": "fastapi dev",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
@@ -14,7 +14,7 @@
     {
       "label": "Run Web",
       "type": "shell",
-      "command": "rye run web",
+      "command": "yarn --cwd web dev",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
