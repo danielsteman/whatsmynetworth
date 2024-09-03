@@ -32,8 +32,18 @@
       }
     },
     {
+      "label": "ngrok",
+      "type": "shell",
+      "command": "ngrok http --domain=tightly-rested-pigeon.ngrok-free.app 8000",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
       "label": "Run All",
-      "dependsOn": ["Run API", "Run Web", "Docker Compose Up"],
+      "dependsOn": ["Run API", "Run Web", "Docker Compose Up", "ngrok"],
       "problemMatcher": [],
       "presentation": {
         "reveal": "always"
