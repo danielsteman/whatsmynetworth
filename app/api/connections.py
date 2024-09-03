@@ -95,6 +95,12 @@ async def successful_connection_callback() -> Response:
     return
 
 
+@router.post("/callback/notify", tags=["connections"])
+async def notify_connection_callback() -> Response:
+    logger.info("Received success callback")
+    return
+
+
 @router.post("/callback/fail", tags=["connections"])
 async def failed_connection_callback() -> Response:
     logger.info("Received fail callback")
