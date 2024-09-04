@@ -12,6 +12,7 @@ from app.utils.saltedge.client import SaltEdgeClient
 
 MOCK_CUSTOMER_ID = "1348870464449026771"
 MOCK_CUSTOMER_IDENTIFIER = "cm051ltey00001utwf0wxrk1v"
+MOCK_ACCOUNT_ID = "1349423927247509733"
 
 
 @pytest.fixture
@@ -35,6 +36,11 @@ def consented_customer_identifier():
     This id is set manually, not ideal, but mocking is too much work
     """
     return MOCK_CUSTOMER_IDENTIFIER
+
+
+@pytest.fixture
+def consented_customer_account_id():
+    return MOCK_ACCOUNT_ID
 
 
 @pytest.fixture
