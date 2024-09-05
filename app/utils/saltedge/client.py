@@ -273,6 +273,8 @@ class SaltEdgeClient(httpx.Client):
             logger.warning(f"Account {account_id}: has no transactions")
             return None
 
+        print(transactions_data)
+
         return [
             Transaction(**transaction_dict) for transaction_dict in transactions_data
         ]
