@@ -7,7 +7,7 @@ def test_list_transactions(
         consented_account_id,
         consented_connection_id,
     )
-    assert transactions
+    assert len(transactions) == 100
 
 
 def test_get_transactions_by_customer_identifier() -> None:

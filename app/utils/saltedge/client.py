@@ -123,19 +123,6 @@ class SaltEdgeClient(httpx.Client):
         return customer_object
 
     def get_customer(self, id_: str) -> Optional[Customer]:
-        """
-        returns:
-        {
-            "data": {
-                "id": "222222222222222222",
-                "identifier": "12rv1212f1efxchsdhbgv",
-                "secret": "secret",
-                "blocked_at": "2021-03-15T09:43:01Z",
-                "created_at": "2020-03-12T09:20:01Z",
-                "updated_at": "2020-03-12T09:20:01Z"
-            }
-        }
-        """
         url = f"{constants.CUSTOMERS_URL}/{id_}"
         try:
             response = self.request(url, "GET")
@@ -158,15 +145,6 @@ class SaltEdgeClient(httpx.Client):
             return None
 
     def delete_customer(self, id_: str) -> Optional[DeletedCustomer]:
-        """
-        returns:
-        {
-            "data": {
-                "deleted": true,
-                "id": "123"
-            }
-        }
-        """
         url = f"{constants.CUSTOMERS_URL}/{id_}"
         try:
             response = self.request(url, "DELETE")
@@ -189,9 +167,6 @@ class SaltEdgeClient(httpx.Client):
             return None
 
     def create_connect_session(self, customer_id: str) -> Connection:
-        """
-        Docs: https://docs.saltedge.com/account_information/v5/#connect_sessions-create
-        """
         url = f"{constants.CONNECT_SESSIONS_URL}/create"
         data = {
             "data": {
@@ -272,8 +247,6 @@ class SaltEdgeClient(httpx.Client):
         if not transactions_data:
             logger.warning(f"Account {account_id}: has no transactions")
             return None
-
-        print(transactions_data)
 
         return [
             Transaction(**transaction_dict) for transaction_dict in transactions_data
