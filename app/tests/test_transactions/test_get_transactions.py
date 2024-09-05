@@ -1,8 +1,11 @@
 def test_list_transactions(
-    client, consented_customer_id, consented_customer_account_id
+    client,
+    consented_connection_id,
+    consented_account_id,
 ):
     transactions = client.list_transactions(
-        consented_customer_account_id, consented_customer_id
+        consented_account_id,
+        consented_connection_id,
     )
     assert transactions
 
