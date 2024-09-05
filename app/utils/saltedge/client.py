@@ -228,12 +228,16 @@ class SaltEdgeClient(httpx.Client):
             return None
         return [Account(**account_dict) for account_dict in accounts_data]
 
-    def list_transactions(
-        self, account_id: str, connection_id: str
+    def get_transactions_page(
+        self, account_id: str, connection_id: str, next_id: int | None = None
     ) -> list[Transaction] | None:
+        params = {"connection_id": connection_id, "account_id": account_id}
+        if next_id:
+            params["from_id"] = next_id
+
         response = self.request(
             constants.TRANSACTIONS_URL,
-            params={"connection_id": connection_id, "account_id": account_id},
+            params=params,
         )
         data = response.json()
         transactions_data = data.get("data")

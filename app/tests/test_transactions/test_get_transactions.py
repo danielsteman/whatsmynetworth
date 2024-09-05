@@ -1,9 +1,9 @@
-def test_list_transactions(
+def test_get_transactions_page(
     client,
     consented_connection_id,
     consented_account_id,
 ):
-    transactions = client.list_transactions(
+    transactions = client.get_transactions_page(
         consented_account_id,
         consented_connection_id,
     )
