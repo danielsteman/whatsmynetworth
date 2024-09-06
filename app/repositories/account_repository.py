@@ -1,5 +1,6 @@
 import logging
 
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app import models, schemas
@@ -58,3 +59,15 @@ def ingest_all_accounts(
         create_or_update_account_in_db(db, account)
         logger.info(f"Connection {connection_id}: ingested account {account.id}")
     logger.info(f"Connection {connection_id}: finished ingesting all accounts")
+
+
+def get_all_accounts_from_db(connection_id: str, db: Session) -> list[schemas.Account]:
+    try:
+        accounts = db.query(models.Account).filter_by(connection_id=connection_id).all()
+        return accounts
+    except SQLAlchemyError as e:
+        logger.error(f"Failed to get accounts from database: {e}")
+        return []
+    except Exception as e:
+        logger.error(f"An unexpected error occurred: {e}")
+        return []
