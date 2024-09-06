@@ -29,6 +29,7 @@ async def list_accounts(
             status_code=500, content={"error": "Couldn't find active connection"}
         )
     accounts = client.list_accounts(connection_id=connection.id)
+    # accounts = account_repository.get_all_accounts_from_db(db, connection.id)
     return accounts
 
 

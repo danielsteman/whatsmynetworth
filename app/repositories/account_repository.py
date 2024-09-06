@@ -52,7 +52,9 @@ def create_or_update_account_in_db(
 
 
 def ingest_all_accounts(
-    connection_id: str, db: Session, client: SaltEdgeClient
+    db: Session,
+    client: SaltEdgeClient,
+    connection_id: str,
 ) -> None:
     accounts = client.list_accounts(connection_id)
     for account in accounts:
@@ -61,7 +63,7 @@ def ingest_all_accounts(
     logger.info(f"Connection {connection_id}: finished ingesting all accounts")
 
 
-def get_all_accounts_from_db(connection_id: str, db: Session) -> list[schemas.Account]:
+def get_all_accounts_from_db(db: Session, connection_id: str) -> list[schemas.Account]:
     try:
         accounts = db.query(models.Account).filter_by(connection_id=connection_id).all()
         return accounts

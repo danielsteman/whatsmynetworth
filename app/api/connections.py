@@ -107,9 +107,9 @@ async def successful_connection_callback(
         )
         background_tasks.add_task(
             account_repository.ingest_all_accounts,
+            db=db,
             connection_id=callback.data.connection_id,
             client=client,
-            db=db,
         )
     logger.debug(f"Success callback request content: {callback.model_dump()}")
     return Response(status_code=200)
