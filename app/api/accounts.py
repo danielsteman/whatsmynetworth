@@ -10,6 +10,7 @@ from app.db.session import get_db
 from app.dependencies import get_salt_edge_client
 from app.repositories import account_repository, connection_repository
 from app.utils.saltedge.client import SaltEdgeClient
+from app.utils.saltedge.exceptions import ActiveConnectionNotFound
 
 router = APIRouter()
 logger = logging.getLogger("uvicorn.error")
@@ -25,10 +26,11 @@ async def list_accounts(
         db, client, body.identifier
     )
     if not connection:
-        return JSONResponse(
-            status_code=500, content={"error": "Couldn't find active connection"}
-        )
+        raise ActiveConnectionNotFound()
+
     accounts = client.list_accounts(connection_id=connection.id)
+    if not accounts:
+        return []
     # accounts = account_repository.get_all_accounts_from_db(db, connection.id)
     return accounts
 
@@ -43,6 +45,7 @@ async def create_account(
         if db_account:
             logger.info(f"Account {account.id} already exists in database")
             return JSONResponse(
+                content="Account {account.id} already exists in database",
                 status_code=status.HTTP_204_NO_CONTENT,
             )
         new_db_account = account_repository.create_account_in_db(db, account)
