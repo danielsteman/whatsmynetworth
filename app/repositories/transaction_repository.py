@@ -1,6 +1,10 @@
 from sqlalchemy.orm import Session
 
+# from app import models, schemas
+# from app.repositories import connection_repository
 from app.utils.saltedge.client import SaltEdgeClient
+
+# async def create_transactions(db: Session, transactions: schemas.Transaction) -> models:
 
 
 async def get_transactions(
