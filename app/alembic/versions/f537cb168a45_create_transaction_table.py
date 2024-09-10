@@ -36,7 +36,7 @@ def upgrade() -> None:
     )
 
     op.create_table(
-        "transaction",
+        "transactions",
         sa.Column("id", sa.String(), primary_key=True),
         sa.Column("duplicated", sa.Boolean(), nullable=False),
         sa.Column("mode", sa.String(), nullable=False),
@@ -59,5 +59,5 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_table("transaction")
+    op.drop_table("transactions")
     op.drop_table("transaction_metadata")

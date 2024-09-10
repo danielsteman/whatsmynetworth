@@ -21,9 +21,11 @@ class TransactionMetadata(Base):
     account_balance_snapshot = Column(Float, nullable=True)
     categorization_confidence = Column(Float, nullable=True)
 
+    transactions = relationship("Transaction", back_populates="extra")
+
 
 class Transaction(Base):
-    __tablename__ = "transaction"
+    __tablename__ = "transactions"
 
     id = Column(String, primary_key=True)
     duplicated = Column(Boolean, nullable=False)
@@ -35,12 +37,7 @@ class Transaction(Base):
     description = Column(Text, nullable=True)
     category = Column(String, nullable=True)
     extra_id = Column(String, ForeignKey("transaction_metadata.id"), nullable=True)
-    extra = relationship("transaction_metadata", back_populates="transactions")
+    extra = relationship("TransactionMetadata", back_populates="transactions")
     account_id = Column(String, nullable=False)
     created_at = Column(String, nullable=False)
     updated_at = Column(String, nullable=False)
-
-
-TransactionMetadata.transactions = relationship(
-    "Transaction", order_by=Transaction.id, back_populates="transaction_metadata"
-)
