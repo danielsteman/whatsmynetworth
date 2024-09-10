@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Extra(BaseModel):
+class TransactionMetadata(BaseModel):
     merchant_id: str | None = None
     original_amount: float | None = None
     original_currency_code: str | None = None
@@ -27,7 +27,7 @@ class Transaction(BaseModel):
     currency_code: str
     description: str | None = None
     category: str | None = None
-    extra: Extra | None = None
+    extra: TransactionMetadata | None = None
     account_id: str
     created_at: str
     updated_at: str
