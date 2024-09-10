@@ -34,13 +34,13 @@ class Transaction(Base):
     currency_code = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     category = Column(String, nullable=True)
-    extra_id = Column(String, ForeignKey("extra.id"), nullable=True)
-    extra = relationship("Extra", back_populates="transactions")
+    extra_id = Column(String, ForeignKey("transaction_metadata.id"), nullable=True)
+    extra = relationship("transaction_metadata", back_populates="transactions")
     account_id = Column(String, nullable=False)
     created_at = Column(String, nullable=False)
     updated_at = Column(String, nullable=False)
 
 
 TransactionMetadata.transactions = relationship(
-    "Transaction", order_by=Transaction.id, back_populates="extra"
+    "Transaction", order_by=Transaction.id, back_populates="transaction_metadata"
 )
