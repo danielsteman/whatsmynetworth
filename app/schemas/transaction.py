@@ -31,3 +31,8 @@ class Transaction(BaseModel):
     account_id: str
     created_at: str
     updated_at: str
+
+
+class TransactionPage(BaseModel):
+    data: list[Transaction]
+    next_page: str

@@ -1,7 +1,7 @@
 import logging
 import os
 import time
-from typing import Any, Optional
+from typing import Any
 
 import httpx
 
@@ -9,7 +9,7 @@ from app.schemas.account import Account
 from app.schemas.connection import Connection, ConnectionLink
 from app.schemas.customer import Customer, DeletedCustomer
 from app.schemas.provider import Provider
-from app.schemas.transaction import Transaction
+from app.schemas.transaction import Transaction, TransactionPage
 from app.utils.saltedge import constants
 from app.utils.saltedge.date_utils import get_timedelta_str
 from app.utils.saltedge.exceptions import (
@@ -122,7 +122,7 @@ class SaltEdgeClient(httpx.Client):
         customer_object = Customer(**customer)
         return customer_object
 
-    def get_customer(self, id_: str) -> Optional[Customer]:
+    def get_customer(self, id_: str) -> Customer | None:
         url = f"{constants.CUSTOMERS_URL}/{id_}"
         try:
             response = self.request(url, "GET")
@@ -144,7 +144,7 @@ class SaltEdgeClient(httpx.Client):
             logger.error(f"Request error occurred while getting a customer: {e}")
             return None
 
-    def delete_customer(self, id_: str) -> Optional[DeletedCustomer]:
+    def delete_customer(self, id_: str) -> DeletedCustomer | None:
         url = f"{constants.CUSTOMERS_URL}/{id_}"
         try:
             response = self.request(url, "DELETE")
@@ -229,18 +229,19 @@ class SaltEdgeClient(httpx.Client):
         return [Account(**account_dict) for account_dict in accounts_data]
 
     def get_transactions_page(
-        self, account_id: str, connection_id: str, next_id: int | None = None
-    ) -> list[Transaction] | None:
+        self, account_id: str, connection_id: str, next_page: int | None = None
+    ) -> TransactionPage | None:
         params = {"connection_id": connection_id, "account_id": account_id}
-        if next_id:
-            params["from_id"] = next_id
-
+        endpoint = next_page if next_page else constants.TRANSACTIONS_URL
+        url = f"{constants.BASE_URL}/{endpoint}"
         response = self.request(
-            constants.TRANSACTIONS_URL,
+            url,
             params=params,
         )
         data = response.json()
+        print(data)
         transactions_data = data.get("data")
+        next_page = data.get("meta").get("next_page")
 
         if transactions_data is None:
             logger.error(
@@ -252,6 +253,12 @@ class SaltEdgeClient(httpx.Client):
             logger.warning(f"Account {account_id}: has no transactions")
             return None
 
-        return [
-            Transaction(**transaction_dict) for transaction_dict in transactions_data
-        ]
+        transaction_page = TransactionPage(
+            data=[
+                Transaction(**transaction_dict)
+                for transaction_dict in transactions_data
+            ],
+            next_page=next_page,
+        )
+
+        return transaction_page
