@@ -9,7 +9,7 @@ from app.schemas.account import Account
 from app.schemas.connection import Connection, ConnectionLink
 from app.schemas.customer import Customer, DeletedCustomer
 from app.schemas.provider import Provider
-from app.schemas.transaction import Transaction, TransactionPage
+from app.schemas.transaction import Transaction
 from app.utils.saltedge import constants
 from app.utils.saltedge.date_utils import get_timedelta_str
 from app.utils.saltedge.exceptions import (
@@ -44,6 +44,7 @@ class SaltEdgeClient(httpx.Client):
             }
         )
         self.providers: list[Provider] = []
+        self.transactions: list[Transaction] = []
 
     def request(
         self, url: str, method: str = "GET", *args: list[Any], **kwargs: dict[str, Any]
@@ -228,20 +229,23 @@ class SaltEdgeClient(httpx.Client):
             return None
         return [Account(**account_dict) for account_dict in accounts_data]
 
-    def get_transactions_page(
-        self, account_id: str, connection_id: str, next_page: int | None = None
-    ) -> TransactionPage | None:
+    def get_transactions(
+        self, account_id: str, connection_id: str, next_url: str | None = None
+    ) -> list[Transaction] | None:
         params = {"connection_id": connection_id, "account_id": account_id}
-        endpoint = next_page if next_page else constants.TRANSACTIONS_URL
-        url = f"{constants.BASE_URL}/{endpoint}"
+
+        if next_url:
+            url = next_url
+        else:
+            url = constants.PROVIDERS_URL
+
         response = self.request(
             url,
             params=params,
         )
+
         data = response.json()
-        print(data)
         transactions_data = data.get("data")
-        next_page = data.get("meta").get("next_page")
 
         if transactions_data is None:
             logger.error(
@@ -250,15 +254,19 @@ class SaltEdgeClient(httpx.Client):
             raise ListTransactionsError()
 
         if not transactions_data:
-            logger.warning(f"Account {account_id}: has no transactions")
+            logger.warning(f"Transaction page on {url} has no transactions")
             return None
 
-        transaction_page = TransactionPage(
-            data=[
-                Transaction(**transaction_dict)
-                for transaction_dict in transactions_data
-            ],
-            next_page=next_page,
+        self.transactions.extend(
+            [Transaction(**transaction_dict) for transaction_dict in transactions_data]
         )
 
-        return transaction_page
+        if next_page := data.get("meta").get("next_page"):
+            logger.info("found next page of providers")
+            self.get_transactions(
+                account_id=account_id,
+                connection_id=connection_id,
+                next_url=f"https://www.saltedge.com{next_page}",
+            )
+
+        return self.transactions

@@ -19,20 +19,15 @@ class TransactionMetadata(BaseModel):
 
 class Transaction(BaseModel):
     id: str
-    duplicated: bool
+    duplicated: bool | None = None
     mode: str
     status: str
-    made_on: str
-    amount: float
-    currency_code: str
+    made_on: str | None = None
+    amount: float | None = None
+    currency_code: str | None = None
     description: str | None = None
     category: str | None = None
     extra: TransactionMetadata | None = None
-    account_id: str
+    account_id: str | None = None
     created_at: str
     updated_at: str
-
-
-class TransactionPage(BaseModel):
-    data: list[Transaction]
-    next_page: str
