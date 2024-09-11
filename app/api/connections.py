@@ -12,6 +12,7 @@ from app.repositories import (
     account_repository,
     connection_repository,
     customer_repository,
+    transaction_repository,
 )
 from app.repositories.customer_repository import get_customer_by_identifier
 from app.utils.saltedge.client import SaltEdgeClient
@@ -107,6 +108,12 @@ async def successful_connection_callback(
         )
         background_tasks.add_task(
             account_repository.sync_accounts,
+            db=db,
+            connection_id=callback.data.connection_id,
+            client=client,
+        )
+        background_tasks.add_task(
+            transaction_repository.sync_transactions,
             db=db,
             connection_id=callback.data.connection_id,
             client=client,
