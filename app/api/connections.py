@@ -106,7 +106,7 @@ async def successful_connection_callback(
             f"Finished fetching accounts and transactions for customer {callback.data.customer_id} using connection {callback.data.connection_id}"
         )
         background_tasks.add_task(
-            account_repository.ingest_all_accounts,
+            account_repository.sync_accounts,
             db=db,
             connection_id=callback.data.connection_id,
             client=client,

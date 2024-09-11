@@ -51,7 +51,7 @@ def create_or_update_account_in_db(
     return db_account
 
 
-def ingest_all_accounts(
+def sync_accounts(
     db: Session,
     client: SaltEdgeClient,
     connection_id: str,

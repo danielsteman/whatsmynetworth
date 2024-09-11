@@ -1,9 +1,12 @@
+import logging
+
 from sqlalchemy.orm import Session
 
 from app import models, schemas
-
-# from app.repositories import connection_repository
+from app.repositories import account_repository
 from app.utils.saltedge.client import SaltEdgeClient
+
+logger = logging.getLogger("uvicorn.error")
 
 
 def convert_pydantic_to_sqlalchemy(
@@ -61,8 +64,16 @@ async def create_transactions(
         await db.close()
 
 
-async def get_transactions(
-    db: Session, client: SaltEdgeClient, identifier: str
+async def sync_transactions(
+    db: Session, client: SaltEdgeClient, connection_id: str
 ) -> None:
-    # connection = connection_repository.get_active_connection(db, client, identifier)
-    pass
+    accounts = account_repository.get_all_accounts_from_db(
+        db, connection_id=connection_id
+    )
+    for account in accounts:
+        transactions = client.get_transactions(
+            account_id=account.id, connection_id=connection_id
+        )
+        await create_transactions(db, transactions)
+        logger.info(f"Ingested all transactions for account {account.id}")
+    logger.info(f"Connection {connection_id}: finished ingesting all transactions")
