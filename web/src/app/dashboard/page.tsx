@@ -26,18 +26,23 @@ export interface Account {
 const fetchAccounts = async (
   customerIdentifier: string
 ): Promise<Account[]> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/accounts`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ identifier: customerIdentifier }),
-    }
-  );
-  const data = response.json();
-  return data;
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/accounts`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ identifier: customerIdentifier }),
+      }
+    );
+    const data = response.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
 };
 
 export default async function Dashboard() {

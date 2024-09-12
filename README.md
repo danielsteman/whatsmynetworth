@@ -48,3 +48,7 @@ Open interactive postgres shell for debugging.
 ```
 psql -h localhost -p 5432 -d stacks -U admin
 ```
+
+### Debugging
+
+Seems like node has some issues IPv6 addresses so refer to `127.0.0.1` instead of `localhost` to make requests to services that are running locally.
