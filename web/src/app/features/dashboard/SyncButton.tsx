@@ -4,15 +4,31 @@ import { useState } from "react";
 import { FaSyncAlt } from "react-icons/fa";
 
 interface SyncButtonProps {
-  connectionId: string;
+  identifier: string;
 }
 
-const SyncButton: React.FC<SyncButtonProps> = ({ connectionId }) => {
+const SyncButton: React.FC<SyncButtonProps> = ({ identifier }) => {
   const [syncing, setSyncing] = useState<boolean>(false);
 
-  const syncTransactions = (connectionId: string) => {
+  const syncTransactions = async (identifier: string) => {
     setSyncing(!syncing);
-    console.log(`Syncing... using ${connectionId}`);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/transactions/sync`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ identifier: identifier }),
+        }
+      );
+      const data = response.json();
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const syncIconStyle = syncing ? "animate-spin" : "";
@@ -23,7 +39,7 @@ const SyncButton: React.FC<SyncButtonProps> = ({ connectionId }) => {
   const buttonStyle = `${baseButtonStyle} ${additionalButtonStyle}`;
 
   return (
-    <button onClick={() => syncTransactions(connectionId)}>
+    <button onClick={() => syncTransactions(identifier)}>
       <div className={buttonStyle}>
         <FaSyncAlt className={syncIconStyle} />
         <span>Sync transactions</span>

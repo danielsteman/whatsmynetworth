@@ -1,9 +1,8 @@
 import NewAccountButton from "../newAccount/NewAccountButton";
-import { DashboardsProps } from "./Dashboards";
+import { DashboardProps } from "./Dashboards";
 import SyncButton from "./SyncButton";
 
-const TransactionsDashboard: React.FC<DashboardsProps> = ({ session }) => {
-  // TODO: get next-auth session on client side
+const TransactionsDashboard: React.FC<DashboardProps> = ({ session }) => {
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row">
@@ -15,7 +14,7 @@ const TransactionsDashboard: React.FC<DashboardsProps> = ({ session }) => {
         </div>
       </div>
       <div>
-        <SyncButton connectionId={""} />
+        <SyncButton identifier={session.user.id} />
       </div>
     </div>
   );
