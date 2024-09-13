@@ -9,7 +9,7 @@ from .connection import (
 )
 from .customer import CreateCustomer, Customer
 from .provider import Provider
-from .transaction import Transaction, TransactionMetadata
+from .transaction import ListTransactions, Transaction, TransactionMetadata
 
 __all__ = [
     "Account",
@@ -22,6 +22,7 @@ __all__ = [
     "GetActiveConnection",
     "ListAccounts",
     "ListConnections",
+    "ListTransactions",
     "Provider",
     "Transaction",
     "TransactionMetadata",

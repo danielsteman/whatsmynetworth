@@ -119,7 +119,7 @@ async def successful_connection_callback(
             client=client,
         )
     logger.debug(f"Success callback request content: {callback.model_dump()}")
-    return Response(status_code=200)
+    return Response(status_code=202)
 
 
 @router.post("/callback/notify", tags=["connections"])

@@ -31,3 +31,7 @@ class Transaction(BaseModel):
     account_id: str | None = None
     created_at: str
     updated_at: str
+
+
+class ListTransactions(BaseModel):
+    identifier: str
