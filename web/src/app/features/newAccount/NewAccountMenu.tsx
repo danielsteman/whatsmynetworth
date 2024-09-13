@@ -58,7 +58,6 @@ const SecondStepMenu: React.FC<CurrentUserSessionProps> = ({ currentUser }) => {
       }
 
       const data = await response.json();
-      console.log(data);
       if (data.connect_url) {
         router.push(data.connect_url);
       } else {

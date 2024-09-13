@@ -52,7 +52,6 @@ export default async function Dashboard() {
   }
 
   const accounts = await fetchAccounts(session.user.id);
-  console.log(accounts);
 
   return (
     <>

@@ -11,7 +11,6 @@ const Settings = async () => {
     redirect("/login");
   }
   const connections = await getConnections(session.user.id);
-  // console.log(connections);
   return (
     <div className="flex flex-row p-8 gap-12">
       <SettingsSideMenu />
