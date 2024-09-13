@@ -24,7 +24,7 @@ const SyncButton: React.FC<SyncButtonProps> = ({ identifier }) => {
           body: JSON.stringify({ identifier: identifier }),
         }
       );
-      const data = response.json();
+      const data = await response.json();
       console.log(data);
     } catch (e) {
       console.error(e);
