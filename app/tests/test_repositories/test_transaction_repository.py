@@ -99,5 +99,8 @@ def dummy_transactions():
     ]
 
 
-def test_create_db_transactions(db, dummy_transactions) -> None:
+def test_create_and_get_db_transactions(db, dummy_transactions) -> None:
     transaction_repository.create_transactions(db, dummy_transactions)
+    account_id = dummy_transactions[0].account_id
+    db_transactions = transaction_repository.get_transactions_from_db(db, account_id)
+    assert db_transactions[0].account_id == account_id

@@ -49,6 +49,10 @@ def convert_pydantic_to_sqlalchemy(
     return sqlalchemy_transaction
 
 
+def get_transactions_from_db(db: Session, account_id: str) -> None:
+    return db.query(models.Transaction).filter_by(account_id=account_id).all()
+
+
 def create_transactions(db: Session, transactions: list[schemas.Transaction]) -> None:
     for transaction in transactions:
         db_transaction = convert_pydantic_to_sqlalchemy(transaction)
