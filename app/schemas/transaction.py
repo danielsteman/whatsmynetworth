@@ -19,16 +19,16 @@ class TransactionMetadata(BaseModel):
 
 class Transaction(BaseModel):
     id: str
-    duplicated: bool | None = None
+    duplicated: bool
     mode: str
     status: str
-    made_on: str | None = None
-    amount: float | None = None
-    currency_code: str | None = None
-    description: str | None = None
-    category: str | None = None
+    made_on: str
+    amount: float
+    currency_code: str
+    description: str
+    category: str
     extra: TransactionMetadata | None = None
-    account_id: str | None = None
+    account_id: str
     created_at: str
     updated_at: str
 

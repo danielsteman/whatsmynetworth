@@ -237,7 +237,7 @@ class SaltEdgeClient(httpx.Client):
         if next_url:
             url = next_url
         else:
-            url = constants.PROVIDERS_URL
+            url = constants.TRANSACTIONS_URL
 
         response = self.request(
             url,
