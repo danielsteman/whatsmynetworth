@@ -69,6 +69,9 @@ def sync_transactions(db: Session, client: SaltEdgeClient, connection_id: str) -
         transactions = client.get_transactions(
             account_id=account.id, connection_id=connection_id
         )
+        if transactions is None:
+            logger.warning(f"Could not find transactions for {account.id}")
+            return None
         create_transactions(db, transactions)
         logger.info(f"Ingested all transactions for account {account.id}")
     logger.info(f"Connection {connection_id}: finished ingesting all transactions")

@@ -254,7 +254,7 @@ class SaltEdgeClient(httpx.Client):
             raise ListTransactionsError()
 
         if not transactions_data:
-            logger.warning(f"Transaction page on {url} has no transactions")
+            logger.warning(f"Transaction page on {response.url} has no transactions")
             return None
 
         self.transactions.extend(
