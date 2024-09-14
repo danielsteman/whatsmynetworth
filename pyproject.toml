@@ -26,9 +26,6 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = []
 
-[tool.isort]
-profile = "black"
-
 [tool.rye.scripts]
 api = "fastapi dev"
 web = "yarn --cwd web dev"
@@ -42,3 +39,17 @@ packages = ["app"]
 
 [tool.pytest.ini_options]
 pythonpath = "."
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+fix = true
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "Q", "I"]
+ignore = ["E203", "E501"]

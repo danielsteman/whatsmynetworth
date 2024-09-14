@@ -1,14 +1,13 @@
 import logging
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm.session import Session
 
 from app import schemas
 from app.db.session import get_db
 from app.dependencies import get_salt_edge_client
-from app.repositories import customer_repository
 from app.utils.saltedge.client import CustomerAlreadyExists, SaltEdgeClient
 
 router = APIRouter()
@@ -27,18 +26,14 @@ async def create_customer(
     db: Annotated[Session, Depends(get_db)],
 ) -> schemas.Customer:
     try:
-        db_customer = customer_repository.get_customer_by_identifier(db, customer.id)
-        if db_customer:
-            logger.info("Customer already exists in the database")
-            return Response(status_code=status.HTTP_204_NO_CONTENT)
         created_customer = client.create_customer(customer.id)
-        db_customer = customer_repository.create_customer_in_db(
-            db=db, customer=created_customer
-        )
         return created_customer
     except CustomerAlreadyExists:
         logger.info("Customer already exists in Saltedge")
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
+        return JSONResponse(
+            content="Customer already exists in Saltedge",
+            status_code=status.HTTP_204_NO_CONTENT,
+        )
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
         return JSONResponse(status_code=500, content={"error": str(e)})

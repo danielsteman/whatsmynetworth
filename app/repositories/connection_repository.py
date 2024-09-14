@@ -53,10 +53,14 @@ def get_active_connection(
     db_customer = customer_repository.get_customer_by_identifier(
         db, identifier=identifier
     )
+    if db_customer is None:
+        logger.warning(f"Could not find customer for identifier {identifier}")
+        return None
     customer_id = db_customer.id
     connections = client.list_connections(customer_id)
     active_connections = [conn for conn in connections if conn.status == "active"]
     if not active_connections:
+        logger.warning(f"Could not find active connection for {identifier}")
         return None
     most_recent_connection = max(active_connections, key=lambda conn: conn.updated_at)
     return most_recent_connection

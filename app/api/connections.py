@@ -28,10 +28,10 @@ async def create_connection_link(
     db: Annotated[Session, Depends(get_db)],
 ) -> schemas.ConnectionLink:
     try:
-        customer = get_customer_by_identifier(db, customer.identifier)
-        if not customer:
+        db_customer = get_customer_by_identifier(db, customer.identifier)
+        if not db_customer:
             raise HTTPException(status_code=404, detail="Customer not found")
-        created_connection = client.create_connect_session(customer.id)
+        created_connection = client.create_connect_session(db_customer.id)
         return created_connection
     except HTTPException as http_exc:
         raise http_exc
@@ -50,10 +50,15 @@ async def list_connections(
     db: Annotated[Session, Depends(get_db)],
 ) -> list[schemas.Connection]:
     try:
-        customer = customer_repository.get_customer_by_identifier(
+        db_customer = customer_repository.get_customer_by_identifier(
             db, customer.identifier
         )
-        connections = client.list_connections(customer.id)
+        if not db_customer:
+            return JSONResponse(
+                status_code=404,
+                content=f"Could not find customer for identifier {customer.identifier}",
+            )
+        connections = client.list_connections(db_customer.id)
         return connections
     except HTTPException as http_exc:
         raise http_exc
@@ -119,7 +124,9 @@ async def successful_connection_callback(
             client=client,
         )
     logger.debug(f"Success callback request content: {callback.model_dump()}")
-    return Response(status_code=202)
+    return JSONResponse(
+        content="Started syncing accounts and transactions", status_code=202
+    )
 
 
 @router.post("/callback/notify", tags=["connections"])

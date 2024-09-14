@@ -48,7 +48,7 @@ async def create_account(
                 content="Account {account.id} already exists in database",
                 status_code=status.HTTP_204_NO_CONTENT,
             )
-        new_db_account = account_repository.create_account_in_db(db, account)
+        new_db_account = account_repository.create_or_update_account_in_db(db, account)
         return JSONResponse(
             status_code=200,
             content={

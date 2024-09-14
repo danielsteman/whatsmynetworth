@@ -1,26 +1,19 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-yaml
         args: [--allow-multiple-documents]
+      - id: check-toml
       - id: trailing-whitespace
       - id: end-of-file-fixer
-  - repo: https://github.com/psf/black
-    rev: 24.2.0
-    hooks:
-      - id: black
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.0
+    rev: v0.6.5
     hooks:
       - id: ruff
         args: ["--fix"]
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.931
+    rev: v1.11.2
     hooks:
       - id: mypy
         files: ^((?!/tests/|^test_).)*\.py$

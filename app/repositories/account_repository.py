@@ -57,6 +57,9 @@ def sync_accounts(
     connection_id: str,
 ) -> None:
     accounts = client.list_accounts(connection_id)
+    if accounts is None:
+        logger.warning(f"Could not find accounts for connection {connection_id}")
+        return
     for account in accounts:
         create_or_update_account_in_db(db, account)
         logger.info(f"Connection {connection_id}: ingested account {account.id}")
