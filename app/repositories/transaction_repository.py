@@ -49,24 +49,15 @@ def convert_pydantic_to_sqlalchemy(
     return sqlalchemy_transaction
 
 
-async def create_transactions(
-    db: Session, transactions: list[schemas.Transaction]
-) -> None:
-    try:
-        for transaction in transactions:
-            sqlalchemy_transaction = convert_pydantic_to_sqlalchemy(transaction)
-            db.add(sqlalchemy_transaction)
-        await db.commit()
-    except Exception as e:
-        await db.rollback()
-        raise e
-    finally:
-        await db.close()
+def create_transactions(db: Session, transactions: list[schemas.Transaction]) -> None:
+    for transaction in transactions:
+        db_transaction = convert_pydantic_to_sqlalchemy(transaction)
+        db.add(db_transaction)
+        db.commit()
+        db.refresh(db_transaction)
 
 
-async def sync_transactions(
-    db: Session, client: SaltEdgeClient, connection_id: str
-) -> None:
+def sync_transactions(db: Session, client: SaltEdgeClient, connection_id: str) -> None:
     accounts = account_repository.get_all_accounts_from_db(
         db, connection_id=connection_id
     )
@@ -74,6 +65,6 @@ async def sync_transactions(
         transactions = client.get_transactions(
             account_id=account.id, connection_id=connection_id
         )
-        await create_transactions(db, transactions)
+        create_transactions(db, transactions)
         logger.info(f"Ingested all transactions for account {account.id}")
     logger.info(f"Connection {connection_id}: finished ingesting all transactions")
