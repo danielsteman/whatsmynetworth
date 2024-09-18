@@ -2,6 +2,7 @@ import logging
 from typing import Annotated
 
 from fastapi import APIRouter, BackgroundTasks, Depends, Response
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm.session import Session
 
 from app import schemas
@@ -37,4 +38,4 @@ def sync_transactions(
         connection_id=connection.id,
         client=client,
     )
-    return Response(status_code=202)
+    return JSONResponse(content="Started syncing transactions", status_code=202)
