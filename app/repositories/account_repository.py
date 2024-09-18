@@ -9,8 +9,8 @@ from app.utils.saltedge.client import SaltEdgeClient
 logger = logging.getLogger("uvicorn.error")
 
 
-def get_account_by_identifier(db: Session, identifier: str) -> models.Account | None:
-    return db.query(models.Account).filter_by(identifier=identifier).first()
+def get_accounts_by_identifier(db: Session, identifier: str) -> list[models.Account]:
+    return db.query(models.Account).filter_by(identifier=identifier).all()
 
 
 def get_account_by_id(db: Session, _id: str) -> models.Account | None:

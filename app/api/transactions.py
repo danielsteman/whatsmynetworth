@@ -8,7 +8,10 @@ from sqlalchemy.orm.session import Session
 from app import schemas
 from app.db.session import get_db
 from app.dependencies import get_salt_edge_client
-from app.repositories import connection_repository, transaction_repository
+from app.repositories import (
+    connection_repository,
+    transaction_repository,
+)
 from app.utils.saltedge.client import SaltEdgeClient
 
 router = APIRouter()
@@ -17,7 +20,7 @@ logger = logging.getLogger("uvicorn.error")
 
 @router.post("/sync", response_model=list[schemas.Transaction], tags=["transactions"])
 def sync_transactions(
-    body: schemas.ListTransactions,
+    body: schemas.SyncTransactions,
     background_tasks: BackgroundTasks,
     db: Annotated[Session, Depends(get_db)],
     client: Annotated[SaltEdgeClient, Depends(get_salt_edge_client)],
@@ -39,3 +42,14 @@ def sync_transactions(
         client=client,
     )
     return JSONResponse(content="Started syncing transactions", status_code=202)
+
+
+@router.post("/get", response_model=list[schemas.Transaction], tags=["transactions"])
+def get_transactions(
+    db: Annotated[Session, Depends(get_db)], body: schemas.GetTransactions
+) -> list[schemas.Transaction]:
+    transactions = transaction_repository.get_transactions_from_db(db, body.account_id)
+    transaction_objects = [
+        transaction_repository.convert_sqlalchemy_to_pydantic(t) for t in transactions
+    ]
+    return transaction_objects

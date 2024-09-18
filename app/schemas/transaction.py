@@ -33,5 +33,9 @@ class Transaction(BaseModel):
     updated_at: str
 
 
-class ListTransactions(BaseModel):
+class SyncTransactions(BaseModel):
     identifier: str
+
+
+class GetTransactions(BaseModel):
+    account_id: str
