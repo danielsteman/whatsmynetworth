@@ -65,6 +65,7 @@ def sync_transactions(db: Session, client: SaltEdgeClient, connection_id: str) -
     accounts = account_repository.get_all_accounts_from_db(
         db, connection_id=connection_id
     )
+    stats = {}
     for account in accounts:
         transactions = client.get_transactions(
             account_id=account.id, connection_id=connection_id
@@ -73,7 +74,11 @@ def sync_transactions(db: Session, client: SaltEdgeClient, connection_id: str) -
             logger.warning(
                 f"Could not find transactions for account {account.id} using connection {connection_id}"
             )
+            stats[account] = 0
             continue
         create_transactions(db, transactions)
+        stats[account] = len(transactions)
         logger.info(f"Ingested all transactions for account {account.id}")
-    logger.info(f"Connection {connection_id}: finished ingesting all transactions")
+    logger.info(
+        f"Finished ingesting all transactions for connection {connection_id}. Result: {stats}"
+    )
