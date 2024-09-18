@@ -16,6 +16,10 @@ export interface AccountsDashboardProps extends DashboardProps {
   accounts: Account[];
 }
 
+export interface TransactionsDashboardProps extends DashboardProps {
+  accounts: Account[];
+}
+
 type CombinedDashboardProps = DashboardProps & AccountsDashboardProps;
 
 const Dashboards: React.FC<CombinedDashboardProps> = ({
@@ -28,7 +32,9 @@ const Dashboards: React.FC<CombinedDashboardProps> = ({
   const tabDashboardMapping = {
     Dashboard: <DefaultDashboard session={session} />,
     Accounts: <AccountsDashboard session={session} accounts={accounts} />,
-    Transactions: <TransactionsDashboard session={session} />,
+    Transactions: (
+      <TransactionsDashboard session={session} accounts={accounts} />
+    ),
   };
   return tabDashboardMapping[currentTab];
 };

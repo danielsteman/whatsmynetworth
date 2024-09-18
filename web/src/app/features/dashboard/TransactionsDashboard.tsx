@@ -1,8 +1,11 @@
 import NewAccountButton from "../newAccount/NewAccountButton";
-import { DashboardProps } from "./Dashboards";
+import { TransactionsDashboardProps } from "./Dashboards";
 import SyncButton from "./SyncButton";
 
-const TransactionsDashboard: React.FC<DashboardProps> = ({ session }) => {
+const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
+  session,
+  accounts,
+}) => {
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row">
@@ -15,6 +18,11 @@ const TransactionsDashboard: React.FC<DashboardProps> = ({ session }) => {
       </div>
       <div>
         <SyncButton identifier={session.user.id} />
+      </div>
+      <div>
+        {accounts.map((account, index) => (
+          <div key={index}>{account.name}</div>
+        ))}
       </div>
     </div>
   );
