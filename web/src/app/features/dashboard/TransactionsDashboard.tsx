@@ -19,7 +19,7 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
       <div>
         <SyncButton identifier={session.user.id} />
       </div>
-      <div>
+      <div className="p-2 flex flex-col gap-2">
         {accounts.map((account, index) => (
           <div key={index}>{account.name}</div>
         ))}

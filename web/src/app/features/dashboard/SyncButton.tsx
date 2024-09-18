@@ -47,7 +47,7 @@ const SyncButton: React.FC<SyncButtonProps> = ({ identifier }) => {
       <button onClick={() => syncTransactions(identifier)}>
         <div className={buttonStyle}>
           <FaSyncAlt className={syncIconStyle} />
-          <span>Sync transactions</span>
+          <span className="font-semibold">Sync transactions</span>
         </div>
       </button>
       {error && <p className="text-red-500">{error}</p>}
