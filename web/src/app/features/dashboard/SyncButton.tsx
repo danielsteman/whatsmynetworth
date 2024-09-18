@@ -9,9 +9,10 @@ interface SyncButtonProps {
 
 const SyncButton: React.FC<SyncButtonProps> = ({ identifier }) => {
   const [syncing, setSyncing] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const syncTransactions = async (identifier: string) => {
-    setSyncing(!syncing);
+    setSyncing(true);
 
     try {
       const response = await fetch(
@@ -26,8 +27,11 @@ const SyncButton: React.FC<SyncButtonProps> = ({ identifier }) => {
       );
       const data = await response.json();
       console.log(data);
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
+      setError(e.message || "An unknown error occurred.");
+    } finally {
+      setSyncing(false);
     }
   };
 
@@ -39,12 +43,15 @@ const SyncButton: React.FC<SyncButtonProps> = ({ identifier }) => {
   const buttonStyle = `${baseButtonStyle} ${additionalButtonStyle}`;
 
   return (
-    <button onClick={() => syncTransactions(identifier)}>
-      <div className={buttonStyle}>
-        <FaSyncAlt className={syncIconStyle} />
-        <span>Sync transactions</span>
-      </div>
-    </button>
+    <>
+      <button onClick={() => syncTransactions(identifier)}>
+        <div className={buttonStyle}>
+          <FaSyncAlt className={syncIconStyle} />
+          <span>Sync transactions</span>
+        </div>
+      </button>
+      {error && <p className="text-red-500">{error}</p>}
+    </>
   );
 };
 
