@@ -23,6 +23,38 @@ export interface Account {
   updated_at: string;
 }
 
+interface TransactionMetadata {
+  merchantId: string;
+  originalAmount: number;
+  originalCurrencyCode: string;
+  postingDate: string;
+  time: string;
+  id: string;
+  type: string;
+  payee: string;
+  payer: string;
+  additional: string;
+  payerInformation: string;
+  accountBalanceSnapshot: number;
+  categorizationConfidence: number;
+}
+
+export interface Transaction {
+  id: string;
+  duplicated: boolean;
+  mode: string;
+  status: string;
+  madeOn: string;
+  amount: number;
+  currencyCode: string;
+  description: string;
+  category: string;
+  extra?: TransactionMetadata;
+  accountId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const fetchAccounts = async (
   customerIdentifier: string
 ): Promise<Account[]> => {
@@ -43,6 +75,10 @@ const fetchAccounts = async (
     console.error(e);
     return [];
   }
+};
+
+const fetchTransactions = async (accountId: string): Promise<Transaction[]> => {
+  return [];
 };
 
 export default async function Dashboard() {
