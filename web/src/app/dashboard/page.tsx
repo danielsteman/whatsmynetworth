@@ -122,7 +122,11 @@ export default async function Dashboard() {
           <div className="h-4" />
           <Portfolio />
         </div>
-        <Dashboards session={session} accounts={accounts} />
+        <Dashboards
+          session={session}
+          accounts={accounts}
+          accountTransactions={accountTransactions}
+        />
       </div>
     </>
   );
