@@ -28,7 +28,7 @@ const AccountsDashboard: React.FC<AccountsDashboardProps> = ({
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-row">
+      <div className="flex flex-row items-center">
         <div className="flex flex-col">
           <div className="text-lg font-medium">Accounts</div>
         </div>
