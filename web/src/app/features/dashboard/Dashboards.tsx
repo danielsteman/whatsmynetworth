@@ -6,7 +6,7 @@ import AccountsDashboard from "./AccountsDashboard";
 import DefaultDashboard from "./DefaultDashboard";
 import { Session } from "next-auth";
 import TransactionsDashboard from "./TransactionsDashboard";
-import { Account } from "../../dashboard/page";
+import { Account, Transaction } from "../../dashboard/page";
 
 export interface DashboardProps {
   session: Session;
@@ -18,13 +18,17 @@ export interface AccountsDashboardProps extends DashboardProps {
 
 export interface TransactionsDashboardProps extends DashboardProps {
   accounts: Account[];
+  accountTransactions: { [key: string]: Transaction[] };
 }
 
-type CombinedDashboardProps = DashboardProps & AccountsDashboardProps;
+type CombinedDashboardProps = DashboardProps &
+  AccountsDashboardProps &
+  TransactionsDashboardProps;
 
 const Dashboards: React.FC<CombinedDashboardProps> = ({
   session,
   accounts,
+  accountTransactions,
 }) => {
   const currentTab = useSelector(
     (state: RootState) => state.navigation.currentTab
@@ -33,7 +37,11 @@ const Dashboards: React.FC<CombinedDashboardProps> = ({
     Dashboard: <DefaultDashboard session={session} />,
     Accounts: <AccountsDashboard session={session} accounts={accounts} />,
     Transactions: (
-      <TransactionsDashboard session={session} accounts={accounts} />
+      <TransactionsDashboard
+        session={session}
+        accounts={accounts}
+        accountTransactions={accountTransactions}
+      />
     ),
   };
   return tabDashboardMapping[currentTab];

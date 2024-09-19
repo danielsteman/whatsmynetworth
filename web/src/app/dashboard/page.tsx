@@ -105,7 +105,7 @@ export default async function Dashboard() {
 
   const accounts = await fetchAccounts(session.user.id);
 
-  const accountTransactions: { [key: string]: any } = {};
+  const accountTransactions: { [key: string]: Transaction[] } = {};
 
   const transactionsPromises = accounts.map(async (account) => {
     const transactions = await fetchTransactions(account.id);
