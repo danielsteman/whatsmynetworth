@@ -109,7 +109,7 @@ export default async function Dashboard() {
 
   const transactionsPromises = accounts.map(async (account) => {
     const transactions = await fetchTransactions(account.id);
-    accountTransactions[account.id] = transactions;
+    accountTransactions[account.name] = transactions;
   });
 
   await Promise.all(transactionsPromises);

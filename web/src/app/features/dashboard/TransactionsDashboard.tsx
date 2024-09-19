@@ -5,6 +5,7 @@ import SyncButton from "./SyncButton";
 const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
   session,
   accounts,
+  accountTransactions,
 }) => {
   return (
     <div className="flex flex-col w-full">
@@ -20,9 +21,18 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
         <SyncButton identifier={session.user.id} />
       </div>
       <div className="p-2 flex flex-col gap-2">
-        {accounts.map((account, index) => (
-          <div key={index}>{account.name}</div>
-        ))}
+        {Object.entries(accountTransactions).map(
+          ([accountId, transactions]) => (
+            <div key={accountId}>
+              <h3>Account ID: {accountId}</h3>
+              <ul>
+                {transactions.map((transaction, index) => (
+                  <li key={index}>{transaction.description}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        )}
       </div>
     </div>
   );
