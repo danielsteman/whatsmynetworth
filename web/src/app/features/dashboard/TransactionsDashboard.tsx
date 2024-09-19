@@ -4,7 +4,6 @@ import SyncButton from "./SyncButton";
 
 const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
   session,
-  accounts,
   accountTransactions,
 }) => {
   return (
