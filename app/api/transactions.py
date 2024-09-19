@@ -23,6 +23,11 @@ def get_transactions(
     db: Annotated[Session, Depends(get_db)], body: schemas.GetTransactions
 ) -> list[schemas.Transaction]:
     transactions = transaction_repository.get_transactions_from_db(db, body.account_id)
+
+    logger.info(
+        f"Found {len(transactions)} transactions in database for account {body.account_id}"
+    )
+
     transaction_objects = [
         transaction_repository.convert_sqlalchemy_to_pydantic(t) for t in transactions
     ]

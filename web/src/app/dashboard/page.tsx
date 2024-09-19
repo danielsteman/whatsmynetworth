@@ -86,7 +86,7 @@ const fetchTransactions = async (accountId: string): Promise<Transaction[]> => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ account_id: accountId }),
+        body: JSON.stringify({ account_id: accountId.toString() }),
       }
     );
     const data = response.json();
@@ -104,6 +104,15 @@ export default async function Dashboard() {
   }
 
   const accounts = await fetchAccounts(session.user.id);
+
+  const accountTransactions: { [key: string]: any } = {};
+
+  const transactionsPromises = accounts.map(async (account) => {
+    const transactions = await fetchTransactions(account.id);
+    accountTransactions[account.id] = transactions;
+  });
+
+  await Promise.all(transactionsPromises);
 
   return (
     <>
