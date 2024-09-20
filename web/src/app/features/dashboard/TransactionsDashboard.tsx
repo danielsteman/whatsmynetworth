@@ -6,6 +6,9 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
   session,
   accountTransactions,
 }) => {
+  const tableHeaderStyle =
+    "font-semibold text-sm px-4 py-2 text-left uppercase text-neutral-500";
+  const tableCellStyle = "text-sm font-semibold px-4 py-2";
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">
@@ -19,19 +22,25 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
       <div>
         <SyncButton identifier={session.user.id} />
       </div>
-      <div className="p-2 flex flex-col gap-2">
-        {Object.entries(accountTransactions).map(
-          ([accountId, transactions]) => (
-            <div key={accountId}>
-              <h3>Account ID: {accountId}</h3>
-              <ul>
-                {transactions.map((transaction, index) => (
-                  <li key={index}>{transaction.description}</li>
-                ))}
-              </ul>
-            </div>
-          )
-        )}
+      <div>
+        {Object.entries(accountTransactions).map(([iban, transactions]) => (
+          <div key={iban} className="p-2 flex flex-col gap-2">
+            <table className="min-w-full mt-4">
+              <thead>
+                <tr className="border-b">
+                  <th className={tableHeaderStyle}>IBAN</th>
+                  <th className={tableHeaderStyle}>Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b">
+                  <td className={tableCellStyle}>{iban}</td>
+                  <td className={tableCellStyle}>{transactions.length}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        ))}
       </div>
     </div>
   );

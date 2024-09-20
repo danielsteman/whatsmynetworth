@@ -16,9 +16,10 @@ export interface AccountsDashboardProps extends DashboardProps {
   accounts: Account[];
 }
 
-export interface TransactionsDashboardProps extends DashboardProps {
-  accounts: Account[];
-  accountTransactions: { [key: string]: Transaction[] };
+export type AccountTransactions = { [key: string]: Transaction[] };
+
+export interface TransactionsDashboardProps extends AccountsDashboardProps {
+  accountTransactions: AccountTransactions;
 }
 
 type CombinedDashboardProps = DashboardProps &
