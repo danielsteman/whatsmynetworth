@@ -7,6 +7,7 @@ import DefaultDashboard from "./DefaultDashboard";
 import { Session } from "next-auth";
 import TransactionsDashboard from "./TransactionsDashboard";
 import { Account, Transaction } from "../../dashboard/page";
+import BudgetsDashboard from "./BudgetsDashboard";
 
 export interface DashboardProps {
   session: Session;
@@ -21,6 +22,8 @@ export type AccountTransactions = { [key: string]: Transaction[] };
 export interface TransactionsDashboardProps extends AccountsDashboardProps {
   accountTransactions: AccountTransactions;
 }
+
+export interface BudgetsDashboardProps extends DashboardProps {}
 
 type CombinedDashboardProps = DashboardProps &
   AccountsDashboardProps &
@@ -44,6 +47,7 @@ const Dashboards: React.FC<CombinedDashboardProps> = ({
         accountTransactions={accountTransactions}
       />
     ),
+    Budgets: <BudgetsDashboard session={session} />,
   };
   return tabDashboardMapping[currentTab];
 };

@@ -4,6 +4,7 @@ export enum NavigationTabs {
   DASHBOARD = "Dashboard",
   ACCOUNTS = "Accounts",
   TRANSACTIONS = "Transactions",
+  BUDGETS = "Budgets",
 }
 
 interface NavigationState {

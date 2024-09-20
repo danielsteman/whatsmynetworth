@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { GrAppsRounded } from "react-icons/gr";
+import { GrAppsRounded, GrMoney } from "react-icons/gr";
 import { IoMdCard } from "react-icons/io";
 import { RiStackLine } from "react-icons/ri";
 import NavigationItem from "./NavigationItem";
@@ -43,6 +43,11 @@ const Navigation = () => {
         icon={IoMdCard}
         tab={NavigationTabs.TRANSACTIONS}
         active={currentTab === NavigationTabs.TRANSACTIONS ? true : false}
+      />
+      <NavigationItem
+        icon={GrMoney}
+        tab={NavigationTabs.BUDGETS}
+        active={currentTab === NavigationTabs.BUDGETS ? true : false}
       />
     </div>
   );
