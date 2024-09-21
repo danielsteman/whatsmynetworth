@@ -39,7 +39,7 @@ const DoughnutChart = () => {
     }
   }, []);
 
-  return <canvas ref={chartRef} id="acquisitions" />;
+  return <canvas ref={chartRef} id="acquisitions" className="w-full h-full" />;
 };
 
 export default DoughnutChart;

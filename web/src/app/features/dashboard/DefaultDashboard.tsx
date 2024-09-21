@@ -1,4 +1,3 @@
-import BarChart from "@/app/components/charts/BarChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { DashboardProps } from "./Dashboards";
 import DoughnutChart from "@/app/components/charts/DoughnutChart";
@@ -18,7 +17,11 @@ const DefaultDashboard: React.FC<DashboardProps> = ({ session }) => {
           <NewAccountButton currentUser={session} />
         </div>
       </div>
-      <DoughnutChart />
+      <div className="grid grid-cols-3 gap-4 pt-8">
+        <div>
+          <DoughnutChart />
+        </div>
+      </div>
     </div>
   );
 };
