@@ -1,6 +1,7 @@
 import BarChart from "@/app/components/charts/BarChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { DashboardProps } from "./Dashboards";
+import DoughnutChart from "@/app/components/charts/DoughnutChart";
 
 const DefaultDashboard: React.FC<DashboardProps> = ({ session }) => {
   // TODO: get next-auth session on client side
@@ -17,7 +18,7 @@ const DefaultDashboard: React.FC<DashboardProps> = ({ session }) => {
           <NewAccountButton currentUser={session} />
         </div>
       </div>
-      <BarChart />
+      <DoughnutChart />
     </div>
   );
 };
