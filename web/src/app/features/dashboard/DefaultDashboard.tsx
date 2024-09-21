@@ -1,4 +1,4 @@
-import BarChart from "@/app/components/BarChart";
+import BarChart from "@/app/components/charts/BarChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { DashboardProps } from "./Dashboards";
 
