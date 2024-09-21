@@ -1,3 +1,4 @@
+import BarChart from "@/app/components/BarChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { DashboardProps } from "./Dashboards";
 
@@ -16,6 +17,7 @@ const DefaultDashboard: React.FC<DashboardProps> = ({ session }) => {
           <NewAccountButton currentUser={session} />
         </div>
       </div>
+      <BarChart />
     </div>
   );
 };
