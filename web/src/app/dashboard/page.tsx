@@ -4,13 +4,9 @@ import { getServerSession } from "next-auth";
 import authOptions from "../auth";
 import { redirect } from "next/navigation";
 import Dashboards from "../features/dashboard/Dashboards";
-import { getCategoryDistribution } from "./getCategoryDistribution";
+import { Categories, getCategoryDistribution } from "./getCategoryDistribution";
 import { getAccounts } from "../services/getAccounts";
 import { fetchTransactions, Transaction } from "../services/getTransactions";
-
-export interface Categories {
-  [key: string]: number;
-}
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);

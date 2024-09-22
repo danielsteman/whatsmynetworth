@@ -2,8 +2,11 @@ import NewAccountButton from "../newAccount/NewAccountButton";
 import { DefaultDashboardProps } from "./Dashboards";
 import DoughnutChart from "@/app/components/charts/DoughnutChart";
 
-const DefaultDashboard: React.FC<DefaultDashboardProps> = ({ session }) => {
-  // TODO: get next-auth session on client side
+const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
+  session,
+  accountCategoryDistributions,
+}) => {
+  console.log(accountCategoryDistributions);
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">

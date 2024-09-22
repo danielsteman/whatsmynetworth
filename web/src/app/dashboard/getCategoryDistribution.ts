@@ -1,5 +1,13 @@
 import { Transaction } from "../services/getTransactions";
-import { Categories } from "./page";
+
+interface CategoryInfo {
+  count: number;
+  percentage: number;
+}
+
+export interface Categories {
+  [key: string]: CategoryInfo;
+}
 
 export const getCategoryDistribution = async (
   accountTransactions: Transaction[]
@@ -18,7 +26,10 @@ export const getCategoryDistribution = async (
     if (categoryCounts.hasOwnProperty(category)) {
       const count = categoryCounts[category];
       const percentage = ((count / totalTransactions) * 100).toFixed(2);
-      categoryDistribution[category] = parseFloat(percentage);
+      categoryDistribution[category] = {
+        count: count,
+        percentage: parseFloat(percentage),
+      };
     }
   }
 
