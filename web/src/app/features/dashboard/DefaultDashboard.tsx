@@ -8,11 +8,14 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   session,
   accountCategoryDistributions,
 }) => {
-  console.log(accountCategoryDistributions);
-  const aggregatedCategories = sumCategoryDistributions(
+  const aggregatedCategoryDistribution = sumCategoryDistributions(
     accountCategoryDistributions
   );
-  console.log(aggregatedCategories);
+  const countValues = Object.values(aggregatedCategoryDistribution).map(
+    (item) => item.count
+  );
+
+  console.log(aggregatedCategoryDistribution);
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">
@@ -28,7 +31,11 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
       </div>
       <div className="grid grid-cols-3 gap-4 pt-8">
         <div>
-          <DoughnutChart />
+          <DoughnutChart
+            data={countValues}
+            labels={Object.keys(aggregatedCategoryDistribution)}
+            title="Categories"
+          />
         </div>
       </div>
     </div>

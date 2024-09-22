@@ -3,16 +3,22 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const DoughnutChart = () => {
+interface DoughnutChartProps {
+  labels: string[];
+  data: number[];
+  title: string;
+}
+
+const DoughnutChart = ({ labels, data, title }: DoughnutChartProps) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const data = {
-      labels: ["Red", "Blue", "Yellow"],
+    const chartProps = {
+      labels: labels,
       datasets: [
         {
-          label: "My First Dataset",
-          data: [300, 50, 100],
+          label: title,
+          data: data,
           backgroundColor: [
             "rgb(255, 99, 132)",
             "rgb(54, 162, 235)",
@@ -29,7 +35,7 @@ const DoughnutChart = () => {
       if (ctx) {
         const chart = new Chart(ctx, {
           type: "doughnut",
-          data: data,
+          data: chartProps,
         });
 
         return () => {
