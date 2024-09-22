@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import { generateColors } from "./generateColors";
 
 interface DoughnutChartProps {
   labels: string[];
@@ -19,11 +20,7 @@ const DoughnutChart = ({ labels, data, title }: DoughnutChartProps) => {
         {
           label: title,
           data: data,
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
-          ],
+          backgroundColor: generateColors(labels.length),
           hoverOffset: 4,
         },
       ],

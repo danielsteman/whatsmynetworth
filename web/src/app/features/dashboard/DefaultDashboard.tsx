@@ -1,8 +1,8 @@
+import DoughnutChart from "@/app/components/charts/DoughnutChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { sumCategoryDistributions } from "./categoryDistribution";
 
 import { DefaultDashboardProps } from "./Dashboards";
-import DoughnutChart from "@/app/components/charts/DoughnutChart";
 
 const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   session,
@@ -15,7 +15,6 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
     (item) => item.count
   );
 
-  console.log(aggregatedCategoryDistribution);
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">
@@ -29,7 +28,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
           <NewAccountButton currentUser={session} />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-4 pt-8">
+      <div className="grid grid-cols-2 gap-4 pt-8">
         <div>
           <DoughnutChart
             data={countValues}
