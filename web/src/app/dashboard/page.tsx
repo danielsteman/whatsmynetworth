@@ -55,6 +55,10 @@ export interface Transaction {
   updatedAt: string;
 }
 
+interface Categories {
+  [key: string]: number;
+}
+
 const fetchAccounts = async (
   customerIdentifier: string
 ): Promise<Account[]> => {
@@ -97,6 +101,30 @@ const fetchTransactions = async (accountId: string): Promise<Transaction[]> => {
   }
 };
 
+const getCategoryDistribution = async (
+  accountTransactions: Transaction[]
+): Promise<Categories> => {
+  const categoryCounts: { [key: string]: number } = {};
+
+  accountTransactions.forEach((transaction) => {
+    const category = transaction.category;
+    categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+  });
+
+  const totalTransactions = accountTransactions.length;
+  const categoryDistribution: Categories = {};
+
+  for (const category in categoryCounts) {
+    if (categoryCounts.hasOwnProperty(category)) {
+      const count = categoryCounts[category];
+      const percentage = ((count / totalTransactions) * 100).toFixed(2);
+      categoryDistribution[category] = parseFloat(percentage);
+    }
+  }
+
+  return categoryDistribution;
+};
+
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -106,10 +134,14 @@ export default async function Dashboard() {
   const accounts = await fetchAccounts(session.user.id);
 
   const accountTransactions: { [key: string]: Transaction[] } = {};
+  const accountCategoryDistributions: { [key: string]: Categories } = {};
 
   const transactionsPromises = accounts.map(async (account) => {
     const transactions = await fetchTransactions(account.id);
     accountTransactions[account.name] = transactions;
+
+    const categoryDistribution = await getCategoryDistribution(transactions);
+    accountCategoryDistributions[account.name] = categoryDistribution;
   });
 
   await Promise.all(transactionsPromises);
