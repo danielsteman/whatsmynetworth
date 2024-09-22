@@ -66,7 +66,7 @@ export function sumCategoryDistributions(data: InputData): Result {
 
   for (const category in result) {
     result[category].percentage =
-      totalSum > 0 ? (result[category].count / totalSum) * 100 : 0; // Avoid division by zero
+      totalSum > 0 ? (result[category].count / totalSum) * 100 : 0;
   }
 
   return result;
