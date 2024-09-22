@@ -6,8 +6,9 @@ import AccountsDashboard from "./AccountsDashboard";
 import DefaultDashboard from "./DefaultDashboard";
 import { Session } from "next-auth";
 import TransactionsDashboard from "./TransactionsDashboard";
-import { Account, Transaction } from "../../dashboard/page";
 import BudgetsDashboard from "./BudgetsDashboard";
+import { Account } from "@/app/services/getAccounts";
+import { Transaction } from "@/app/services/getTransactions";
 
 export interface DashboardProps {
   session: Session;
