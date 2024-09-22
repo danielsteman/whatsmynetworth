@@ -45,6 +45,7 @@ export default async function Dashboard() {
           session={session}
           accounts={accounts}
           accountTransactions={accountTransactions}
+          accountCategoryDistributions={accountCategoryDistributions}
         />
       </div>
     </>

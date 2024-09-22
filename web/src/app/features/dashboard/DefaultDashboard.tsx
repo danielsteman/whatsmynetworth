@@ -1,8 +1,8 @@
 import NewAccountButton from "../newAccount/NewAccountButton";
-import { DashboardProps } from "./Dashboards";
+import { DefaultDashboardProps } from "./Dashboards";
 import DoughnutChart from "@/app/components/charts/DoughnutChart";
 
-const DefaultDashboard: React.FC<DashboardProps> = ({ session }) => {
+const DefaultDashboard: React.FC<DefaultDashboardProps> = ({ session }) => {
   // TODO: get next-auth session on client side
   return (
     <div className="flex flex-col w-full">

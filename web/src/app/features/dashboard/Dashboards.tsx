@@ -9,9 +9,14 @@ import TransactionsDashboard from "./TransactionsDashboard";
 import BudgetsDashboard from "./BudgetsDashboard";
 import { Account } from "@/app/services/getAccounts";
 import { Transaction } from "@/app/services/getTransactions";
+import { Categories } from "@/app/dashboard/page";
 
 export interface DashboardProps {
   session: Session;
+}
+
+export interface DefaultDashboardProps extends DashboardProps {
+  accountCategoryDistributions: { [key: string]: Categories };
 }
 
 export interface AccountsDashboardProps extends DashboardProps {
@@ -28,18 +33,25 @@ export interface BudgetsDashboardProps extends DashboardProps {}
 
 type CombinedDashboardProps = DashboardProps &
   AccountsDashboardProps &
-  TransactionsDashboardProps;
+  TransactionsDashboardProps &
+  DefaultDashboardProps;
 
 const Dashboards: React.FC<CombinedDashboardProps> = ({
   session,
   accounts,
   accountTransactions,
+  accountCategoryDistributions,
 }) => {
   const currentTab = useSelector(
     (state: RootState) => state.navigation.currentTab
   );
   const tabDashboardMapping = {
-    Dashboard: <DefaultDashboard session={session} />,
+    Dashboard: (
+      <DefaultDashboard
+        session={session}
+        accountCategoryDistributions={accountCategoryDistributions}
+      />
+    ),
     Accounts: <AccountsDashboard session={session} accounts={accounts} />,
     Transactions: (
       <TransactionsDashboard
