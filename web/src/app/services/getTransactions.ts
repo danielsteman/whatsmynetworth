@@ -30,7 +30,7 @@ export interface Transaction {
   updatedAt: string;
 }
 
-export const fetchTransactions = async (
+export const getTransactions = async (
   accountId: string
 ): Promise<Transaction[]> => {
   try {

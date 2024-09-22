@@ -4,9 +4,12 @@ import { getServerSession } from "next-auth";
 import authOptions from "../auth";
 import { redirect } from "next/navigation";
 import Dashboards from "../features/dashboard/Dashboards";
-import { Categories, getCategoryDistribution } from "./getCategoryDistribution";
+import {
+  Categories,
+  getCategoryDistribution,
+} from "../features/dashboard/categoryDistribution";
 import { getAccounts } from "../services/getAccounts";
-import { fetchTransactions, Transaction } from "../services/getTransactions";
+import { getTransactions, Transaction } from "../services/getTransactions";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
@@ -20,7 +23,7 @@ export default async function Dashboard() {
   const accountCategoryDistributions: { [key: string]: Categories } = {};
 
   const transactionsPromises = accounts.map(async (account) => {
-    const transactions = await fetchTransactions(account.id);
+    const transactions = await getTransactions(account.id);
     accountTransactions[account.name] = transactions;
 
     const categoryDistribution = await getCategoryDistribution(transactions);

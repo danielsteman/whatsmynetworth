@@ -1,12 +1,22 @@
-import { Transaction } from "../services/getTransactions";
+import { Transaction } from "../../services/getTransactions";
 
-interface CategoryInfo {
+export interface CategoryInfo {
   count: number;
   percentage: number;
 }
 
 export interface Categories {
   [key: string]: CategoryInfo;
+}
+
+interface InputData {
+  [account: string]: {
+    [category: string]: CategoryInfo;
+  };
+}
+
+interface Result {
+  [category: string]: CategoryInfo;
 }
 
 export const getCategoryDistribution = async (
@@ -35,3 +45,29 @@ export const getCategoryDistribution = async (
 
   return categoryDistribution;
 };
+
+export function sumCategoryDistributions(data: InputData): Result {
+  const result: Result = {};
+  let totalSum = 0;
+
+  for (const account in data) {
+    const categories = data[account];
+
+    for (const category in categories) {
+      const count = categories[category].count || 0;
+      totalSum += count;
+
+      if (!result[category]) {
+        result[category] = { count: 0, percentage: 0 };
+      }
+      result[category].count += count;
+    }
+  }
+
+  for (const category in result) {
+    result[category].percentage =
+      totalSum > 0 ? (result[category].count / totalSum) * 100 : 0; // Avoid division by zero
+  }
+
+  return result;
+}

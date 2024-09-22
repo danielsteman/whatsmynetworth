@@ -1,4 +1,6 @@
 import NewAccountButton from "../newAccount/NewAccountButton";
+import { sumCategoryDistributions } from "./categoryDistribution";
+
 import { DefaultDashboardProps } from "./Dashboards";
 import DoughnutChart from "@/app/components/charts/DoughnutChart";
 
@@ -7,6 +9,10 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   accountCategoryDistributions,
 }) => {
   console.log(accountCategoryDistributions);
+  const aggregatedCategories = sumCategoryDistributions(
+    accountCategoryDistributions
+  );
+  console.log(aggregatedCategories);
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">

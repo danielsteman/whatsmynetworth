@@ -9,7 +9,7 @@ import TransactionsDashboard from "./TransactionsDashboard";
 import BudgetsDashboard from "./BudgetsDashboard";
 import { Account } from "@/app/services/getAccounts";
 import { Transaction } from "@/app/services/getTransactions";
-import { Categories } from "@/app/dashboard/getCategoryDistribution";
+import { Categories } from "@/app/features/dashboard/categoryDistribution";
 
 export interface DashboardProps {
   session: Session;
