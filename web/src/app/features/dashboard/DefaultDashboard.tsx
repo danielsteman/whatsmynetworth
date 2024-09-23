@@ -1,4 +1,3 @@
-import PieChart from "@/app/components/charts/PieChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { sumCategoryDistributions } from "./categoryDistribution";
 
@@ -28,14 +27,8 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
           <NewAccountButton currentUser={session} />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 pt-8">
-        <div>
-          <PieChart
-            data={countValues}
-            labels={Object.keys(aggregatedCategoryDistribution)}
-            title="Categories"
-          />
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
+        <div></div>
       </div>
     </div>
   );
