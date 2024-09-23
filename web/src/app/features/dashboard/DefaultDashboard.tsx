@@ -14,7 +14,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   const countValues = Object.values(aggregatedCategoryDistribution).map(
     (item) => item.count
   );
-
+  const labels = Object.keys(aggregatedCategoryDistribution);
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">
@@ -30,7 +30,12 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
         <div>
-          <BarChart width={400} height={400} />
+          <BarChart
+            width={1000}
+            height={400}
+            data={countValues}
+            labels={labels}
+          />
         </div>
       </div>
     </div>
