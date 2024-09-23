@@ -1,3 +1,4 @@
+import BarChart from "@/app/components/charts/BarChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { sumCategoryDistributions } from "./categoryDistribution";
 
@@ -28,7 +29,9 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
-        <div></div>
+        <div>
+          <BarChart width={400} height={400} />
+        </div>
       </div>
     </div>
   );
