@@ -1,4 +1,4 @@
-import DoughnutChart from "@/app/components/charts/DoughnutChart";
+import PieChart from "@/app/components/charts/PieChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { sumCategoryDistributions } from "./categoryDistribution";
 
@@ -30,7 +30,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
       </div>
       <div className="grid grid-cols-2 gap-4 pt-8">
         <div>
-          <DoughnutChart
+          <PieChart
             data={countValues}
             labels={Object.keys(aggregatedCategoryDistribution)}
             title="Categories"
