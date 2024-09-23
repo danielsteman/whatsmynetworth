@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useMemo } from "react";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
 import { GradientTealBlue } from "@visx/gradient";
 import { scaleBand, scaleLinear } from "@visx/scale";
+import { Tooltip, useTooltip } from "@visx/tooltip";
 
 const verticalMargin = 120;
 
@@ -14,7 +17,16 @@ export type BarsProps = {
   events?: boolean;
 };
 
-export default function Example({ width, height, labels, data }: BarsProps) {
+export default function BarChart({ width, height, labels, data }: BarsProps) {
+  const {
+    tooltipData,
+    tooltipLeft,
+    tooltipTop,
+    tooltipOpen,
+    showTooltip,
+    hideTooltip,
+  } = useTooltip();
+
   // bounds
   const xMax = width;
   const yMax = height - verticalMargin;
@@ -61,6 +73,7 @@ export default function Example({ width, height, labels, data }: BarsProps) {
             />
           );
         })}
+        <Tooltip />
       </Group>
     </svg>
   );

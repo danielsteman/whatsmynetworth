@@ -758,7 +758,7 @@
     "@visx/group" "3.3.0"
     d3-cloud "^1.2.5"
 
-"@visx/xychart@3.11.0":
+"@visx/xychart@3.11.0", "@visx/xychart@^3.11.0":
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/@visx/xychart/-/xychart-3.11.0.tgz#d69b4566d798d94058a09ccb2e6747bea774fb39"
   integrity sha512-phs/q0eeVNJDaHkKLQ+/0UYVt1fiVTaDZPtOVgcFRpEghpRWFgyApGuZ+BWWnTcGzpLEVv1HBcVA6H555IpvJQ==
