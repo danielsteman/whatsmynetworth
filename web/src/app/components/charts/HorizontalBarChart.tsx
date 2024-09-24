@@ -11,6 +11,7 @@ import {
   useTooltipInPortal,
   defaultStyles,
 } from "@visx/tooltip";
+import { formatLabel } from "./formatLabel";
 
 export type HorizontalBarChartProps = {
   counts: number[];
@@ -67,14 +68,14 @@ const HorizontalBarChart = ({
     tooltipTop = 0,
   } = useTooltip<TooltipData>({
     // initial tooltip state
-    tooltipOpen: true,
+    tooltipOpen: false,
     tooltipLeft: 0,
     tooltipTop: 0,
     tooltipData: 0,
   });
 
   return (
-    <div ref={parentRef} className="w-full h-full min-w-0">
+    <div ref={parentRef} className="w-full h-full min-w-0 min-h-0">
       <svg width={width} height={height}>
         <rect width={width} height={height} fill="#f5f5f5" rx={14} />
         <Group top={margin.top} left={margin.left}>
@@ -113,7 +114,7 @@ const HorizontalBarChart = ({
                   fontFamily="Inter, sans-serif"
                   fontSize={14}
                 >
-                  {label}
+                  {formatLabel(label)}
                 </Text>
               </Group>
             );
