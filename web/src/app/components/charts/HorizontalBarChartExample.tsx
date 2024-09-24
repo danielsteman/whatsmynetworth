@@ -10,6 +10,8 @@ import { timeParse, timeFormat } from "@visx/vendor/d3-time-format";
 import { useParentSize } from "@visx/responsive";
 
 export type BarGroupHorizontalProps = {
+  counts: number[];
+  labels: string[];
   margin?: { top: number; right: number; bottom: number; left: number };
   events?: boolean;
 };
@@ -30,6 +32,7 @@ function max<D>(arr: D[], fn: (d: D) => number) {
 }
 
 const data = cityTemperature.slice(0, 4);
+console.log(data);
 const keys = Object.keys(data[0]).filter((d) => d !== "date") as CityName[];
 
 // accessors
@@ -53,13 +56,12 @@ const colorScale = scaleOrdinal<string, string>({
 });
 
 export default function HorizontalBarChartExample({
+  counts,
+  labels,
   margin = defaultMargin,
-  events = false,
 }: BarGroupHorizontalProps) {
   // get size of parent
   const { parentRef, width, height } = useParentSize({ debounceTime: 150 });
-  console.log(`width: ${width}`);
-  console.log(`height: ${height}`);
 
   // bounds
   const xMax = width - margin.left - margin.right;
@@ -107,12 +109,6 @@ export default function HorizontalBarChartExample({
                       height={bar.height}
                       fill={bar.color}
                       rx={4}
-                      onClick={() => {
-                        if (events)
-                          alert(
-                            `${bar.key} (${bar.value}) - ${JSON.stringify(bar)}`
-                          );
-                      }}
                     />
                   ))}
                 </Group>

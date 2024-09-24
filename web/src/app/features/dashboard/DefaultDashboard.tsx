@@ -13,7 +13,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   const aggregatedCategoryDistribution = sumCategoryDistributions(
     accountCategoryDistributions
   );
-  const countValues = Object.values(aggregatedCategoryDistribution).map(
+  const counts = Object.values(aggregatedCategoryDistribution).map(
     (item) => item.count
   );
   const labels = Object.keys(aggregatedCategoryDistribution);
@@ -33,7 +33,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
       </div>
       <div className="grid h-full grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
         <div className="h-full w-full">
-          <HorizontalBarChartExample />
+          <HorizontalBarChartExample counts={counts} labels={labels} />
         </div>
       </div>
     </div>
