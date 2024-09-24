@@ -4,6 +4,7 @@ import { sumCategoryDistributions } from "./categoryDistribution";
 
 import { DefaultDashboardProps } from "./Dashboards";
 import HorizontalBarChart from "@/app/components/charts/HorizontalBarChart";
+import HorizontalBarChartExample from "@/app/components/charts/HorizontalBarChartExample";
 
 const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   session,
@@ -16,6 +17,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
     (item) => item.count
   );
   const labels = Object.keys(aggregatedCategoryDistribution);
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">
@@ -30,8 +32,8 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
-        <div className="h-96 w-96">
-          <HorizontalBarChart />
+        <div className="h-full w-full">
+          <HorizontalBarChartExample />
         </div>
       </div>
     </div>
