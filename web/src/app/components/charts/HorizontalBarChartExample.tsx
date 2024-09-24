@@ -35,6 +35,8 @@ const data = cityTemperature.slice(0, 4);
 console.log(data);
 const keys = Object.keys(data[0]).filter((d) => d !== "date") as CityName[];
 
+console.log(`keys: ${keys}`);
+
 // accessors
 const getDate = (d: CityTemperature) => d.date;
 

@@ -32,8 +32,9 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
         </div>
       </div>
       <div className="grid h-full grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
-        <div className="h-full w-full">
-          <HorizontalBarChartExample counts={counts} labels={labels} />
+        <div className="h-full w-full col-span-2">
+          {/* <HorizontalBarChartExample counts={counts} labels={labels} /> */}
+          <HorizontalBarChart counts={counts} labels={labels} />
         </div>
       </div>
     </div>
