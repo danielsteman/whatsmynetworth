@@ -3,6 +3,7 @@ import NewAccountButton from "../newAccount/NewAccountButton";
 import { sumCategoryDistributions } from "./categoryDistribution";
 
 import { DefaultDashboardProps } from "./Dashboards";
+import HorizontalBarChart from "@/app/components/charts/HorizontalBarChart";
 
 const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   session,
@@ -29,13 +30,8 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
-        <div>
-          <BarChart
-            width={1000}
-            height={400}
-            data={countValues}
-            labels={labels}
-          />
+        <div className="h-96 w-96">
+          <HorizontalBarChart />
         </div>
       </div>
     </div>
