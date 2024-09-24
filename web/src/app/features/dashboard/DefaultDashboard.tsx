@@ -31,7 +31,7 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
           <NewAccountButton currentUser={session} />
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
+      <div className="grid h-full grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
         <div className="h-full w-full">
           <HorizontalBarChartExample />
         </div>
