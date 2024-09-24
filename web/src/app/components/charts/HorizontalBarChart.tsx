@@ -4,12 +4,23 @@ import { Group } from "@visx/group";
 import { useMemo } from "react";
 import { Text } from "@visx/text";
 import { scaleBand, scaleLinear } from "@visx/scale";
+import {
+  Tooltip,
+  TooltipWithBounds,
+  useTooltip,
+  useTooltipInPortal,
+  defaultStyles,
+} from "@visx/tooltip";
 
 export type HorizontalBarChartProps = {
   counts: number[];
   labels: string[];
   columns?: number;
 };
+
+type TooltipData = string;
+
+let tooltipTimeout: number;
 
 const HorizontalBarChart = ({
   counts,
@@ -47,6 +58,21 @@ const HorizontalBarChart = ({
     [yMax]
   );
 
+  const {
+    showTooltip,
+    hideTooltip,
+    tooltipOpen,
+    tooltipData,
+    tooltipLeft = 0,
+    tooltipTop = 0,
+  } = useTooltip<TooltipData>({
+    // initial tooltip state
+    tooltipOpen: true,
+    tooltipLeft: width / 3,
+    tooltipTop: height / 3,
+    tooltipData: "Move me with your mouse or finger",
+  });
+
   return (
     <div ref={parentRef} className="w-full h-full">
       <svg width={width} height={height}>
@@ -54,7 +80,7 @@ const HorizontalBarChart = ({
         <Group top={margin.top} left={margin.left}>
           {labels.map((label, index) => {
             const barHeight = xScale.bandwidth();
-            const barWidth = yMax - (yScale(counts[index]) ?? 0);
+            const barWidth = (yMax - (yScale(counts[index]) ?? 0)) * columns;
             const barY = xScale(labels[index]);
             const barX = margin.left;
             return (
@@ -63,12 +89,27 @@ const HorizontalBarChart = ({
                   key={`bar-${labels[index]}`}
                   x={barX}
                   y={barY}
-                  width={barWidth * columns}
+                  width={barWidth}
                   height={barHeight}
                   fill="#2dd4bf"
+                  onMouseLeave={() => {
+                    tooltipTimeout = window.setTimeout(() => {
+                      hideTooltip();
+                    }, 300);
+                  }}
+                  // onMouseMove={() => {
+                  //   if (tooltipTimeout) clearTimeout(tooltipTimeout);
+                  //   const top = barY + margin.top;
+                  //   const left = bar.x + bar.width + margin.left;
+                  //   showTooltip({
+                  //     tooltipData: bar,
+                  //     tooltipTop: top,
+                  //     tooltipLeft: left,
+                  //   });
+                  // }}
                 />
                 <Text
-                  x={barX + barWidth * columns + gap} // Position text 5px to the right of the bar
+                  x={barX + barWidth + gap} // Position text 5px to the right of the bar
                   y={(barY ?? 0) + barHeight / 2} // Center the text vertically
                   verticalAnchor="middle"
                   fill="#000"
