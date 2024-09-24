@@ -1,20 +1,26 @@
-import { GradientPinkRed, GradientTealBlue } from "@visx/gradient";
 import { useParentSize } from "@visx/responsive";
 import { Bar } from "@visx/shape";
 import { Group } from "@visx/group";
 import { useMemo } from "react";
+import { Text } from "@visx/text";
 import { scaleBand, scaleLinear } from "@visx/scale";
 
 export type HorizontalBarChartProps = {
   counts: number[];
   labels: string[];
+  columns?: number;
 };
 
-const HorizontalBarChart = ({ counts, labels }: HorizontalBarChartProps) => {
+const HorizontalBarChart = ({
+  counts,
+  labels,
+  columns = 1,
+}: HorizontalBarChartProps) => {
   const { parentRef, width, height } = useParentSize({ debounceTime: 150 });
 
   // margin
   const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+  const gap = 16;
 
   // bounds
   const xMax = width - margin.left - margin.right;
@@ -44,7 +50,7 @@ const HorizontalBarChart = ({ counts, labels }: HorizontalBarChartProps) => {
   return (
     <div ref={parentRef} className="w-full h-full">
       <svg width={width} height={height}>
-        <rect width={width} height={height} fill="#cbd5e1" rx={14} />
+        <rect width={width} height={height} fill="#f5f5f5" rx={14} />
         <Group top={margin.top} left={margin.left}>
           {labels.map((label, index) => {
             const barHeight = xScale.bandwidth();
@@ -52,14 +58,26 @@ const HorizontalBarChart = ({ counts, labels }: HorizontalBarChartProps) => {
             const barY = xScale(labels[index]);
             const barX = margin.left;
             return (
-              <Bar
-                key={`bar-${labels[index]}`}
-                x={barX}
-                y={barY}
-                width={barWidth}
-                height={barHeight}
-                fill="#6366f1"
-              />
+              <Group key={`bar-${label}`}>
+                <Bar
+                  key={`bar-${labels[index]}`}
+                  x={barX}
+                  y={barY}
+                  width={barWidth * columns}
+                  height={barHeight}
+                  fill="#2dd4bf"
+                />
+                <Text
+                  x={barX + barWidth * columns + gap} // Position text 5px to the right of the bar
+                  y={(barY ?? 0) + barHeight / 2} // Center the text vertically
+                  verticalAnchor="middle"
+                  fill="#000"
+                  fontFamily="Inter, sans-serif"
+                  fontSize={14}
+                >
+                  {label}
+                </Text>
+              </Group>
             );
           })}
         </Group>
