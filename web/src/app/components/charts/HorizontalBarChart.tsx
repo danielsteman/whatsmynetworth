@@ -18,7 +18,7 @@ export type HorizontalBarChartProps = {
   columns?: number;
 };
 
-type TooltipData = string;
+type TooltipData = number;
 
 let tooltipTimeout: number;
 
@@ -27,7 +27,7 @@ const HorizontalBarChart = ({
   labels,
   columns = 1,
 }: HorizontalBarChartProps) => {
-  const { parentRef, width, height } = useParentSize({ debounceTime: 150 });
+  const { parentRef, width, height } = useParentSize({ debounceTime: 500 });
 
   // margin
   const margin = { top: 20, right: 20, bottom: 20, left: 20 };
@@ -68,20 +68,20 @@ const HorizontalBarChart = ({
   } = useTooltip<TooltipData>({
     // initial tooltip state
     tooltipOpen: true,
-    tooltipLeft: width / 3,
-    tooltipTop: height / 3,
-    tooltipData: "Move me with your mouse or finger",
+    tooltipLeft: 0,
+    tooltipTop: 0,
+    tooltipData: 0,
   });
 
   return (
-    <div ref={parentRef} className="w-full h-full">
+    <div ref={parentRef} className="w-full h-full min-w-0">
       <svg width={width} height={height}>
         <rect width={width} height={height} fill="#f5f5f5" rx={14} />
         <Group top={margin.top} left={margin.left}>
           {labels.map((label, index) => {
             const barHeight = xScale.bandwidth();
             const barWidth = (yMax - (yScale(counts[index]) ?? 0)) * columns;
-            const barY = xScale(labels[index]);
+            const barY = xScale(labels[index]) ?? 0;
             const barX = margin.left;
             return (
               <Group key={`bar-${label}`}>
@@ -93,20 +93,17 @@ const HorizontalBarChart = ({
                   height={barHeight}
                   fill="#2dd4bf"
                   onMouseLeave={() => {
-                    tooltipTimeout = window.setTimeout(() => {
-                      hideTooltip();
-                    }, 300);
+                    hideTooltip();
                   }}
-                  // onMouseMove={() => {
-                  //   if (tooltipTimeout) clearTimeout(tooltipTimeout);
-                  //   const top = barY + margin.top;
-                  //   const left = bar.x + bar.width + margin.left;
-                  //   showTooltip({
-                  //     tooltipData: bar,
-                  //     tooltipTop: top,
-                  //     tooltipLeft: left,
-                  //   });
-                  // }}
+                  onMouseMove={() => {
+                    const top = barY + margin.top;
+                    const left = barX + barWidth + margin.left;
+                    showTooltip({
+                      tooltipData: counts[index],
+                      tooltipTop: top,
+                      tooltipLeft: left,
+                    });
+                  }}
                 />
                 <Text
                   x={barX + barWidth + gap} // Position text 5px to the right of the bar
@@ -123,6 +120,11 @@ const HorizontalBarChart = ({
           })}
         </Group>
       </svg>
+      {tooltipOpen && tooltipData && (
+        <Tooltip top={tooltipTop} left={tooltipLeft} style={defaultStyles}>
+          <strong>{tooltipData}</strong>
+        </Tooltip>
+      )}
     </div>
   );
 };
