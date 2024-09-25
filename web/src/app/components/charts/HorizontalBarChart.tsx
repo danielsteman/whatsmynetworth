@@ -21,14 +21,19 @@ export type HorizontalBarChartProps = {
 
 type TooltipData = number;
 
-let tooltipTimeout: number;
-
 const HorizontalBarChart = ({
   counts,
   labels,
   columns = 1,
 }: HorizontalBarChartProps) => {
   const { parentRef, width, height } = useParentSize({ debounceTime: 500 });
+
+  const { containerRef, TooltipInPortal } = useTooltipInPortal({
+    // use TooltipWithBounds
+    detectBounds: true,
+    // when tooltip containers are scrolled, this will correctly update the Tooltip position
+    scroll: true,
+  });
 
   // margin
   const margin = { top: 20, right: 20, bottom: 20, left: 20 };
@@ -76,7 +81,7 @@ const HorizontalBarChart = ({
 
   return (
     <div ref={parentRef} className="w-full h-full min-w-0 min-h-0">
-      <svg width={width} height={height}>
+      <svg width={width} height={height} ref={containerRef}>
         <rect width={width} height={height} fill="#f5f5f5" rx={14} />
         <Group top={margin.top} left={margin.left}>
           {labels.map((label, index) => {
@@ -97,8 +102,8 @@ const HorizontalBarChart = ({
                     hideTooltip();
                   }}
                   onMouseMove={() => {
-                    const top = barY + margin.top;
-                    const left = barX + barWidth + margin.left;
+                    const top = barY;
+                    const left = barX;
                     showTooltip({
                       tooltipData: counts[index],
                       tooltipTop: top,
@@ -122,9 +127,13 @@ const HorizontalBarChart = ({
         </Group>
       </svg>
       {tooltipOpen && tooltipData && (
-        <Tooltip top={tooltipTop} left={tooltipLeft} style={defaultStyles}>
+        <TooltipInPortal
+          top={tooltipTop}
+          left={tooltipLeft}
+          style={defaultStyles}
+        >
           <strong>{tooltipData}</strong>
-        </Tooltip>
+        </TooltipInPortal>
       )}
     </div>
   );
