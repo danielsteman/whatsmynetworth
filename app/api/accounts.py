@@ -41,7 +41,7 @@ async def create_account(
     db: Annotated[Session, Depends(get_db)],
 ) -> Response:
     try:
-        db_account = account_repository.get_account_by_identifier(db, account.id)
+        db_account = account_repository.get_account_by_id(db, account.id)
         if db_account:
             logger.info(f"Account {account.id} already exists in database")
             return JSONResponse(
