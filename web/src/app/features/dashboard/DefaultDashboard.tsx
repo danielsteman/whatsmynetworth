@@ -1,10 +1,8 @@
-import BarChart from "@/app/components/charts/BarChart";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { sumCategoryDistributions } from "./categoryDistribution";
 
 import { DefaultDashboardProps } from "./Dashboards";
 import HorizontalBarChart from "@/app/components/charts/HorizontalBarChart";
-import HorizontalBarChartExample from "@/app/components/charts/HorizontalBarChartExample";
 
 const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
   session,
