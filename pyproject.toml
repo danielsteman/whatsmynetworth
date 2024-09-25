@@ -14,6 +14,7 @@ dependencies = [
     "alembic>=1.13.2",
     "psycopg2-binary>=2.9.9",
     "pydantic-settings>=2.4.0",
+    "pandas>=2.2.3",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
@@ -24,7 +25,9 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "ipykernel>=6.29.5",
+]
 
 [tool.rye.scripts]
 api = "fastapi dev"
