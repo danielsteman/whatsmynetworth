@@ -4,13 +4,7 @@ import { Group } from "@visx/group";
 import { useMemo } from "react";
 import { Text } from "@visx/text";
 import { scaleBand, scaleLinear } from "@visx/scale";
-import {
-  Tooltip,
-  TooltipWithBounds,
-  useTooltip,
-  useTooltipInPortal,
-  defaultStyles,
-} from "@visx/tooltip";
+import { useTooltip, useTooltipInPortal, defaultStyles } from "@visx/tooltip";
 import { formatLabel } from "./formatLabel";
 
 export type HorizontalBarChartProps = {
@@ -38,6 +32,8 @@ const HorizontalBarChart = ({
   // margin
   const margin = { top: 20, right: 20, bottom: 20, left: 20 };
   const gap = 16;
+
+  const sum = counts.reduce((sum, num) => sum + num);
 
   // bounds
   const xMax = width - margin.left - margin.right;
@@ -112,6 +108,17 @@ const HorizontalBarChart = ({
                   }}
                 />
                 <Text
+                  x={barX + barWidth / 2} // Position text 5px to the right of the bar
+                  y={(barY ?? 0) + barHeight / 2} // Center the text vertically
+                  verticalAnchor="middle"
+                  textAnchor="middle"
+                  fill="#000"
+                  fontFamily="Inter, sans-serif"
+                  fontSize={14}
+                >
+                  {`${((counts[index] / sum) * 100).toFixed(0)}%`}
+                </Text>
+                <Text
                   x={barX + barWidth + gap} // Position text 5px to the right of the bar
                   y={(barY ?? 0) + barHeight / 2} // Center the text vertically
                   verticalAnchor="middle"
@@ -132,7 +139,7 @@ const HorizontalBarChart = ({
           left={tooltipLeft}
           style={defaultStyles}
         >
-          <strong>{tooltipData}</strong>
+          <div>{tooltipData}</div>
         </TooltipInPortal>
       )}
     </div>
