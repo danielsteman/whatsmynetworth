@@ -7,7 +7,7 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
   accountTransactions,
 }) => {
   const tableHeaderStyle =
-    "font-semibold text-sm px-4 py-2 text-left uppercase text-neutral-500";
+    "w-28 font-semibold text-sm px-4 py-2 text-left uppercase text-neutral-500";
   const tableCellStyle = "text-sm font-semibold px-4 py-2";
   return (
     <div className="flex flex-col w-full">
@@ -29,13 +29,15 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
               <thead>
                 <tr className="border-b">
                   <th className={tableHeaderStyle}>IBAN</th>
-                  <th className={tableHeaderStyle}>Count</th>
+                  <th className={`${tableHeaderStyle} text-right`}>Count</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-neutral-100">
                   <td className={tableCellStyle}>{iban}</td>
-                  <td className={tableCellStyle}>{transactions.length}</td>
+                  <td className={`${tableCellStyle} text-right`}>
+                    {transactions.length}
+                  </td>
                 </tr>
               </tbody>
             </table>
