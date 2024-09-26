@@ -1,3 +1,4 @@
+import { IoMdArrowDroprightCircle } from "react-icons/io";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { TransactionsDashboardProps } from "./Dashboards";
 import SyncButton from "./SyncButton";
@@ -25,17 +26,29 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
       <div>
         {Object.entries(accountTransactions).map(([iban, transactions]) => (
           <div key={iban} className="p-2 flex flex-col gap-2">
-            <table className="min-w-full mt-4">
+            <table className="min-w-full mt-4 table-auto">
               <thead>
                 <tr className="border-b">
-                  <th className={tableHeaderStyle}>IBAN</th>
-                  <th className={`${tableHeaderStyle} text-right`}>Count</th>
+                  <th className="w-fit" />
+                  <th className={`${tableHeaderStyle} w-full`}>IBAN</th>
+                  <th className={`${tableHeaderStyle} text-right w-full`}>
+                    Count
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b hover:bg-neutral-100">
-                  <td className={tableCellStyle}>{iban}</td>
-                  <td className={`${tableCellStyle} text-right`}>
+                <tr className="border-b  hover:bg-neutral-100">
+                  <td className="w-fit">
+                    <div className="cursor-pointer pl-2 ">
+                      <IoMdArrowDroprightCircle className="text-xl hover:text-teal-500" />
+                    </div>
+                  </td>
+                  <td className={`${tableCellStyle} w-full whitespace-nowrap`}>
+                    {iban}
+                  </td>
+                  <td
+                    className={`${tableCellStyle} w-full text-right whitespace-nowrap`}
+                  >
                     {transactions.length}
                   </td>
                 </tr>
