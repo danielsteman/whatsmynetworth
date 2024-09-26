@@ -1,7 +1,15 @@
-import { IoMdArrowDroprightCircle } from "react-icons/io";
+import {
+  IoMdArrowDropdownCircle,
+  IoMdArrowDroprightCircle,
+} from "react-icons/io";
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { TransactionsDashboardProps } from "./Dashboards";
 import SyncButton from "./SyncButton";
+import { useEffect, useState } from "react";
+
+type DropdownState = {
+  [key: string]: boolean;
+};
 
 const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
   session,
@@ -10,6 +18,25 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
   const tableHeaderStyle =
     "w-28 font-semibold text-sm px-4 py-2 text-left uppercase text-neutral-500";
   const tableCellStyle = "text-sm font-semibold px-4 py-2";
+
+  const initialDropdownState = Object.keys(accountTransactions).reduce(
+    (acc, key) => {
+      acc[key] = false;
+      return acc;
+    },
+    {} as DropdownState
+  );
+
+  const [dropdownState, setDropdownState] =
+    useState<DropdownState>(initialDropdownState);
+
+  const toggleDropdown = (iban: string) => {
+    setDropdownState((prevState) => ({
+      ...prevState,
+      [iban]: !prevState[iban],
+    }));
+  };
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row items-center">
@@ -40,7 +67,17 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
                 <tr className="border-b  hover:bg-neutral-100">
                   <td className="w-fit">
                     <div className="cursor-pointer pl-2 ">
-                      <IoMdArrowDroprightCircle className="text-xl hover:text-teal-500" />
+                      {dropdownState[iban] ? (
+                        <IoMdArrowDropdownCircle
+                          className="text-xl hover:text-teal-500"
+                          onClick={() => toggleDropdown(iban)}
+                        />
+                      ) : (
+                        <IoMdArrowDroprightCircle
+                          className="text-xl hover:text-teal-500"
+                          onClick={() => toggleDropdown(iban)}
+                        />
+                      )}
                     </div>
                   </td>
                   <td className={`${tableCellStyle} w-full whitespace-nowrap`}>
