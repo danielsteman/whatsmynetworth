@@ -5,7 +5,7 @@ import {
 import NewAccountButton from "../newAccount/NewAccountButton";
 import { TransactionsDashboardProps } from "./Dashboards";
 import SyncButton from "./SyncButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type DropdownState = {
   [key: string]: boolean;
@@ -69,12 +69,12 @@ const TransactionsDashboard: React.FC<TransactionsDashboardProps> = ({
                     <div className="cursor-pointer pl-2 ">
                       {dropdownState[iban] ? (
                         <IoMdArrowDropdownCircle
-                          className="text-xl hover:text-teal-500"
+                          className="text-2xl hover:text-teal-500"
                           onClick={() => toggleDropdown(iban)}
                         />
                       ) : (
                         <IoMdArrowDroprightCircle
-                          className="text-xl hover:text-teal-500"
+                          className="text-2xl hover:text-teal-500"
                           onClick={() => toggleDropdown(iban)}
                         />
                       )}

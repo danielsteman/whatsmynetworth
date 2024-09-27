@@ -33,7 +33,7 @@ const HorizontalBarChart = ({
   const margin = { top: 20, right: 20, bottom: 20, left: 20 };
   const gap = 16;
 
-  const sum = counts.reduce((sum, num) => sum + num);
+  const sum = counts.length > 0 ? counts.reduce((sum, num) => sum + num, 0) : 0;
 
   // bounds
   const xMax = width - margin.left - margin.right;
