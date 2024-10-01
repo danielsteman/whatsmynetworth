@@ -1,4 +1,5 @@
 import NewAccountButton from "../newAccount/NewAccountButton";
+import CategoryAggregatesList from "./CategoryAggregatesList";
 import { sumCategoryDistributions } from "./categoryDistribution";
 
 import { DefaultDashboardProps } from "./Dashboards";
@@ -30,9 +31,10 @@ const DefaultDashboard: React.FC<DefaultDashboardProps> = ({
         </div>
       </div>
       <div className="grid h-full grid-cols-1 lg:grid-cols-2 gap-4 pt-8">
-        <div className="h-full w-full col-span-2">
-          {/* <HorizontalBarChartExample counts={counts} labels={labels} /> */}
-          <HorizontalBarChart counts={counts} labels={labels} columns={2} />
+        <div>
+          <CategoryAggregatesList
+            aggregatedCategoryDistribution={aggregatedCategoryDistribution}
+          />
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ interface InputData {
   };
 }
 
-interface Result {
+export interface Result {
   [category: string]: CategoryInfo;
 }
 

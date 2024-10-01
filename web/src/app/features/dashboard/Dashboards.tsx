@@ -16,6 +16,7 @@ export interface DashboardProps {
 }
 
 export interface DefaultDashboardProps extends DashboardProps {
+  accounts: Account[];
   accountCategoryDistributions: { [key: string]: Categories };
 }
 
@@ -49,6 +50,7 @@ const Dashboards: React.FC<CombinedDashboardProps> = ({
     Dashboard: (
       <DefaultDashboard
         session={session}
+        accounts={accounts}
         accountCategoryDistributions={accountCategoryDistributions}
       />
     ),

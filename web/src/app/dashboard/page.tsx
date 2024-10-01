@@ -33,20 +33,18 @@ export default async function Dashboard() {
   await Promise.all(transactionsPromises);
 
   return (
-    <>
-      <div className="flex flex-row gap-8 p-8 w-full">
-        <div className="flex flex-col gap-1 w-72">
-          <Navigation />
-          <div className="h-4" />
-          <Portfolio />
-        </div>
-        <Dashboards
-          session={session}
-          accounts={accounts}
-          accountTransactions={accountTransactions}
-          accountCategoryDistributions={accountCategoryDistributions}
-        />
+    <div className="flex flex-row gap-8 p-8 w-full">
+      <div className="flex flex-col gap-1 w-72">
+        <Navigation />
+        <div className="h-4" />
+        <Portfolio />
       </div>
-    </>
+      <Dashboards
+        session={session}
+        accounts={accounts}
+        accountTransactions={accountTransactions}
+        accountCategoryDistributions={accountCategoryDistributions}
+      />
+    </div>
   );
 }
