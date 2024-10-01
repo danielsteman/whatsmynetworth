@@ -112,6 +112,16 @@ def create_transactions(db: Session, transactions: list[schemas.Transaction]) ->
         db.refresh(db_transaction)
 
 
+def create_or_update_transactions(
+    db: Session, transactions: list[schemas.Transaction]
+) -> None:
+    for transaction in transactions:
+        db_transaction = convert_pydantic_to_sqlalchemy(transaction)
+        db.merge(db_transaction)
+
+    db.commit()
+
+
 def sync_transactions(db: Session, client: SaltEdgeClient, connection_id: str) -> None:
     accounts = account_repository.get_all_accounts_from_db(
         db, connection_id=connection_id
@@ -121,15 +131,20 @@ def sync_transactions(db: Session, client: SaltEdgeClient, connection_id: str) -
         transactions = client.get_transactions(
             account_id=account.id, connection_id=connection_id
         )
+
         if transactions is None:
             logger.warning(
                 f"Could not find transactions for account {account.id} using connection {connection_id}"
             )
+
             stats[account] = 0
             continue
-        create_transactions(db, transactions)
+
+        create_or_update_transactions(db, transactions)
         stats[account] = len(transactions)
+
         logger.info(f"Ingested all transactions for account {account.id}")
+
     logger.info(
         f"Finished ingesting all transactions for connection {connection_id}. Result: {stats}"
     )
