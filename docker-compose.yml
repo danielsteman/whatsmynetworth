@@ -27,6 +27,17 @@ services:
     volumes:
       - test_postgres_data:/var/lib/postgresql/data
 
+  ngrok:
+    image: ngrok/ngrok
+    container_name: ngrok
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    command: http 8000
+    ports:
+      - "4040:4040"
+    depends_on:
+      - postgres
+
 volumes:
   postgres_data:
     driver: local
